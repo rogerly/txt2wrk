@@ -51,8 +51,8 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/txt2wrk/txt2wrk.net/public/media'
-
+MEDIA_ROOT = '/home/txt2wrk/txt2wrk.net/txt2wrk/media'
+STATIC_MEDIA_PATH = 'media/'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
@@ -61,7 +61,7 @@ MEDIA_URL = '/media/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/media/admin/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '5540gcktvmcx#_738+k#diemz$a-jh@&j6h4i=p&e8r3z1r+rr'
