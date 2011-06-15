@@ -6,6 +6,10 @@ import posixpath
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
+sys.path.append(PROJECT_ROOT + '/apps')
+sys.path.append(PROJECT_ROOT + '/third-party')
+sys.path.append(PROJECT_ROOT + '/third-party/apps')
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -93,9 +97,35 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
+    'registration',
+
+    'common',
+    'account',
+    'applicant',
 )
+
+# Static files
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    ('images', 'media/images'),
+    ('css', 'media/css'),
+    ('js', 'media/js'),
+)
+
+# Twilio REST API version
+API_VERSION = '2010-04-01'
+
+# Twilio AccountSid and AuthToken
+ACCOUNT_SID = 'AC649c7dc0fdf9287d542bbbafdbffa136'
+ACCOUNT_TOKEN = 'dced388cac35ce1a10aea82623348777'
+
+# Outgoing Caller ID previously validated with Twilio
+CALLER_ID = '5103943562';
+
 
 def local_overrides(global_dict):
     pass
