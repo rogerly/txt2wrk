@@ -1,3 +1,4 @@
+import settings
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 
@@ -29,4 +30,9 @@ urlpatterns = patterns('',
          'template_name': 'applicant/registration/registration_form.html', 
         },
         name='register'),
+
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', 
+        {
+         'document_root': settings.STATIC_MEDIA_PATH,
+        }),
 )
