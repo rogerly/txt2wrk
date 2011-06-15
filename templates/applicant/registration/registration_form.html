@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+<h1>Sign up</h1>
+<form action="{% url register %}" method="post">
+	{% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+			{% if field.is_hidden %}
+			   	{{ field }}
+			{% else %}
+	            {{ field.label_tag }}: {{ field }}
+			{% endif %}
+        </div>
+    {% endfor %}
+  	<input type="submit" name="register" value="Register" />
+</form>
+{% endblock %}
