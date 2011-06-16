@@ -17,17 +17,21 @@ class PotentialUsersForm(ModelForm):
     first_name = forms.CharField(widget = TextInput(attrs={'value' : "Your first name (optional)",
                                      'onFocus' : "if (this.value == this.defaultValue) {this.value='';}",
                                      'onBlur' : "if (this.value == '') {this.value = this.defaultValue;}"
-                                    }),
+                                    }), initial = "Your last name (optional)",
                                  required = False)
-    last_name = forms.CharField(widget = TextInput(attrs={'value' : "Your last name (optional)",
+    last_name = forms.CharField(widget = TextInput(attrs={
                                      'onFocus' : "if (this.value == this.defaultValue) {this.value='';}",
                                      'onBlur' : "if (this.value == '') {this.value = this.defaultValue;}"
-                                    }),
+                                    }), initial = "Your last name (optional)",
                                 required = False)
-    email = forms.CharField(widget = TextInput(attrs={'value' : "Your email (required)",
+    email = forms.CharField(widget = TextInput(attrs={
                                      'onFocus' : "if (this.value == this.defaultValue) {this.value='';}",
                                      'onBlur' : "if (this.value == '') {this.value = this.defaultValue;}"
-                                    }))
+                                    }), initial = 'Your email (required)', 
+                                required = True)
+    
+    def is_email_default(self):
+        return self.data['email'] != 'Your email (required)';
     
     class Meta:
         model = PotentialUsers
