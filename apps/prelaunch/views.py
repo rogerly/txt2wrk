@@ -12,7 +12,7 @@ def splash(request):
     newform = PotentialUsersForm()
     if request.POST:
         form = PotentialUsersForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and form.is_email_default():
             form.save()
             return render_to_response('about/splash.html', {'form' : newform, 'success_message' : 'Submission successful!' },
                 context_instance = RequestContext(request))
