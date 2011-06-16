@@ -3,4 +3,5 @@
 local_settings.py
 .project
 .pydevproject
+.DS_Store
 
