@@ -11,9 +11,7 @@ from registration.views import register
 urlpatterns = patterns('',
     # Example:
     # (r'^txt2wrk/', include('txt2wrk.foo.urls')),
-    url(r'^$', direct_to_template, {
-        'template': 'about/splash.html',
-    }, name="splash"),
+    url(r'^$', 'prelaunch.views.splash'),
     
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
