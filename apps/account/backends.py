@@ -8,6 +8,35 @@ from registration import signals
 from registration.models import RegistrationProfile
 
 from account.forms import ApplicantRegistrationForm
+from applicant.models import ApplicantProfile
+
+class ApplicantModelBackend(object):
+    def authenticate(self, username=None, password=None):
+        try:
+            if '@' in username:
+                user = User.objects.get(email__iexact=username)
+            elif '-' in username:
+                profile = ApplicantProfile.objects.get(mobile_number=username)
+                user = profile.user
+            else:
+                user = User.objects.get(username=username)
+
+            # Check to see if user is active (email confirmation) and if not for now return Does not exist -> FIX_ME
+            if not user.is_active:
+                raise User.DoesNotExist
+            
+            if user.check_password(password):
+                return user
+        except User.DoesNotExist:
+            return None
+ 
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None
+
+  
 
 class ApplicantBackend(object):
     """
@@ -73,14 +102,17 @@ class ApplicantBackend(object):
 
         """
         username, email, password, phone = kwargs['username'], kwargs['email'], kwargs['password1'], kwargs['mobile_number']
-        User.objects.create_user(username, email, password)
+        new_user = User.objects.create_user(username, email, password)
+        profile = new_user.get_profile()
+        profile.mobile_number = phone
+        profile.save()
 
-        new_user = authenticate(username=username, password=password)
-        login(request, new_user)
+        auth_user = authenticate(username=username, password=password)
+        login(request, auth_user)
         signals.user_registered.send(sender=self.__class__,
-                                     user=new_user,
+                                     user=auth_user,
                                      request=request)
-        return new_user
+        return auth_user
 
     def activate(self, request, activation_key):
         raise NotImplementedError
