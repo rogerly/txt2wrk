@@ -10,6 +10,8 @@ from registration.models import RegistrationProfile
 from account.forms import ApplicantRegistrationForm
 from applicant.models import ApplicantProfile
 
+from sms.models import SMS
+
 class ApplicantModelBackend(object):
     def authenticate(self, username=None, password=None):
         try:
@@ -112,6 +114,22 @@ class ApplicantBackend(object):
         signals.user_registered.send(sender=self.__class__,
                                      user=auth_user,
                                      request=request)
+
+        # Send a confirmation text to the applicant's phone
+        # so we can confirm that it is a real phone number
+        # TODO: Move this to somewhere else so it can be
+        # triggered by the user_registered signal above
+        # (Otherwise, we block until the SMS request is 
+        # send to Twilio.)
+        sms = SMS(applicant=profile, 
+                  message='Welcome to Txt2Wrk.  Please confirm your phone number by replying to this message.',
+                  phone_number=profile.mobile_number)
+        
+        # If we were able to send it, save the SMS for our
+        # records.
+        if sms.send():
+            sms.save()
+        
         return auth_user
 
     def activate(self, request, activation_key):

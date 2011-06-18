@@ -108,6 +108,7 @@ INSTALLED_APPS = (
     'account',
     'applicant',
     'south',
+    'sms',
 )
 
 AUTHENTICATION_BACKENDS = (
