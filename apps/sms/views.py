@@ -2,11 +2,13 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.views.decorators.csrf import csrf_exempt
 
 from sms.models import SMS
 from sms.forms import ReceiveSMSForm
 from applicant.models import ApplicantProfile
 
+@csrf_exempt
 def receive_sms(request, template=None, form_class=ReceiveSMSForm):
     if request.method == 'POST':
         fields = request.POST
