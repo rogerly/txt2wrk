@@ -8,6 +8,7 @@ from sms.models import SMS, RES_UNKNOWN, RES_NUMBER_CONFIRMATION, RES_UNSUBSCRIB
 from sms.models import ACK_NUMBER_CONFIRMATION, ACK_UNSUBSCRIBE, ACK_JOB_APPLY, ACK_UNKNOWN
 from sms.forms import ReceiveSMSForm
 from applicant.models import ApplicantProfile
+from job.models import Job
 
 sms_templates = {
                  ACK_NUMBER_CONFIRMATION: 'sms/ack/number_confirmation.html',
@@ -23,6 +24,7 @@ def receive_sms(request, template=None, form_class=ReceiveSMSForm):
     else:
         fields = request.GET
     form = form_class(fields)
+    context = {}
     if form.is_valid():
         profile = None
         try:
@@ -34,6 +36,8 @@ def receive_sms(request, template=None, form_class=ReceiveSMSForm):
         message = form.cleaned_data['Body']
 
         response, message_type = SMS.get_message_type(message, profile)
+        context['response'] = response
+
         sms = SMS(applicant=profile, 
                   sent_by_us=False,
                   message=form.cleaned_data['Body'],
@@ -52,9 +56,54 @@ def receive_sms(request, template=None, form_class=ReceiveSMSForm):
                 profile.confirmed_phone = False
                 profile.save()
 
-    return render_to_response(sms_templates[message_type+1],
-                              {
-                               'response': response,
-                               },
+        additional_context, template = handle_ack(response, message_type, profile)
+        context.update(additional_context)
+        
+    return render_to_response(template,
+                              context,
                               context_instance=RequestContext(request))
-    
+
+# Handle the specific acknowledgments to responses sent via text
+# by applicants
+def handle_ack(response, message_type, profile):
+    # Acks are one value higher than the response
+    additional_context = sms_ack_functions[message_type+1](response, profile)
+    return additional_context, sms_templates[message_type+1]
+
+# Send acknowledgment about phone number confirmation
+def do_number_confirm(response, profile):
+    if profile is not None:
+        profile.confirmed_phone = True
+        profile.save()
+
+    return {}
+
+# Send acknowledgment about unsubscribe
+def do_unsubscribe(response, profile):
+    if profile is not None:
+        profile.confirmed_phone = False
+        profile.save()
+
+    return {}
+
+# Send acknowledgment about job application being sent
+def do_job_apply(response, profile):
+    try:
+        job = Job.objects.get(job_code=response)
+    except Job.DoesNotExist:
+        job = None
+
+    return { 'job': job }
+
+# Send acknowledgment about unknown message coming through
+def do_unknown(response, profile):
+    return {}
+
+sms_ack_functions = {
+                     ACK_NUMBER_CONFIRMATION: do_number_confirm,
+                     ACK_UNSUBSCRIBE: do_unsubscribe,
+                     ACK_JOB_APPLY: do_job_apply,
+                     ACK_UNKNOWN: do_unknown,
+                     }
+
+

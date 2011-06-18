@@ -3,6 +3,8 @@ from random import random
 from django.conf import settings
 from django.db import models
 
+from job import signals
+
 class Job(models.Model):
 
     title = models.CharField('Job Title',
@@ -23,11 +25,19 @@ class Job(models.Model):
     
     # Auto-create a job code if there isn't one set
     def save(self):
+        new_job = False
         if self.job_code is None or self.job_code == '':
             # This assures a valid eight digit code.  
             # Min: 10000000, Max: 99999999
             self.job_code = str(int(random() * 89999999) + 10000000)
+            new_job = True
     
         super(Job, self).save()
 
+        if new_job:
+            signals.job_created.send(sender=self.__class__,
+                                     job=self)
+
+    def __unicode__(self):
+        return u'%s' % (self.title,)
     
