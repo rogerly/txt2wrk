@@ -109,6 +109,7 @@ INSTALLED_APPS = (
     'applicant',
     'south',
     'sms',
+    'job',
 )
 
 AUTHENTICATION_BACKENDS = (
