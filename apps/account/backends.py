@@ -10,7 +10,7 @@ from registration.models import RegistrationProfile
 from account.forms import ApplicantRegistrationForm
 from applicant.models import ApplicantProfile
 
-from sms.models import SMS
+from sms.models import SMS, REQ_NUMBER_CONFIRMATION
 
 class ApplicantModelBackend(object):
     def authenticate(self, username=None, password=None):
@@ -123,7 +123,8 @@ class ApplicantBackend(object):
         # send to Twilio.)
         sms = SMS(applicant=profile, 
                   message='Welcome to Txt2Wrk.  Please confirm your phone number by replying to this message.',
-                  phone_number=profile.mobile_number)
+                  phone_number=profile.mobile_number,
+                  message_type=REQ_NUMBER_CONFIRMATION,)
         
         # If we were able to send it, save the SMS for our
         # records.

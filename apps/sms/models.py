@@ -1,4 +1,5 @@
 import twilio
+import re
 
 from django.conf import settings
 
@@ -7,6 +8,35 @@ from xml.dom import minidom
 
 from applicant.models import ApplicantProfile
 
+job_posting_id_re = re.compile(r'^[^0-9]*(\d{8})[^0-9]*$')
+unsubscribe_re = re.compile(r'[Uu][Nn][Ss][Uu][Bb][Ss][Cc][Rr][Ii][Bb][Ee]')
+
+REQ_NUMBER_CONFIRMATION=0
+RES_NUMBER_CONFIRMATION=1
+ACK_NUMBER_CONFIRMATION=2
+
+RES_UNSUBSCRIBE=11
+ACK_UNSUBSCRIBE=12
+
+REQ_JOB_APPLY=20
+RES_JOB_APPLY=21
+ACK_JOB_APPLY=22
+
+RES_UNKNOWN=101
+ACK_UNKNOWN=102
+
+MESSAGE_TYPE_TEXT = {
+                     REQ_NUMBER_CONFIRMATION: 'Request phone confirmation',
+                     RES_NUMBER_CONFIRMATION: 'Applicant confirmed phone number',
+                     ACK_NUMBER_CONFIRMATION: 'Acknowledgment of number confirmation',
+                     RES_UNSUBSCRIBE: 'Request to stop receiving texts',
+                     ACK_UNSUBSCRIBE: 'Acknowledgment of unsubscribe',
+                     REQ_JOB_APPLY: 'Sent job posting to applicant',
+                     RES_JOB_APPLY: 'Applicant applied to job posting',
+                     ACK_JOB_APPLY: 'Acknowledgment of job application',
+                     RES_UNKNOWN: 'Unknown message',
+                     ACK_UNKNOWN: 'Acknowledgment of unknown message',
+                     }
 
 class SMS(models.Model):
     # The applicant associated with this SMS
@@ -50,6 +80,22 @@ class SMS(models.Model):
                                     max_length=20,
                                     blank=False,
                                     help_text='This is the phone number of the applicant message was sent to/received from')
+    
+    message_type = models.IntegerField('Message type',
+                                       default = ACK_UNKNOWN,
+                                       choices = (
+                                                  (REQ_NUMBER_CONFIRMATION, MESSAGE_TYPE_TEXT[REQ_NUMBER_CONFIRMATION]),
+                                                  (RES_NUMBER_CONFIRMATION, MESSAGE_TYPE_TEXT[RES_NUMBER_CONFIRMATION]),
+                                                  (ACK_NUMBER_CONFIRMATION, MESSAGE_TYPE_TEXT[ACK_NUMBER_CONFIRMATION]),
+                                                  (RES_UNSUBSCRIBE, MESSAGE_TYPE_TEXT[RES_UNSUBSCRIBE]),
+                                                  (ACK_UNSUBSCRIBE, MESSAGE_TYPE_TEXT[ACK_UNSUBSCRIBE]),
+                                                  (REQ_JOB_APPLY, MESSAGE_TYPE_TEXT[REQ_JOB_APPLY]),
+                                                  (RES_JOB_APPLY, MESSAGE_TYPE_TEXT[RES_JOB_APPLY]),
+                                                  (ACK_JOB_APPLY, MESSAGE_TYPE_TEXT[ACK_JOB_APPLY]),
+                                                  (RES_UNKNOWN, MESSAGE_TYPE_TEXT[RES_UNKNOWN]),
+                                                  (ACK_UNKNOWN, MESSAGE_TYPE_TEXT[ACK_UNKNOWN]),
+                                                  )
+                                       )
     
     # Method used to send an SMS.  Assumes a valid instance
     # of this model with the applicant, message and phone_number
@@ -99,4 +145,33 @@ class SMS(models.Model):
             
         return True
     
+    def __unicode__(self):
+        return u'%s - %s' % (self.phone_number, MESSAGE_TYPE_TEXT[self.message_type],)
+
+
+    @staticmethod
+    def get_message_type(message, applicant):
+        
+        # If we find a job posting ID (exactly 8 consecutive
+        # digits.  Any random stuff before/after is fine
+        # but we should now allow more or fewer numbers
+        match_job = job_posting_id_re.search(message)
+        if match_job is not None:
+            return u'%s' % (match_job.group(1)), RES_JOB_APPLY
+        
+        # Search for the string "unsubscribe".  Can
+        # be in any case.  
+        # TODO: Is the regex better or worse than a 
+        # non-case-sensitive string comparison?
+        match_unsub = unsubscribe_re.search(message)
+        if match_unsub is not None:
+            return 'unsubscribe', RES_UNSUBSCRIBE
+
+        # If the applicant hasn't confirmed their number
+        # yet, assume this is the confirmation
+        if applicant is not None and not applicant.confirmed_phone:
+            return 'confirmed', RES_NUMBER_CONFIRMATION
+
+        # We have no idea what this message is about
+        return 'unknown', RES_UNKNOWN
     
