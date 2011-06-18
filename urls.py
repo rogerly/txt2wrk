@@ -7,6 +7,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 from registration.views import register
+from account.forms import ApplicantLoginForm
 
 urlpatterns = patterns('',
     # Example:
@@ -21,6 +22,22 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
     
+    url(r'^login/',
+        'account.views.do_login',
+        {
+         'form_class': ApplicantLoginForm,
+         'template': 'applicant/account/login.html',
+         },
+        name='login'),
+    
+    url(r'^logout/',
+        'django.contrib.auth.views.logout',
+        {
+         'next_page': '/',
+         'redirect_field_name': 'next',
+         },
+        name='logout'),
+        
     url(r'^register/', 
         register, 
         { 
@@ -28,6 +45,20 @@ urlpatterns = patterns('',
          'template_name': 'applicant/registration/registration_form.html', 
         },
         name='register'),
+                       
+    url(r'^register_complete/',
+        direct_to_template,
+        {
+         'template': 'applicant/registration/registration_complete.html',
+        },
+        name='registration_complete'),
+
+    url(r'^profile/',
+        'applicant.views.profile',
+        {
+         'template': 'applicant/account/profile.html',
+        },
+        name='profile'),
 
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve', 
         {
