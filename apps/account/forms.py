@@ -3,10 +3,9 @@ import pdb
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.contrib.localflavor.us.forms import USPhoneNumberField
 from django.utils.translation import ugettext_lazy as _
 
-from common.helpers import createUniqueDjangoUsername
+from common.helpers import createUniqueDjangoUsername, USPhoneNumberField
 
 from registration.forms import RegistrationForm
 
