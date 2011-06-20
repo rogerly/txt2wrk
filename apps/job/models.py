@@ -1,9 +1,35 @@
 from random import random
 
-from django.conf import settings
 from django.db import models
 
 from job import signals
+
+class BaseModel(models.Model):
+    name = models.CharField(max_length = 50)
+    
+    class Meta:
+        abstract = True
+        
+    def __unicode__(self):
+        return self.name
+
+class Availability(BaseModel):
+    pass
+
+class Workday(BaseModel):
+    pass
+
+class Location(BaseModel):
+    pass
+
+class Education(BaseModel):
+    pass
+
+class Experience(BaseModel):
+    pass
+
+class Industry(BaseModel):
+    pass
 
 class Job(models.Model):
 
@@ -22,9 +48,15 @@ class Job(models.Model):
                                 blank=True,
                                 db_index=True,
                                 help_text='This is the job code that the applicant will use.')
+    availability = models.ForeignKey(Availability)
+    workday = models.ManyToManyField(Workday)
+    location = models.ForeignKey(Location)
+    education = models.ForeignKey(Education)
+    experience = models.ForeignKey(Experience)
+    industry = models.ManyToManyField(Industry)
     
     # Auto-create a job code if there isn't one set
-    def save(self):
+    def save(self, *args, **kwargs):
         new_job = False
         if self.job_code is None or self.job_code == '':
             # This assures a valid eight digit code.  
@@ -40,4 +72,5 @@ class Job(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.title,)
+
     
