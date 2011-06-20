@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "job.availability", "fields": {"name": "Immediately"}}, {"pk": 2, "model": "job.availability", "fields": {"name": "0-4 weeks"}}, {"pk": 3, "model": "job.availability", "fields": {"name": "4-8 weeks"}}]
