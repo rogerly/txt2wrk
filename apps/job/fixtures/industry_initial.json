@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "job.industry", "fields": {"name": "Retail"}}, {"pk": 2, "model": "job.industry", "fields": {"name": "Construction"}}, {"pk": 3, "model": "job.industry", "fields": {"name": "Food Services"}}]

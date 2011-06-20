@@ -48,11 +48,11 @@ class Job(models.Model):
                                 blank=True,
                                 db_index=True,
                                 help_text='This is the job code that the applicant will use.')
-    availability = models.ForeignKey(Availability)
+    availability = models.ForeignKey(Availability, null=False, default=1)
     workday = models.ManyToManyField(Workday)
-    location = models.ForeignKey(Location)
-    education = models.ForeignKey(Education)
-    experience = models.ForeignKey(Experience)
+    location = models.ForeignKey(Location, null=False, default=1)
+    education = models.ForeignKey(Education, null=False, default=1)
+    experience = models.ForeignKey(Experience, null=False, default=1)
     industry = models.ManyToManyField(Industry)
     
     # Auto-create a job code if there isn't one set

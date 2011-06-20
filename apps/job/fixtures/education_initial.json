@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "job.education", "fields": {"name": "No degree"}}, {"pk": 2, "model": "job.education", "fields": {"name": "High School Diploma"}}, {"pk": 3, "model": "job.education", "fields": {"name": "Associates Degree"}}, {"pk": 4, "model": "job.education", "fields": {"name": "Bachelor's Degree"}}]
