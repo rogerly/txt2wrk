@@ -121,16 +121,11 @@ class ApplicantBackend(object):
         # triggered by the user_registered signal above
         # (Otherwise, we block until the SMS request is 
         # send to Twilio.)
-        sms = SMS(applicant=profile, 
-                  message='Welcome to Txt2Wrk.  Please confirm your phone number by replying to this message.',
-                  phone_number=profile.mobile_number,
-                  message_type=REQ_NUMBER_CONFIRMATION,)
-        
-        # If we were able to send it, save the SMS for our
-        # records.
-        if sms.send():
-            sms.save()
-        
+        sms = SMS.send(applicant=profile, 
+                       phone_number=profile.mobile_number,
+                       message='Welcome to Txt2Wrk.  Please confirm your phone number by replying to this message.',
+                       message_type=REQ_NUMBER_CONFIRMATION)
+
         return auth_user
 
     def activate(self, request, activation_key):

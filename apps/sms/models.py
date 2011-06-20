@@ -2,11 +2,13 @@ import twilio
 import re
 
 from django.conf import settings
-
 from django.db import models
+from django.db.models.signals import pre_save 
+from django.dispatch import receiver
 from xml.dom import minidom
 
 from applicant.models import ApplicantProfile
+from job_recommendation.models import JobRecommendation
 
 job_posting_id_re = re.compile(r'^[^0-9]*(\d{8})[^0-9]*$')
 unsubscribe_re = re.compile(r'[Uu][Nn][Ss][Uu][Bb][Ss][Cc][Rr][Ii][Bb][Ee]')
@@ -97,24 +99,41 @@ class SMS(models.Model):
                                                   )
                                        )
     
-    # Method used to send an SMS.  Assumes a valid instance
-    # of this model with the applicant, message and phone_number
-    # set.  
-    # TODO: Could make this a static method that takes in those
-    # parameters. Should revisit 
-    def send(self):
-        
-        # This is sent by us
-        self.sent_by_us = True
+    def __unicode__(self):
+        return u'%s - %s' % (self.phone_number, MESSAGE_TYPE_TEXT[self.message_type],)
 
+    @staticmethod
+    @receiver(pre_save, sender=JobRecommendation)
+    def send_new_recommendation(sender, **kwargs):
+        recommendation = kwargs['instance']
+        if recommendation is not None:
+            applicant = recommendation.applicant
+            job = recommendation.job
+            message = u'New job posted! %s. CALL 5103943562 to hear full description or TEXT BACK with %s to send your resume and apply.' % (job.title, job.job_code,)
+            SMS.send(applicant=applicant,
+                     phone_number=applicant.mobile_number,
+                     message=message,
+                     message_type=REQ_JOB_APPLY)
+
+    # Method used to send an SMS.  Creates a new instance of the
+    # SMS model and saves it after a successful send.
+    @staticmethod
+    def send(applicant, phone_number, message, message_type):
+        
+        sms = SMS(applicant=applicant,
+                  message=message,
+                  sent_by_us=True,
+                  phone_number=phone_number,
+                  message_type=message_type)
+        
         # Account object to send messages to Twilio
         account = twilio.Account(settings.ACCOUNT_SID, settings.ACCOUNT_TOKEN)
         
         # Data for the message
         sms_msg = {
                    'From': settings.CALLER_ID,
-                   'To': self.phone_number,
-                   'Body': self.message,
+                   'To': phone_number,
+                   'Body': message,
                    }
         
         try:
@@ -137,18 +156,15 @@ class SMS(models.Model):
             # elements, but in reality there is only one
             for sms_sid in sms_sids:
                 # Save the sms_sid for this SMS message
-                self.sms_sid = sms_sid.firstChild.data
+                sms.sms_sid = sms_sid.firstChild.data
 
         except Exception, e:
             print e
-            return False
-            
-        return True
+            return None
+
+        sms.save()
+        return sms
     
-    def __unicode__(self):
-        return u'%s - %s' % (self.phone_number, MESSAGE_TYPE_TEXT[self.message_type],)
-
-
     @staticmethod
     def get_message_type(message, applicant):
         

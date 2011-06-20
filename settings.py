@@ -110,6 +110,7 @@ INSTALLED_APPS = (
     'south',
     'sms',
     'job',
+    'job_recommendation',
 )
 
 AUTHENTICATION_BACKENDS = (
