@@ -54,11 +54,17 @@ urlpatterns = patterns('',
         name='registration_complete'),
 
     url(r'^profile/',
-        'applicant.views.profile',
+        'applicant.views.applicant_profile',
         {
-         'template': 'applicant/account/profile.html',
+         'template': 'applicant/account/profile.html'
         },
         name='profile'),
+    url(r'^dashboard/',
+        'applicant.views.applicant_dashboard',
+        {
+         'template' : 'applicant/account/dashboard.html'
+         }
+        ),
     url(r'^job/create/$',
         'job.views.create_profile',
         {

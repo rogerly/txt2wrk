@@ -7,7 +7,8 @@
 			<script type="text/javascript" src="{{ STATIC_URL }}/js/iehtml5.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/applicant.css" />
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/base.css" />
+		{% block extra_css %} {% endblock %}
 	</head>
 	<body>
 		<div class="page-content">

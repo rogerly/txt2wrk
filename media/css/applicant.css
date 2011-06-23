@@ -1,60 +1,24 @@
-// Default display setting for HTML5 elements
-// for browsers that dont understand them
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section { 
-    display:block;
+div.fieldWrapper
+{
+	padding-top: 20px;	
 }
 
-body {
-	padding: 0px;
-	margin: 0px;
-	background-color: #fff;
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-	font-size: smaller;
-	color: #000;
-}
 
-a, a:hover, a:visited, a:active {
-	color: #0343fa;
-}
-
-h1, h2, h3, h4, h5 {
-	margin-top: 0px;
-}
-
-.page-content {
-	width: 800px;
-	margin: auto;
-	margin-top: 50px;
-	padding: 20px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	border: solid 1px #c0c0c0;
-	min-height: 500px;
-}
-
-label {
-	width: 200px;
+div.fieldWrapper  ul
+{
 	display: inline-block;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
-input[type=text], input[type=password] {
-	width: 180px;
-	padding: 5px;
-	color: #aaa;
-	border: 1px solid #cccccc;
-	font-size: larger;
-	margin-bottom: 5px;
-	display: inline-block;
+div.fieldWrapper label
+{
+	vertical-align: top;	
 }
 
-ul.errorlist {
-	display: inline-block;
-	list-style-type: none;
-	padding-left: 10px;
-	color: #ff0000;
+div.fieldWrapper > label:first-child
+{
+	font-weight: bold;	
 }
 
-ul.errorlist li {
-}
