@@ -11,7 +11,7 @@ from models import ApplicantProfile
 def applicant_profile(request, template='applicant/account/profile.html'):
     form = None 
     if request.method == 'POST':
-        form = ApplicantProfileForm(data=request.POST)
+        form = ApplicantProfileForm(data=request.POST, instance=ApplicantProfile.objects.get(user=request.user))
         if form.is_valid():
             form.save()
             return redirect(applicant_dashboard)
