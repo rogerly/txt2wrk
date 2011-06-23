@@ -1,6 +1,43 @@
 {% extends "base.html" %}
 
+{% block head_title %} Applicant Profile {% endblock %}
+{% block extra_css %} 		
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/applicant.css" />
+{% endblock %}
+
 {% block body_content %}
-<h1>My Profile</h1>
-<p>You can edit your profile here</p>
+
+
+
+<h1>Applicant Profile</h1>
+<div>
+Please describe the description of your skills. 
+Bacon ipsum dolor sit amet nisi proident cow adipisicing pastrami, sirloin pig dolore officia aliqua ut tempor brisket 
+pariatur. Andouille brisket aliqua culpa, cupidatat chicken et short ribs bresaola.
+</div>
+<form action="{% url profile %}" method="post">
+	{% csrf_token %}
+    {{ form.non_field_errors }}
+    
+    <div class="fieldWrapper">
+    	{{ form.availability.label_tag }} {{ form.availability }}
+    </div>
+    <div class="fieldWrapper" id="workdayWrapper">
+    	{{ form.workday.label_tag }} {{ form.workday }}
+    </div>
+    <div class="fieldWrapper">
+    	{{ form.location.label_tag }} {{ form.location }}
+    </div>
+    <div class="fieldWrapper">
+    	{{ form.education.label_tag }} {{ form.education }}
+    </div>
+    <div class="fieldWrapper">
+    	{{ form.experience.label_tag }} {{ form.experience }}
+    </div>
+    <div class="fieldWrapper" id="industryWrapper">
+    	{{ form.industry.label_tag }} {{ form.industry }}
+    </div>
+    
+  	<input type="submit" name="create" value="Save Profile" />
+</form>
 {% endblock %}

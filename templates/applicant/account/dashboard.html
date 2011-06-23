@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+<h1>Applicant Dashboard</h1>
+
+<div id="personal">
+	{{ profile.username }}
+	{{ profile.mobile_number }}
+</div>
+
+<div id="search">
+	Availability: {{ profile.availability }}
+	Location: Near {{ profile.location }}
+</div>
+{% endblock %}
