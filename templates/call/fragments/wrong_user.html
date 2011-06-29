@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<Response> 
+	{% if applicant %}
+		<Redirect>{% url call_enter_password %}</Redirect>
+	{% else %}
+		{% if form.errors %}
+			<Say>I don't recognize that phone number</Say>
+		{% endif %}
+		<Gather action="{% url call_wrong_user %}" numDigits="8">
+			<Say>Please enter your ten digit phone number.</Say>
+		</Gather>
+		<Redirect>{% url call_wrong_user %}</Redirect>
+	{% endif %}
+</Response>

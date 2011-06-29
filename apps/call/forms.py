@@ -32,6 +32,25 @@ class VerifyPasswordForm(forms.Form):
         
         return super(VerifyPasswordForm, self).clean()
     
+class HandleDifferentPhoneForm(forms.Form):
+    
+    CallSid = forms.CharField(required=True)
+    Digits = forms.CharField(required=False)
+    
+    def clean_Digits(self):
+        if 'Digits' in self.cleaned_data and self.cleaned_data['Digits'] != '':
+            phone = self.cleaned_data['Digits']
+            if len(phone) == 10:
+                phone = '%s-%s-%s' % (phone[0:3], phone[3:6], phone[6:10],)
+                self.cleaned_data['Digits'] = phone
+                
+                try:
+                    profile = ApplicantProfile.objects.get(mobile_number=phone)
+                except ApplicantProfile.DoesNotExist:
+                    raise forms.ValidationError(_('Number not found'))
+
+        return self.cleaned_data['Digits']
+    
 class JobCodeFragmentForm(forms.Form):
     
     CallSid = forms.CharField(required=True)

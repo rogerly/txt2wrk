@@ -20,7 +20,7 @@
 		{% if jobs.count > 0 %}
 			{% with recommendation=jobs|first %}
 				<Say>{{ recommendation.job.title }}</Say>
-				<Gather>
+				<Gather numDigits="1">
 					<Say>Press 1 for more information about this job.</Say>
 					<Say>Press 2 to apply for this job.</Say>
 					<Say>Press 3 to delete this job.</Say>
