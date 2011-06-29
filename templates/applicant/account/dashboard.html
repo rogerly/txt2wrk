@@ -4,12 +4,49 @@
 <h1>Applicant Dashboard</h1>
 
 <div id="personal">
-	{{ profile.username }}
+	<h3> Personal Info (<a href="#"> Edit </a>)</h3>
+	{{ profile.user.email }} <br/>
 	{{ profile.mobile_number }}
 </div>
 
+<br/> <br/>
+
 <div id="search">
-	Availability: {{ profile.availability }}
-	Location: Near {{ profile.location }}
+	<h3> Job Search (<a href="{% url profile %}"> Edit</a>)</h3> 
+	Availability: {{ profile.availability }} <br/>
+	Location: Near {{ profile.location }} <br/>
+	Experience: {{ profile.education }}, {{ profile.experience }} <br/>
+	Skills: {% for industry in profile.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %}  
 </div>
+
+<br/> <br/>
+
+<div id="notifications">
+	<h3>{{ notifications.notification.label_tag }} </h3> {{ notifications.notification }}
+</div>
+
+<br/> <br/>
+
+<div id="matches">
+	<h3> Recent Matching Jobs </h3>
+	<table>
+		<tr> 
+			<th> Employer </th>
+			<th> Job Title </th>
+			<th> Dated Posted </th>			
+	</table>
+</div>
+
+<br/> <br/>
+
+<div id="applied">
+	<h3> Jobs you applied to</h3>
+	<table>
+		<tr> 
+			<th> Employer </th>
+			<th> Job Title </th>
+			<th> Dated Applied </th>			
+	</table>
+</div>
+
 {% endblock %}
