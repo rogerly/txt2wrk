@@ -48,3 +48,15 @@ class ApplicantProfileForm(forms.ModelForm):
     class Meta:
         model = ApplicantProfile
         exclude = ('mobile_number', 'confirmed_phone', 'user')
+        
+class MobileNotificationForm(forms.Form):
+    
+    NOTIFICATION_CHOICES = (("1","Just call me"), 
+                            ("2","Call me first, text if I do not pick up"), 
+                            ("3", "Turn off notifications"))
+    
+    notification = forms.ChoiceField(
+                    widget = forms.RadioSelect,
+                    label = "Notifications",
+                    choices = NOTIFICATION_CHOICES
+    )
