@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from django.contrib.auth.decorators import user_passes_test
-from forms import ApplicantProfileForm
+from forms import ApplicantProfileForm, MobileNotificationForm
 from models import ApplicantProfile
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/login')
@@ -24,6 +24,8 @@ def applicant_profile(request, template='applicant/account/profile.html'):
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/login')
 def applicant_dashboard(request, template='applicant/account/dashboard.html'):
     profile = ApplicantProfile.objects.get(user=request.user)
+    notifications = MobileNotificationForm()
     return render_to_response(template, 
-                              {'profile' : profile },
+                              {'profile' : profile,
+                               'notifications' : notifications },
                               context_instance=RequestContext(request))
