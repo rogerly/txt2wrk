@@ -25,6 +25,8 @@ urlpatterns = patterns('',
     (r'^applicant/', include('applicant.urls')),
 
     (r'^employer/', include('employer.urls')),
+    
+    (r'^call/', include('call.urls')),
 
     url(r'^job/create/$',
         'job.views.create_profile',

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<Response> 
+	{% if user %}
+		<Say>Welcome to Txt2Wrk {{ user.first_name }}.</Say>
+		<Gather timeout="2" action="{% url call_wrong_user %}">
+			<Say>If this isn't {{ user.first_name }}, please press 1.</Say>
+		</Gather>
+	{% endif %}
+	<Redirect>{% url call_enter_password %}</Redirect>
+</Response>
