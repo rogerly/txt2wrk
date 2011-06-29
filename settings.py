@@ -112,6 +112,7 @@ INSTALLED_APPS = (
     'job',
     'job_recommendation',
     'employer',
+    'call',
 )
 
 AUTHENTICATION_BACKENDS = (
