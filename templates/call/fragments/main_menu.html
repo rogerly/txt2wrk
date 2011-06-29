@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<Response>
+	{% if digits %}
+		{% if digits == '1' %}
+			<Redirect>{% url call_new_listings %}</Redirect>
+		{% endif %}
+		{% if digits == '2' %}
+			<Redirect>{% url call_saved_listings %}</Redirect>
+		{% endif %}
+		{% if digits == '3' %}
+			<Redirect>{% url call_job_code %}</Redirect>
+		{% endif %}
+		{% if digits == '9' %}
+			<Redirect>{% url call_hangup %}</Redirect>
+		{% endif %}
+		<Redirect>{% url call_main_menu %}</Redirect>
+	{% else %}
+		<Gather action="{% url call_main_menu %}" numDigits="1">
+			{% if jobs.size != 0 %}
+				<Say>Press 1 to hear your new job listings.</Say>
+			{% endif %}
+			<Say>Press 2 to hear your saved job listings.</Say>
+			<Say>Press 3 if you have a code for a specific job.</Say>
+			<Say>Press 9 or just hang up to end this call.</Say>
+		</Gather>
+		<Redirect>{% url call_main_menu %}</Redirect>
+	{% endif %}
+</Response>

@@ -106,7 +106,7 @@ class SMS(models.Model):
     @receiver(pre_save, sender=JobRecommendation)
     def send_new_recommendation(sender, **kwargs):
         recommendation = kwargs['instance']
-        if recommendation is not None:
+        if recommendation is not None and recommendation.state == JobRecommendation.NEW_REC:
             applicant = recommendation.applicant
             job = recommendation.job
             message = u'New job posted! %s. CALL 5103943562 to hear full description or TEXT BACK with %s to send your resume and apply.' % (job.title, job.job_code,)
