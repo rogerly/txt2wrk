@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.contrib.auth import login
 
 from applicant.models import ApplicantProfile
-from employer.models import Employer
+from employer.models import EmployerProfile
 
 def do_login(request, template='account/login.html', form_class=None):
     
@@ -21,7 +21,7 @@ def do_login(request, template='account/login.html', form_class=None):
                 try:
                     profile = ApplicantProfile.objects.get(user=form.user)
                 except ApplicantProfile.DoesNotExist:
-                    profile = Employer.objects.get(user=form.user)
+                    profile = EmployerProfile.objects.get(user=form.user)
 
                 return redirect(profile.get_login_destination())
     else:
