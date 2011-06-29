@@ -57,36 +57,41 @@ class Call(models.Model):
     def __unicode__(self):
         return u'%s - %s' % (self.phone_number, CALL_TYPE_TEXT[self.call_type],)
 
-OUTBOUND_WELCOME_KNOWN_USER=1
-OUTBOUND_WELCOME_UNKNOWN_USER=2
-
-INBOUND_WRONG_USER=11
-OUTBOUND_ENTER_PHONE_NUMBER=12
-INBOUND_ENTER_PHONE_NUMBER=13
-OUTBOUND_WRONG_PHONE_NUMBER=14
-
-OUTBOUND_ENTER_PASSWORD=21
-INBOUND_ENTER_PASSWORD=22
-OUTBOUND_WRONG_PASSWORD=23
-
-INBOUND_UNKNOWN_FRAGMENT=1001
-OUTBOUND_UNKNOWN_FRAGMENT=1002
-
-FRAGMENT_TYPE_TEXT = {
-                      OUTBOUND_WELCOME_KNOWN_USER: 'Welcome message to recognized caller',
-                      OUTBOUND_WELCOME_UNKNOWN_USER: 'Welcome message to unrecognized caller',
-                      INBOUND_WRONG_USER: 'Caller trying to change to different applicant',
-                      OUTBOUND_ENTER_PHONE_NUMBER: 'Ask for phone number of applicant',
-                      INBOUND_ENTER_PHONE_NUMBER: 'Caller sending phone number for applicant',
-                      OUTBOUND_WRONG_PHONE_NUMBER: 'Notify caller of invalid/unknown phone number',
-                      OUTBOUND_ENTER_PASSWORD: 'Ask for password',
-                      INBOUND_ENTER_PASSWORD: 'Caller sending password',
-                      OUTBOUND_WRONG_PASSWORD: 'Notify caller of invalid password',
-                      INBOUND_UNKNOWN_FRAGMENT: 'Unknown inbound message',
-                      OUTBOUND_UNKNOWN_FRAGMENT: 'Unknown outbound message',
-                      }
-
 class CallFragment(models.Model):
+    OUTBOUND_WELCOME_KNOWN_USER=1
+    OUTBOUND_WELCOME_UNKNOWN_USER=2
+    
+    INBOUND_WRONG_USER=11
+    OUTBOUND_ENTER_PHONE_NUMBER=12
+    INBOUND_ENTER_PHONE_NUMBER=13
+    OUTBOUND_WRONG_PHONE_NUMBER=14
+    
+    OUTBOUND_ENTER_PASSWORD=21
+    INBOUND_ENTER_PASSWORD=22
+    OUTBOUND_WRONG_PASSWORD=23
+    
+    OUTBOUND_MAIN_MENU=31
+    INBOUND_MAIN_MENU_CHOICE=32
+    
+    INBOUND_UNKNOWN_FRAGMENT=1001
+    OUTBOUND_UNKNOWN_FRAGMENT=1002
+    
+    FRAGMENT_TYPE_TEXT = {
+                          OUTBOUND_WELCOME_KNOWN_USER: 'Welcome message to recognized caller',
+                          OUTBOUND_WELCOME_UNKNOWN_USER: 'Welcome message to unrecognized caller',
+                          INBOUND_WRONG_USER: 'Caller trying to change to different applicant',
+                          OUTBOUND_ENTER_PHONE_NUMBER: 'Ask for phone number of applicant',
+                          INBOUND_ENTER_PHONE_NUMBER: 'Caller sending phone number for applicant',
+                          OUTBOUND_WRONG_PHONE_NUMBER: 'Notify caller of invalid/unknown phone number',
+                          OUTBOUND_ENTER_PASSWORD: 'Ask for password',
+                          INBOUND_ENTER_PASSWORD: 'Caller sending password',
+                          OUTBOUND_WRONG_PASSWORD: 'Notify caller of invalid password',
+                          INBOUND_UNKNOWN_FRAGMENT: 'Unknown inbound message',
+                          OUTBOUND_UNKNOWN_FRAGMENT: 'Unknown outbound message',
+                          OUTBOUND_MAIN_MENU: 'Read main menu to applicant',
+                          INBOUND_MAIN_MENU_CHOICE: 'Caller chose main menu item',
+                          }
+
     call = models.ForeignKey(Call,
                              null=True,
                              related_name='fragments',

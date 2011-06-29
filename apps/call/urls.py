@@ -29,4 +29,39 @@ urlpatterns = patterns('',
          'template': 'call/fragments/verify_password.html',
          },
         name='call_verify_password'),
+
+    url(r'^main_menu/',
+        'call.views.main_menu',
+        {
+         'template': 'call/fragments/main_menu.html',
+         },
+        name='call_main_menu'),
+
+    url(r'^new_listings/',
+        'call.views.new_listings',
+        {
+         'template': 'call/fragments/new_listings.html',
+         },
+        name='call_new_listings'),
+
+    url(r'^saved_listings/',
+        'call.views.main_menu',
+        {
+         'template': 'call/fragments/saved_listings.html',
+         },
+        name='call_saved_listings'),
+
+    url(r'^job_code/',
+        'call.views.main_menu',
+        {
+         'template': 'call/fragments/job_code.html',
+         },
+        name='call_job_code'),
+
+    url(r'^hangup/',
+        direct_to_template,
+        {
+         'template': 'call/fragments/hangup.html',
+         },
+        name='call_hangup'),
 )
