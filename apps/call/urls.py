@@ -129,7 +129,7 @@ urlpatterns = patterns('',
         name='call_job_code'),
 
     url(r'^hangup/',
-        direct_to_template,
+        'call.views.hangup',
         {
          'template': 'call/fragments/hangup.html',
          },

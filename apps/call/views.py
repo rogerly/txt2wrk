@@ -320,3 +320,24 @@ def job_code(request, template=None):
                               context,
                               context_instance=RequestContext(request))
 
+@csrf_exempt
+def hangup(request, template=None):
+    if request.method == 'POST':
+        fields = request.POST
+    else:
+        fields = request.GET
+
+    form = HandleFragmentForm(fields)
+    context = {}
+    context['form'] = form
+
+    call = Call.objects.get(call_sid=fields['CallSid'])
+
+    if form.is_valid():
+        fragment = CallFragment(call=call, outbound=True, fragment_type=CallFragment.OUTBOUND_ENTER_PASSWORD)
+        fragment.save()
+
+    return render_to_response(template,
+                              context,
+                              context_instance=RequestContext(request))
+
