@@ -26,7 +26,7 @@ DATABASES = {
     }
 }
 
-AUTH_PROFILE_MODULE = 'applicant.ApplicantProfile'
+AUTH_PROFILE_MODULE = 'account.Profile'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     'sms',
     'job',
     'job_recommendation',
+    'employer',
 )
 
 AUTHENTICATION_BACKENDS = (
