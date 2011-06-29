@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from account.models import Profile
 
-class Employer(Profile):
+class EmployerProfile(Profile):
     phone_number = models.CharField('Phone Number',
                                     blank=False,
                                     max_length=20

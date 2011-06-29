@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from models import Employer
+from models import EmployerProfile
 
 from common.helpers import USPhoneNumberField
 from registration.forms import RegistrationForm
@@ -11,7 +11,7 @@ from registration.forms import RegistrationForm
 class EmployerProfileForm(forms.ModelForm):
     
     class Meta:
-        model = Employer
+        model = EmployerProfile
         exclude = ('user')
         
 attrs_dict = { 'class': 'required' }

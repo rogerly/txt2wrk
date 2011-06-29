@@ -1,4 +1,4 @@
 from django.contrib import admin
-from employer.models import Employer
+from employer.models import EmployerProfile
 
-admin.site.register(Employer)
+admin.site.register(EmployerProfile)

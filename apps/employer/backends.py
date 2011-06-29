@@ -8,7 +8,7 @@ from registration import signals
 from registration.models import RegistrationProfile
 
 from employer.forms import EmployerRegistrationForm
-from employer.models import Employer
+from employer.models import EmployerProfile
 
 class EmployerBackend(object):
     """
@@ -61,7 +61,7 @@ class EmployerBackend(object):
         new_user.first_name = first_name
         new_user.last_name = last_name
         new_user.save()
-        profile, created = Employer.objects.get_or_create(user=new_user)
+        profile, created = EmployerProfile.objects.get_or_create(user=new_user)
         profile.phone_number = phone
         profile.save()
 
