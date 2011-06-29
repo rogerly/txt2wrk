@@ -8,3 +8,6 @@ class Profile(models.Model):
 
     class Meta:
         abstract = True
+        
+    def get_login_destination(self):
+        raise NotImplementedError

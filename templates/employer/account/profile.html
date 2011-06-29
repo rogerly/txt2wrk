@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block head_title %} Applicant Profile {% endblock %}
+{% block extra_css %} 		
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/applicant.css" />
+{% endblock %}
+
+{% block body_content %}
+
+
+
+<h1>Employer Profile</h1>
+<div>
+Please describe the company. 
+Bacon ipsum dolor sit amet nisi proident cow adipisicing pastrami, sirloin pig dolore officia aliqua ut tempor brisket 
+pariatur. Andouille brisket aliqua culpa, cupidatat chicken et short ribs bresaola.
+</div>
+<form action="{% url employer_profile %}" method="post">
+	{% csrf_token %}
+    {{ form.non_field_errors }}
+    
+  	<input type="submit" name="create" value="Save Profile" />
+</form>
+{% endblock %}

@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
@@ -23,3 +24,6 @@ class ApplicantProfile(Profile):
     
     def __unicode__(self):
         return u'%s' % (self.mobile_number,)
+
+    def get_login_destination(self):
+        return reverse('applicant_profile')

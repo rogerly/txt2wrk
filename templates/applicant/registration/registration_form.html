@@ -2,7 +2,7 @@
 
 {% block body_content %}
 <h1>Sign up</h1>
-<form action="{% url register %}" method="post">
+<form action="{% url applicant_register %}" method="post">
 	{% csrf_token %}
     {{ form.non_field_errors }}
     {% for field in form %}
