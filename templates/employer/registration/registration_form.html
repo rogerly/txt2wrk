@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block body_content %}
-<h1>Login</h1>
-<form action="{% url applicant_login %}{% if next %}?next={{ next }}{% endif %}" method="post">
+<h1>Sign up</h1>
+<form action="{% url employer_register %}" method="post">
 	{% csrf_token %}
     {{ form.non_field_errors }}
     {% for field in form %}
@@ -14,6 +14,6 @@
 			{% endif %}
         </div>
     {% endfor %}
-  	<input type="submit" name="register" value="Login" />
+  	<input type="submit" name="register" value="Register" />
 </form>
 {% endblock %}

@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import user_passes_test
 from forms import ApplicantProfileForm
 from models import ApplicantProfile
 
-@user_passes_test(lambda u: u.is_authenticated(), login_url='/login')
+@user_passes_test(lambda u: u.is_authenticated(), login_url='/applicant/login')
 def applicant_profile(request, template='applicant/account/profile.html'):
     form = None 
     if request.method == 'POST':
@@ -21,7 +21,7 @@ def applicant_profile(request, template='applicant/account/profile.html'):
                               {'form' : form}, 
                               context_instance=RequestContext(request))
 
-@user_passes_test(lambda u: u.is_authenticated(), login_url='/login')
+@user_passes_test(lambda u: u.is_authenticated(), login_url='/applicant/login')
 def applicant_dashboard(request, template='applicant/account/dashboard.html'):
     profile = ApplicantProfile.objects.get(user=request.user)
     return render_to_response(template, 

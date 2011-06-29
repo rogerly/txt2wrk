@@ -8,8 +8,11 @@ class ApplicantModelBackend(object):
             if '@' in username:
                 user = User.objects.get(email__iexact=username)
             elif '-' in username:
-                profile = ApplicantProfile.objects.get(mobile_number=username)
-                user = profile.user
+                try:
+                    profile = ApplicantProfile.objects.get(mobile_number=username)
+                    user = profile.user
+                except ApplicantProfile.DoesNotExist:
+                    return None
             else:
                 user = User.objects.get(username=username)
 

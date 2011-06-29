@@ -2,7 +2,7 @@
 
 {% block body_content %}
 <h1>Login</h1>
-<form action="{% url applicant_login %}{% if next %}?next={{ next }}{% endif %}" method="post">
+<form action="{% url employer_login %}{% if next %}?next={{ next }}{% endif %}" method="post">
 	{% csrf_token %}
     {{ form.non_field_errors }}
     {% for field in form %}
