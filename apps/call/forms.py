@@ -4,6 +4,7 @@ from common.helpers import USPhoneNumberField
 from django.utils.translation import ugettext_lazy as _
 
 from applicant.models import ApplicantProfile
+from job.models import Job
 from models import Call
 
 class ReceiveCallForm(forms.Form):
@@ -30,3 +31,18 @@ class VerifyPasswordForm(forms.Form):
                 raise forms.ValidationError(_('Bad password.'))
         
         return super(VerifyPasswordForm, self).clean()
+    
+class JobCodeFragmentForm(forms.Form):
+    
+    CallSid = forms.CharField(required=True)
+    Digits = forms.CharField(required=False)
+    
+    def clean_Digits(self):
+        if 'Digits' in self.cleaned_data and self.cleaned_data['Digits'] != '':
+            try:
+                job = Job.objects.get(job_code=self.cleaned_data['Digits'])
+            except Job.DoesNotExist:
+                raise forms.ValidationError(_('Bad job code.'))
+            
+        return self.cleaned_data['Digits']
+

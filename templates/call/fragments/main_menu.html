@@ -2,9 +2,11 @@
 <Response>
 	{% if digits %}
 		{% if digits == '1' %}
+			<Say>New Listings.</Say>
 			<Redirect>{% url call_new_listings %}</Redirect>
 		{% endif %}
 		{% if digits == '2' %}
+			<Say>Saved Listings</Say>
 			<Redirect>{% url call_saved_listings %}</Redirect>
 		{% endif %}
 		{% if digits == '3' %}
@@ -13,10 +15,11 @@
 		{% if digits == '9' %}
 			<Redirect>{% url call_hangup %}</Redirect>
 		{% endif %}
+		<Say>You have pressed an invalid key.</Say>
 		<Redirect>{% url call_main_menu %}</Redirect>
 	{% else %}
 		<Gather action="{% url call_main_menu %}" numDigits="1">
-			{% if jobs.size != 0 %}
+			{% if jobs.count != 0 %}
 				<Say>Press 1 to hear your new job listings.</Say>
 			{% endif %}
 			<Say>Press 2 to hear your saved job listings.</Say>

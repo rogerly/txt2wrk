@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<Response>
+	{% if digits %}
+		{% if form.errors %}
+			<Say>You have entered an invalid job code.</Say>
+			<Redirect>{% url call_job_code %}</Redirect>
+		{% else %}
+			<Redirect>{% url call_listing_info recommendation.id %}</Redirect>
+		{% endif %}
+	{% else %}
+		<Gather action="{% url call_job_code %}" numDigits="8">
+			<Say>Enter your eight digit job code.</Say>
+		</Gather>
+		<Redirect>{% url call_job_code %}</Redirect>
+	{% endif %}
+</Response>
