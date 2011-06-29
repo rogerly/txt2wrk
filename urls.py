@@ -7,7 +7,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 from registration.views import register
-from account.forms import ApplicantLoginForm
+from applicant.forms import ApplicantLoginForm
 
 urlpatterns = patterns('',
     # Example:
@@ -41,7 +41,7 @@ urlpatterns = patterns('',
     url(r'^register/', 
         register, 
         { 
-         'backend': 'account.backends.ApplicantBackend',
+         'backend': 'applicant.backends.ApplicantBackend',
          'template_name': 'applicant/registration/registration_form.html', 
         },
         name='register'),
