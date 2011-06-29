@@ -2,6 +2,7 @@
 <Response>
 	<Say>You have deleted this job listing.</Say>
 	{% if listing_type %}
+		<Say>Next listing.</Say>
 		{% if listing_type == '1' %}
 			<Redirect>{% url call_new_listings recommendation.id %}</Redirect>
 		{% else %}

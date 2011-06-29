@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from models import Call, CallFragment, INBOUND_CHECK_JOBS
 from models import *
-from forms import ReceiveCallForm, HandleFragmentForm, VerifyPasswordForm, JobCodeFragmentForm
+from forms import ReceiveCallForm, HandleFragmentForm, VerifyPasswordForm, JobCodeFragmentForm, HandleDifferentPhoneForm
 from applicant.models import ApplicantProfile
 from job.models import Job
 from job_recommendation.models import JobRecommendation
@@ -38,7 +38,12 @@ def receive_call(request, template=None, form_class=ReceiveCallForm):
 
             fragment_type = CallFragment.OUTBOUND_WELCOME_KNOWN_USER
         except ApplicantProfile.DoesNotExist:
-            pass
+            call = Call(outbound=False, 
+                        call_sid=form.cleaned_data['CallSid'],
+                        phone_number=form.cleaned_data['From'],
+                        call_type=INBOUND_CHECK_JOBS)
+            
+            call.save()
     
         fragment = CallFragment(call=call,
                                 outbound=True,
@@ -53,7 +58,29 @@ def receive_call(request, template=None, form_class=ReceiveCallForm):
 
 @csrf_exempt
 def wrong_user(request, template=None):
+    if request.method == 'POST':
+        fields = request.POST
+    else:
+        fields = request.GET
+    form = HandleDifferentPhoneForm(fields)
     context = {}
+    context['form'] = form
+
+    call = Call.objects.get(call_sid=fields['CallSid'])
+    
+    if form.is_valid():
+        if 'Digits' in form.cleaned_data and form.cleaned_data['Digits'] != '':
+            phone = form.cleaned_data['Digits']
+            if len(phone) == 12:
+                profile = ApplicantProfile.objects.get(mobile_number=phone)
+                call.applicant=profile
+                call.save()
+                
+                context['applicant'] = profile
+
+        fragment = CallFragment(call=call, outbound=True, fragment_type=CallFragment.OUTBOUND_ENTER_PASSWORD)
+        fragment.save()
+
     return render_to_response(template,
                               context,
                               context_instance=RequestContext(request))
