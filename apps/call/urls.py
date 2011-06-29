@@ -37,6 +37,13 @@ urlpatterns = patterns('',
          },
         name='call_main_menu'),
 
+    url(r'^new_listings/(?P<job_recommendation_id>\d+)/',
+        'call.views.new_listings',
+        {
+         'template': 'call/fragments/new_listings.html',
+         },
+        name='call_new_listings'),
+
     url(r'^new_listings/',
         'call.views.new_listings',
         {
@@ -44,15 +51,78 @@ urlpatterns = patterns('',
          },
         name='call_new_listings'),
 
+    url(r'^listing_info/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/',
+        'call.views.listing_info',
+        {
+         'template': 'call/fragments/listing_info.html',
+         },
+        name='call_listing_info'),
+
+    url(r'^listing_info/(?P<job_recommendation_id>\d+)/',
+        'call.views.listing_info',
+        {
+         'template': 'call/fragments/listing_info.html',
+         },
+        name='call_listing_info'),
+
+    url(r'^apply/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/',
+        'call.views.apply',
+        {
+         'template': 'call/fragments/apply.html',
+         },
+        name='call_apply'),
+
+    url(r'^apply/(?P<job_recommendation_id>\d+)/',
+        'call.views.apply',
+        {
+         'template': 'call/fragments/apply.html',
+         },
+        name='call_apply'),
+
+    url(r'^save_listing/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/',
+        'call.views.save_listing',
+        {
+         'template': 'call/fragments/save_listing.html',
+         },
+        name='call_save_listing'),
+
+    url(r'^save_listing/(?P<job_recommendation_id>\d+)/',
+        'call.views.save_listing',
+        {
+         'template': 'call/fragments/save_listing.html',
+         },
+        name='call_save_listing'),
+
+    url(r'^delete_listing/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/',
+        'call.views.delete_listing',
+        {
+         'template': 'call/fragments/delete_listing.html',
+         },
+        name='call_delete_listing'),
+
+    url(r'^delete_listing/(?P<job_recommendation_id>\d+)/',
+        'call.views.delete_listing',
+        {
+         'template': 'call/fragments/delete_listing.html',
+         },
+        name='call_delete_listing'),
+
+    url(r'^saved_listings/(?P<job_recommendation_id>\d+)/',
+        'call.views.saved_listings',
+        {
+         'template': 'call/fragments/saved_listings.html',
+         },
+        name='call_saved_listings'),
+
     url(r'^saved_listings/',
-        'call.views.main_menu',
+        'call.views.new_listings',
         {
          'template': 'call/fragments/saved_listings.html',
          },
         name='call_saved_listings'),
 
     url(r'^job_code/',
-        'call.views.main_menu',
+        'call.views.job_code',
         {
          'template': 'call/fragments/job_code.html',
          },

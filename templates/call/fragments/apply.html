@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<Response>
+	<Say>You have successfully applied for this job.</Say>
+	{% if listing_type == '1' %}
+		<Redirect>{% url call_new_listings recommendation.id %}</Redirect>
+	{% else %}
+		<Redirect>{% url call_saved_listings recommendation.id %}</Redirect>
+	{% endif %}
+</Response>
