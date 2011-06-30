@@ -3,6 +3,7 @@ from random import random
 from django.db import models
 
 from job import signals
+from employer.models import EmployerProfile
 
 class BaseModel(models.Model):
     name = models.CharField(max_length = 50)
@@ -54,6 +55,8 @@ class Job(models.Model):
     education = models.ForeignKey(Education, null=False, default=1)
     experience = models.ForeignKey(Experience, null=False, default=1)
     industry = models.ManyToManyField(Industry)
+    
+    employer = models.ForeignKey(EmployerProfile, null=False, related_name='jobs')
     
     # Auto-create a job code if there isn't one set
     def save(self, *args, **kwargs):

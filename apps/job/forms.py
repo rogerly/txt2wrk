@@ -6,55 +6,25 @@ Created on Jun 18, 2011
 
 from django import forms
 from job import models
+from employer.models import EmployerProfile
 
 class JobForm(forms.ModelForm):
-    title = forms.CharField(
-                widget=forms.TextInput(),
-                label = 'Job Title',
-                required = True
-    )
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
+        super(JobForm, self).__init__(*args, **kwargs)
+        self.fields['employer'].widget = forms.HiddenInput()
+        self.fields['employer'].initial = EmployerProfile.objects.get(user=self.request.user)
     
-    description = forms.CharField(
-                    widget = forms.TextInput(),
-                    label = 'Job Description',
-                    required = True
-    )
-    
-    availability = forms.ModelChoiceField(
-                        widget = forms.Select,
-                        required = True,
-                        queryset = models.Availability.objects.all()
-    )
-    
-    workday = forms.ModelMultipleChoiceField(
-                    widget = forms.CheckboxSelectMultiple,
-                    queryset = models.Workday.objects.all()
-    )
-    
-    location = forms.ModelChoiceField(
-                    widget = forms.Select,
-                    required = True,
-                    queryset = models.Location.objects.all()
-    )
-    
-    education = forms.ModelChoiceField( 
-                    widget = forms.Select,
-                    required = True,
-                    queryset = models.Education.objects.all()
-    )
-    
-    experience = forms.ModelChoiceField(
-                    widget = forms.Select,
-                    required = True,
-                    queryset = models.Experience.objects.all()
-    )
-    
-    industry = forms.ModelMultipleChoiceField(
-                    widget = forms.CheckboxSelectMultiple,
-                    required = False,
-                    queryset = models.Industry.objects.all()
-    )
-        
     class Meta:
         model = models.Job
-        exclude = ('job_code')
+        fields = ('id', 
+                  'title', 
+                  'description', 
+                  'availability', 
+                  'workday',
+                  'location',
+                  'education',
+                  'experience',
+                  'industry',
+                  'employer',
+                  )
