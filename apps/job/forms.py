@@ -21,18 +21,13 @@ class JobForm(forms.ModelForm):
                     queryset = models.Industry.objects.all()
     )
     
-    def save(self, user=None, commit=True):
-        job = super(JobForm, self).save(commit=commit)
-
-        if user:
-            employer = models.EmployerProfile.objects.get(user=user)
-            job.employer = employer
-
-        if commit:
-            job.save()
-
-        return job
-    
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super(JobForm, self).__init__(*args, **kwargs)
+        self.fields['employer'].widget = forms.HiddenInput()
+        self.fields['employer'].initial = models.EmployerProfile.objects.get(user=self.user)
+        self.fields['employer'].required = False
+        
     class Meta:
         model = models.Job
         fields = ('title', 
@@ -42,5 +37,6 @@ class JobForm(forms.ModelForm):
                   'education',
                   'experience',
                   'industry',
+                  'employer'
                   )
 
