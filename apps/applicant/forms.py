@@ -5,56 +5,28 @@ from django.utils.translation import ugettext_lazy as _
 
 from job import models
 from models import ApplicantProfile
+from job.models import Industry, Workday
 
 from common.helpers import createUniqueDjangoUsername, USPhoneNumberField
 from registration.forms import RegistrationForm
 
 class ApplicantProfileForm(forms.ModelForm):
     
-    availability = forms.ModelChoiceField(
-                        widget = forms.Select,
-                        required = True,
-                        label = 'Available to start',
-                        queryset = models.Availability.objects.all()
-    )
-    
     workday = forms.ModelMultipleChoiceField(
                     widget = forms.CheckboxSelectMultiple,
-                    label = 'Workdays',
-                    queryset = models.Workday.objects.all()
-    )
-    
-    location = forms.ModelChoiceField(
-                    widget = forms.Select,
-                    required = True,
-                    label = 'Locations',
-                    queryset = models.Location.objects.all()
-    )
-    
-    education = forms.ModelChoiceField( 
-                    widget = forms.Select,
-                    required = True,
-                    label = 'Highest Education',
-                    queryset = models.Education.objects.all()
-    )
-    
-    experience = forms.ModelChoiceField(
-                    widget = forms.Select,
-                    required = True,
-                    label = 'Years of Work Experience',
-                    queryset = models.Experience.objects.all()
+                    label = 'Days available to work',
+                    queryset = Workday.objects.all()
     )
     
     industry = forms.ModelMultipleChoiceField(
                     widget = forms.CheckboxSelectMultiple,
-                    required = False,
                     label = 'Please select areas with the most experience',
-                    queryset = models.Industry.objects.all()
+                    queryset = Industry.objects.all()
     )
     
     class Meta:
         model = ApplicantProfile
-        exclude = ('mobile_number', 'confirmed_phone', 'user')
+        exclude = ('user', 'mobile_number', 'confirmed_phone', 'jobs', 'latitude', 'longitude')
         
 class MobileNotificationForm(forms.Form):
     

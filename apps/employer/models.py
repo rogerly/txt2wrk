@@ -54,5 +54,11 @@ class EmployerProfile(Profile):
     def __unicode__(self):
         return u'%s' % (self.business_name,)
 
+    def is_valid(self):
+        return self.business_name
+
     def get_login_destination(self):
-        return reverse('employer_profile')
+        if self.is_valid():
+            return reverse('employer_dashboard')
+        else:
+            return reverse('employer_profile')

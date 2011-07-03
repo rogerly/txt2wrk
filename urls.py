@@ -28,18 +28,8 @@ urlpatterns = patterns('',
     
     (r'^call/', include('call.urls')),
 
-    url(r'^job/create/$',
-        'job.views.create_profile',
-        {
-         'template' : 'employer/job/create_job.html'
-         },
-        name = 'create_profile'),
-    url(r'^job/view/(?P<job_code>\d+)$',
-        'job.views.view_profile',
-        {
-         'template' : 'employer/job/view_job.html'
-         },
-        name = 'view_profile'),
+    (r'^job/', include('job.urls')),
+
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve', 
         {
          'document_root': settings.STATIC_MEDIA_PATH,

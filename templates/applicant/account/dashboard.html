@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "applicant/applicant_base.html" %}
 
 {% block body_content %}
 <h1>Applicant Dashboard</h1>
@@ -16,6 +16,7 @@
 	Availability: {{ profile.availability }} <br/>
 	Location: Near {{ profile.location }} <br/>
 	Experience: {{ profile.education }}, {{ profile.experience }} <br/>
+	Workdays: {% for workday in profile.workday.all %} {{ workday }}{% if not forloop.last %}, {% endif %} {% endfor %}  <br/>
 	Skills: {% for industry in profile.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %}  
 </div>
 
@@ -46,6 +47,16 @@
 			<th> Employer </th>
 			<th> Job Title </th>
 			<th> Dated Applied </th>			
+		</tr>
+		{% for applicant_job in applicant_jobs %}
+		<tr>
+			<td> {{ applicant_job.job.employer.business_name }} </td>
+			<td> <a href="/job/view/{{ applicant_job.job.job_code }} "> {{ applicant_job.job.title }} </a> </td>
+			<td> {{ applicant_job.date_submitted }} </td>
+			<td> <a href="#"> delete</a> </td>
+		</tr>
+		{% endfor %}
+		
 	</table>
 </div>
 

@@ -1,0 +1,42 @@
+
+<html>
+
+<head> 
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/job.css" />
+</head>
+
+<body>
+	
+	<div id="top">
+		<span class="label"> Title </span> <br/>
+		<span class="value"> {{ job.title }} </span>
+		<p>
+		<span class="label"> Description </span> <br/>
+		<span class="value"> {{ job.description }} </span>
+	</div>
+	<div id="left">
+		<span class="label"> Education Level </span> <br/>
+		<span class="value"> {{ job.get_education_display }} </span>
+		<p>
+		<span class="label"> Start Date </span> <br/>
+		<span class="value"> {{ job.availability }} </span>
+		<p>
+		<span class="label"> Years of work experience</span> <br/>
+		<span class="value"> {{ job.get_experience_display }} </span>
+		<p>
+		<span class="label"> Workdays </span> <br/>
+		<span class="value">
+		 	{% for workday in job.workday.all %} {{ workday }}{% if not forloop.last %}, {% endif %} {% endfor %}  
+		</span>
+		<p>
+		<span class="label"> Industry </span> <br>
+		<span class="value"> 
+			{% for industry in job.industry.all %} {{ industry }} {% if not forloop.last %}, {% endif %} {% endfor %}  
+		</span>
+		
+	</div>
+	
+	{% block job_action %} {% endblock %}
+	
+</body>
+</html>

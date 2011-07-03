@@ -4,9 +4,12 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from account.models import Profile
-from job.models import Availability, Workday, Location, Education, Experience, Industry
+from job.models import Criteria, Job
+from datetime import date
 
-class ApplicantProfile(Profile):
+    
+class ApplicantProfile(Profile, Criteria):
+    
     mobile_number = models.CharField('Mobile Phone Number', 
                                      blank=False, 
                                      max_length=20, 
@@ -15,15 +18,20 @@ class ApplicantProfile(Profile):
 
     confirmed_phone = models.BooleanField(default=False)
 
-    availability = models.ForeignKey(Availability, null=False, default=1)
-    workday = models.ManyToManyField(Workday)
-    location = models.ForeignKey(Location, null=False, default=1)
-    education = models.ForeignKey(Education, null=False, default=1)
-    experience = models.ForeignKey(Experience, null=False, default=1)
-    industry = models.ManyToManyField(Industry)
-    
+    jobs = models.ManyToManyField(Job, related_name='applicants')
+
     def __unicode__(self):
         return u'%s' % (self.mobile_number,)
 
+
     def get_login_destination(self):
-        return reverse('applicant_profile')
+        if self.is_complete():
+            return reverse('applicant_dashboard')
+        else:
+            return reverse('applicant_profile')
+
+class ApplicantJob(models.Model):
+    date_submitted = models.DateField(default=date.today())
+    job = models.ForeignKey(Job, related_name='applicant_job')
+    applicant = models.ForeignKey(ApplicantProfile)
+    

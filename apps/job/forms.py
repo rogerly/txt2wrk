@@ -5,26 +5,42 @@ Created on Jun 18, 2011
 '''
 
 from django import forms
+from employer import models
 from job import models
-from employer.models import EmployerProfile
 
 class JobForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request')
-        super(JobForm, self).__init__(*args, **kwargs)
-        self.fields['employer'].widget = forms.HiddenInput()
-        self.fields['employer'].initial = EmployerProfile.objects.get(user=self.request.user)
+    workday = forms.ModelMultipleChoiceField(
+                    widget = forms.CheckboxSelectMultiple,
+                    label = 'Days available to work',
+                    queryset = models.Workday.objects.all()
+    )
+    
+    industry = forms.ModelMultipleChoiceField(
+                    widget = forms.CheckboxSelectMultiple,
+                    label = 'Please select areas with the most experience',
+                    queryset = models.Industry.objects.all()
+    )
+    
+    def save(self, user=None, commit=True):
+        job = super(JobForm, self).save(commit=commit)
+
+        if user:
+            employer = models.EmployerProfile.objects.get(user=self.request.user)
+            job.employer = employer
+
+        if commit:
+            job.save()
+
+        return job
     
     class Meta:
         model = models.Job
         fields = ('id', 
-                  'title', 
                   'description', 
                   'availability', 
                   'workday',
-                  'location',
                   'education',
                   'experience',
                   'industry',
-                  'employer',
                   )
+

@@ -6,6 +6,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import user_passes_test
 from forms import EmployerProfileForm
 from models import EmployerProfile
+from applicant.models import ApplicantJob
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/employer/login')
 def employer_profile(request, template='employer/account/profile.html'):
@@ -24,6 +25,9 @@ def employer_profile(request, template='employer/account/profile.html'):
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/employer/login')
 def employer_dashboard(request, template='employer/account/dashboard.html'):
     profile = EmployerProfile.objects.get(user=request.user)
+    jobs = profile.jobs.all()
+    
     return render_to_response(template, 
-                              {'profile' : profile },
+                              {'profile' : profile,
+                               'jobs' :jobs },
                               context_instance=RequestContext(request))

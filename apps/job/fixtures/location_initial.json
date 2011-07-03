@@ -1,1 +1,0 @@
-[{"pk": 1, "model": "job.location", "fields": {"name": "San Francisco, California"}}, {"pk": 2, "model": "job.location", "fields": {"name": "Oakland, California"}}]

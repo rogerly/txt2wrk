@@ -1,10 +1,6 @@
 from django.contrib import admin
-from job.models import Job,Availability,Workday,Location,Education,Experience,Industry
+from job.models import Job,Workday,Industry
 
 admin.site.register(Job)
-admin.site.register(Availability)
 admin.site.register(Workday)
-admin.site.register(Location)
-admin.site.register(Education)
-admin.site.register(Experience)
 admin.site.register(Industry)

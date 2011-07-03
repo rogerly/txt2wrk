@@ -1,4 +1,4 @@
-{% extends "applicant/applicant_base.html" %}
+{% extends "employer/employer_base.html" %}
 
 {% block head_title %} Applicant Profile {% endblock %}
 {% block page_css %} 		
@@ -9,15 +9,12 @@
 
 
 
-<h1>Applicant Profile</h1>
+<h1>Job Profile</h1>
 <div>
-Please describe the description of your skills. 
-Bacon ipsum dolor sit amet nisi proident cow adipisicing pastrami, sirloin pig dolore officia aliqua ut tempor brisket 
+Bacon bacon bacon ipsum dolor sit amet nisi proident cow adipisicing pastrami, sirloin pig dolore officia aliqua ut tempor brisket 
 pariatur. Andouille brisket aliqua culpa, cupidatat chicken et short ribs bresaola.
 </div>
-
-
-<form action="{% url applicant_profile %}" method="post">
+<form action="./{{job_code}}" method="post">
 	{% csrf_token %}
     {{ form.non_field_errors }}
     <div class="fieldWrapper">
@@ -44,10 +41,14 @@ pariatur. Andouille brisket aliqua culpa, cupidatat chicken et short ribs bresao
     	{{ form.education }} {{ form.education.errors }}
     </div>
     <div class="fieldWrapper">
-    	{{ form.experience.label_tag }} {{ form.experience }}
+    	<label for="{{ form.education.auto_id}}">   
+    	{{ form.experience.label }}
+      	{% if form.experience.field.required %} <span class="req"> * </span> {% endif %}
+    	</label>
+    	{{ form.experience }} {{ form.experience.errors }}
     </div>
     <div class="fieldWrapper" id="industryWrapper">
-    	{{ form.industry.label_tag }} {{ form.industry }}
+    	{{ form.industry.label_tag }} {{ form.industry }} {{ form.industry.errors }} 
     </div>
     
   	<input type="submit" name="create" value="Save Profile" />
