@@ -23,15 +23,16 @@ h1, h2, h3, h4, h5 {
 }
 
 .page-content {
+	display: block;
 	width: 800px;
 	margin: auto;
-	margin-top: 50px;
 	padding: 20px;
+	padding-top: 50px;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 	border: solid 1px #c0c0c0;
-	min-height: 500px;
+	min-height: 550px;
 }
 
 label {
@@ -60,3 +61,27 @@ ul.errorlist li {
 	
 }
 
+.req {
+	color: red;	
+}
+
+.page-nav {
+	background-color: black;
+	position: absolute;
+	height: 30px;
+	width: 100%;
+}
+
+
+.page-nav li{
+	float: right;
+	margin-right: 10px;
+	display: inline;
+	list-style: none;
+}
+
+.page-nav a {
+	line-height: 10px;
+	color: white;
+	text-decoration: none;
+}

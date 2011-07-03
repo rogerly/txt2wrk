@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" lang="{{ LANGUAGE_CODE }}">
+<html dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" lang="{{ LANGUAGE_CODE }}">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<title>Txt2Wrk : {% block head_title %}{% endblock %}</title>
@@ -8,9 +7,13 @@
 		<![endif]-->
 
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/base.css" />
-		{% block extra_css %} {% endblock %}
+		{% block page_css %} {% endblock %}
 	</head>
 	<body>
+		<nav class="page-nav">
+			{% block nav_content %} {% endblock %}		
+		</nav>
+	
 		<div class="page-content">
 			{% block body_content %}{% endblock %}
 		</div>

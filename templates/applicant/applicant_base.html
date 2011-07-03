@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block nav_content %}
+<ul>
+	<li> <a href="{% url applicant_logout %}"> Logout </a> </li>
+	<li> <a href="{% url applicant_dashboard %}"> Dashboard </a>  </li>
+	<li> <a href="{% url applicant_profile %}"> Profile </a> </li>
+</ul>
+{% endblock %}

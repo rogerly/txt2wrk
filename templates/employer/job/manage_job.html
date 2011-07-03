@@ -1,0 +1,36 @@
+{% extends "employer/employer_base.html" %}
+
+{% block body_content %}
+<h1>Manage Job </h1>
+
+<ul>
+	<li>
+		Title: {{ job.title }}
+	</li>
+	<li>
+		Description: {{ job.description }}
+	</li>
+	<li>
+		{{ profile.business_name }}
+	</li>
+	<li> 
+		{{ profile.business_address1 }}
+	</li>
+</ul>
+
+
+<h2> Applicants </h2>
+
+<table>
+	<tr>
+		<th> Applicant Name </th>
+		<th> Resume </th>
+	</tr>
+</table>
+
+{{ applicants }} 
+
+Found someone for this job?
+<a href='#'> Delete Job </a>
+{% endblock %}
+

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "employer/employer_base.html" %}
 
 {% block head_title %} Applicant Profile {% endblock %}
 {% block extra_css %} 		
@@ -6,8 +6,6 @@
 {% endblock %}
 
 {% block body_content %}
-
-
 
 <h1>Employer Profile</h1>
 <div>
@@ -18,6 +16,31 @@ pariatur. Andouille brisket aliqua culpa, cupidatat chicken et short ribs bresao
 <form action="{% url employer_profile %}" method="post">
 	{% csrf_token %}
     {{ form.non_field_errors }}
+	{{ form.errors }} 
+   <div class="fieldWrapper">
+    	{{ form.business_name.label_tag }} {{ form.business_name }} {{ form.business_name.errors }}
+    </div>
+    <div class="fieldWrapper">
+    	{{ form.business_address1.label_tag }} {{ form.business_address1 }} {{ form.business_address1.errors }}
+    </div>
+    <div class="fieldWrapper">
+    	{{ form.business_address2.label_tag }} {{ form.business_address2 }} {{ form.business_address2.errors }}
+    </div>
+    <div class="fieldWrapper">
+    	{{ form.city.label_tag }} {{ form.city }} {{ form.city.errors }}
+    </div>
+    <div class="fieldWrapper">
+    	{{ form.zip_code.label_tag }} {{ form.zip_code }} {{ form.zip_code.errors }}
+    </div>
+     <div class="fieldWrapper">
+    	{{ form.business_phone_number.label_tag }} {{ form.business_phone_number }} {{ form.business_phone_number.errors }}
+    </div>
+    <div class="fieldWrapper">
+    	{{ form.business_website_url.label_tag }} {{ form.business_website_url }} {{ form.business_website_url.errors }}
+    </div>
+    <div class="fieldWrapper">
+    	{{ form.business_description.label_tag }} {{ form.business_description }} {{ form.business_description.errors }}
+    </div>
     
   	<input type="submit" name="create" value="Save Profile" />
 </form>

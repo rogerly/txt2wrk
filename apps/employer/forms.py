@@ -12,7 +12,7 @@ class EmployerProfileForm(forms.ModelForm):
     
     class Meta:
         model = EmployerProfile
-        exclude = ('user')
+        exclude = ('user', 'phone_number')
         
 attrs_dict = { 'class': 'required' }
 

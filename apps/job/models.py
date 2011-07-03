@@ -1,5 +1,5 @@
 from random import random
-
+from datetime import date
 from django.db import models
 
 from job import signals
@@ -14,25 +14,44 @@ class BaseModel(models.Model):
     def __unicode__(self):
         return self.name
 
-class Availability(BaseModel):
-    pass
 
 class Workday(BaseModel):
-    pass
-
-class Location(BaseModel):
-    pass
-
-class Education(BaseModel):
-    pass
-
-class Experience(BaseModel):
     pass
 
 class Industry(BaseModel):
     pass
 
-class Job(models.Model):
+
+class Criteria(models.Model):
+    
+    AVAILABILITY_CHOICES = ((1, "Immediately"), 
+                            (2, "Within a month"))
+    
+    EDUCATION_CHOICES = ((1, "High school diploma"), 
+                            (2, "Associates Degree"), 
+                            (3, "Bachelor's Degree"))
+    
+    EXPERIENCE_CHOICES = ((1, "0-1 years"), 
+                            (2, "1-4 years"), 
+                            (3, "4-10 years"))
+
+    
+    availability = models.IntegerField(null=False, choices=AVAILABILITY_CHOICES)
+    workday = models.ManyToManyField(Workday)
+    experience = models.IntegerField(null=False, choices=EXPERIENCE_CHOICES)
+    education = models.IntegerField(null=False, choices=EDUCATION_CHOICES)
+    industry = models.ManyToManyField(Industry)
+    latitude = models.CharField(null=True, max_length=5)
+    longitude = models.CharField(null=True, max_length=5)
+
+    def is_complete(self):
+        return self.availability or self.education or self.experience 
+    
+    class Meta:
+        abstract = True
+
+
+class Job(Criteria):
 
     title = models.CharField('Job Title',
                              max_length=80,
@@ -49,14 +68,11 @@ class Job(models.Model):
                                 blank=True,
                                 db_index=True,
                                 help_text='This is the job code that the applicant will use.')
-    availability = models.ForeignKey(Availability, null=False, default=1)
-    workday = models.ManyToManyField(Workday)
-    location = models.ForeignKey(Location, null=False, default=1)
-    education = models.ForeignKey(Education, null=False, default=1)
-    experience = models.ForeignKey(Experience, null=False, default=1)
-    industry = models.ManyToManyField(Industry)
+    
+    date_created = models.DateField(blank=False, default=date.today)
     
     employer = models.ForeignKey(EmployerProfile, null=False, related_name='jobs')
+    
     
     # Auto-create a job code if there isn't one set
     def save(self, *args, **kwargs):
@@ -75,5 +91,6 @@ class Job(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.title,)
+
 
     

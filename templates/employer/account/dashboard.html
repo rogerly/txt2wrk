@@ -1,10 +1,29 @@
-{% extends "base.html" %}
+{% extends "employer/employer_base.html" %}
 
 {% block body_content %}
-<h1>Applicant Dashboard</h1>
 
-<div id="personal">
-	{{ profile.username }}
-	{{ profile.phone_number }}
+<div id="name">
+	<h2>{{ profile.business_name }} </h2>
+	Create a new job or review applicants for job postings you have already created
 </div>
+
+<div id="create-job">
+	<a href="{% url create_job %}"> Create job</a>
+</div>
+
+<table>
+	<tr> 
+		<th> Job Title </th>
+		<th> Date Created </th>
+		<th> # of Applicants </th>
+	</tr>
+	{% for job in jobs %}
+	<tr>
+		<td> <a href="/job/view/{{job.job_code}}"> {{ job.title }} </a> </td>
+		<td> {{ job.date_created }}  </td>
+		<td> <a href="#"> {{ job.applicant_job.count }} </a> </td>
+		<td> <a href="#"> delete </a> </td>
+	</tr>
+	{% endfor %}
+</table>
 {% endblock %}
