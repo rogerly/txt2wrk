@@ -44,13 +44,13 @@ def edit_job(request, job_code, template = 'job/edit_job.html'):
     
     
     if request.method == 'POST':        
-        form = JobForm(data=request.POST, instance=job)
+        form = JobForm(data=request.POST, user=request.user, instance=job)
 
         if form.is_valid():
             job = form.save()
             return redirect(view_job, job_code)
     else:
-        form = JobForm(instance=job)
+        form = JobForm(instance=job, user=request.user)
     return render_to_response(template, 
                               {'form' : form, 
                                'job_code' : job_code}, 
@@ -61,12 +61,12 @@ def create_job(request, job_code=None, template = 'job/edit_job.html'):
     jobForm = None 
     
     if request.method == 'POST':        
-        jobForm = JobForm(data=request.POST)
+        jobForm = JobForm(data=request.POST, user=request.user)
         if jobForm.is_valid():
             job = jobForm.save(request.user)
             return redirect(view_job, job.job_code)
     else:
-        jobForm = JobForm()
+        jobForm = JobForm(user=request.user)
     return render_to_response(template, 
                               {'form' : jobForm } ,
                               context_instance=RequestContext(request))
