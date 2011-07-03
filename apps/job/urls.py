@@ -3,7 +3,6 @@ Created on Jul 2, 2011
 
 @author: Jon
 '''
-import settings
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 

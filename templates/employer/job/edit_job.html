@@ -18,6 +18,21 @@ pariatur. Andouille brisket aliqua culpa, cupidatat chicken et short ribs bresao
 	{% csrf_token %}
     {{ form.non_field_errors }}
     <div class="fieldWrapper">
+    	<label for="{{ form.title.auto_id}}">   
+    	{{ form.title.label }}
+      	{% if form.title.field.required %} <span class="req"> * </span> {% endif %}
+    	</label>
+    	{{ form.title }} {{ form.title.errors }}
+    </div>
+    <div class="fieldWrapper">
+    	<label for="{{ form.availability.auto_id}}">   
+    	{{ form.description.label }}
+      	{% if form.description.field.required %} <span class="req"> * </span> {% endif %}
+    	</label>
+    	{{ form.description }} {{ form.description.errors }}
+    </div>
+
+    <div class="fieldWrapper">
     	<label for="{{ form.availability.auto_id}}">   
     	{{ form.availability.label }}
       	{% if form.availability.field.required %} <span class="req"> * </span> {% endif %}

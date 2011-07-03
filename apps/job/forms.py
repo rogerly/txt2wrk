@@ -25,7 +25,7 @@ class JobForm(forms.ModelForm):
         job = super(JobForm, self).save(commit=commit)
 
         if user:
-            employer = models.EmployerProfile.objects.get(user=self.request.user)
+            employer = models.EmployerProfile.objects.get(user=user)
             job.employer = employer
 
         if commit:
@@ -35,7 +35,7 @@ class JobForm(forms.ModelForm):
     
     class Meta:
         model = models.Job
-        fields = ('id', 
+        fields = ('title', 
                   'description', 
                   'availability', 
                   'workday',
