@@ -36,10 +36,10 @@ class Criteria(models.Model):
                             (3, "4-10 years"))
 
     
-    availability = models.IntegerField(null=False, choices=AVAILABILITY_CHOICES)
+    availability = models.IntegerField(null=True, choices=AVAILABILITY_CHOICES, default=1)
     workday = models.ManyToManyField(Workday)
-    experience = models.IntegerField(null=False, choices=EXPERIENCE_CHOICES)
-    education = models.IntegerField(null=False, choices=EDUCATION_CHOICES)
+    experience = models.IntegerField(null=True, choices=EXPERIENCE_CHOICES, default=1)
+    education = models.IntegerField(null=True, choices=EDUCATION_CHOICES, default=1)
     industry = models.ManyToManyField(Industry)
     latitude = models.CharField(null=True, max_length=5)
     longitude = models.CharField(null=True, max_length=5)
