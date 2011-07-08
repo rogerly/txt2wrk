@@ -37,12 +37,12 @@ class EmployerProfile(Profile):
                                 max_length=10,
                                 )
     
-    business_phone_number = models.CharField('Business Phone Number',
+    business_phone_number = models.CharField('Business Phone',
                                              blank=True,
                                              max_length=20,
                                              )
     
-    business_website_url = models.CharField('Business Website URL',
+    business_website_url = models.CharField('Business URL',
                                             blank=True,
                                             max_length=100,
                                             )

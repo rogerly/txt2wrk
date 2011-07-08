@@ -40,7 +40,7 @@ class RegistrationForm(forms.Form):
     password1 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
                                 label=_("Password"))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
-                                label=_("Password (again)"))
+                                label=_("Confirm Password"))
     
     def clean_username(self):
         """
