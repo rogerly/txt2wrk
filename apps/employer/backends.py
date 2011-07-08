@@ -104,7 +104,7 @@ class EmployerBackend(object):
         user registration.
         
         """
-        return ('employer_registration_complete', (), {})
+        return ('employer_profile', (), {})
 
     def post_activation_redirect(self, request, user):
         raise NotImplementedError

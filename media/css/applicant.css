@@ -17,8 +17,3 @@ div.fieldWrapper label
 	vertical-align: top;	
 }
 
-div.fieldWrapper > label:first-child
-{
-	font-weight: bold;	
-}
-

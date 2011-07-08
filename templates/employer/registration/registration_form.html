@@ -1,19 +1,83 @@
 {% extends "base.html" %}
 
+{% block page_css %}
+<style type="text/css">
+	form {
+		width: 432px;
+	}
+	
+	h2 {
+		border-bottom: 1px solid #58595b;
+	}
+	
+	#benefits {
+		font-size: 24px;
+		font-weight: bold;
+		margin-top: 0px;
+	}
+</style>
+{% endblock %}
+
+
 {% block body_content %}
-<h1>Sign up</h1>
-<form action="{% url employer_register %}" method="post">
-	{% csrf_token %}
-    {{ form.non_field_errors }}
-    {% for field in form %}
-        <div class="fieldWrapper">
-			{% if field.is_hidden %}
-			   	{{ field }}
-			{% else %}
-	            {{ field.label_tag }} {{ field }} {{ field.errors }}
-			{% endif %}
-        </div>
-    {% endfor %}
-  	<input type="submit" name="register" value="Register" />
-</form>
+<h1>Create an Account</h1>
+<div class="left-column">
+	<ul id="benefits" class="no-bullets">
+		<li>Register for free</li>
+		<li>Receive automatic updates</li>
+		<li>Receive Federal tax incentives</li>
+	</ul>
+	<p><strong>txt2wrk</strong> provides a free job-matching service to employers willing to hire employees who have traditionally been considered "hard to hire," for example, parolees, people in temporary housing, and people with limited literacy skills and limited access to the Internet.</p>
+	<h2>Who are <strong>txt2wrk</strong> job seekers?</h2>
+	<p><strong>txt2wrk</strong> job seekers are eager to find work, but their job searches have typically been affected by limited access to the internet or low literacy.</p>
+	<p><strong>txt2wrk</strong> provides job alerts and spoken job descriptions over any mobile phone, enabling people with limited access to spend more time looking for work, and provides people with low literacy an alternative to existing job portals and help-wanted ads.</p>
+	<h2>How can <strong>txt2wrk</strong> help you?</h2>
+	<p><strong>Job postings are free!</strong> Create an account and immediately post as many job postings as you like.</p>
+	<p><strong>Access untapped pools of job seekers</strong> who are ready to work immediately and are not currently being served by existing job portals and help-wanted ads.</p>
+	<p><strong>Minimize the time between posting a job</strong> and receiving applications. Job seekers are notified immediately of new job postings and can submit their resume instantaneously, all using their mobile phone.</p>
+</div>
+<div class="right-column">
+	<form action="{% url employer_register %}" method="post">
+		{% csrf_token %}
+	    {{ form.non_field_errors }}
+	    <fieldset>
+	    	<legend>Let's set up some account details:
+	    	<span class="required-fields">All fields required</span></legend>
+	    	<div class="fieldWrapper">
+		    	{{ form.username.label_tag }} {{ form.username }} {{ form.username.errors }}
+	    	</div>
+	    	<div class="fieldWrapper">
+		    	{{ form.password1.label_tag }} {{ form.password1 }} {{ form.password1.errors }}
+	    	</div>
+	    	<div class="fieldWrapper">
+		    	{{ form.password2.label_tag }} {{ form.password2 }} {{ form.password2.errors }}
+	    	</div>
+	    	<div class="help-text">
+	    		<p>Use this user name and password to add new job listings, cancel job lists, and check job matches. </p>
+	    	</div>
+	    </fieldset>
+	    <fieldset>
+	    	<legend>Contact Information:
+	    	<span class="required-fields">All fields required</span></legend>
+	    	<div class="fieldWrapper">
+		    	{{ form.first_name.label_tag }} {{ form.first_name }} {{ form.first_name.errors }}
+	    	</div>
+	    	<div class="fieldWrapper">
+		    	{{ form.last_name.label_tag }} {{ form.last_name }} {{ form.last_name.errors }}
+	    	</div>
+	    	<div class="fieldWrapper">
+		    	{{ form.email.label_tag }} {{ form.email }} {{ form.email.errors }}
+	    	</div>
+	    	<div class="fieldWrapper">
+		    	{{ form.phone_number.label_tag }} {{ form.phone_number }} {{ form.phone_number.errors }}
+	    	</div>
+	    	<div class="help-text">
+	    		<p>Please note that all job matches will be sent to the email address that you enter here.</p>
+	    	</div>
+	    </fieldset>
+	    <div class="right">
+		  	<button name="createaccount">Create Account</button>
+		</div>
+	</form>
+</div>
 {% endblock %}

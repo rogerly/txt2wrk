@@ -9,9 +9,9 @@ body {
 	padding: 0px;
 	margin: 0px;
 	background-color: #fff;
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-	font-size: smaller;
-	color: #000;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	color: #58595b;
 }
 
 a, a:hover, a:visited, a:active {
@@ -22,32 +22,84 @@ h1, h2, h3, h4, h5 {
 	margin-top: 0px;
 }
 
+h1 {
+	font-size: 36px;
+}
+
+h2 {
+	font-size: 24px;
+}
+
 .page-content {
 	display: block;
-	width: 800px;
+	width: 950px;
 	margin: auto;
 	padding: 20px;
 	padding-top: 50px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	border: solid 1px #c0c0c0;
 	min-height: 550px;
+}
+
+fieldset {
+	border: 0px solid #ffffff;
+	margin: 0px 0px 20px 0px;
+	padding: 0px;
+}
+
+legend {
+	border-top-width: 1px;
+	border-top-color: #a6a8ab;
+	border-top-style: solid;
+	width: 100%;
+	color: #0091ce;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 label {
 	width: 200px;
 	display: inline-block;
+	font-size: 18px;
 }
 
 input[type=text], input[type=password] {
-	width: 180px;
+	width: 220px;
 	padding: 5px;
 	color: #aaa;
 	border: 1px solid #cccccc;
-	font-size: larger;
+	font-size: 18px;
 	margin-bottom: 5px;
 	display: inline-block;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+textarea {
+	width: 100%;
+	border: 1px solid #cccccc;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+button {
+	border: 1px solid #58595b;
+	color: #ffffff;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	background-color: #0091ce;
+	font-size: 18px;
+	text-transform: uppercase;
+	text-shadow: #58595b 1px 1px 2px;
+	font-weight: bold;
+	padding: .8em;
+}
+
+strong {
+	color: #0091ce;
+	font-weight: inherit;
 }
 
 ul.errorlist {
@@ -57,12 +109,29 @@ ul.errorlist {
 	color: #ff0000;
 }
 
+ul.no-bullets {
+	list-style: none;
+	padding-left: 0px;
+}
+
 ul.errorlist li {
 	
 }
 
 .req {
 	color: red;	
+}
+
+div.fieldWrapper {
+	margin-bottom: 10px;
+}
+
+.required-fields {
+	font-size: 10px;
+	float: right;
+	color: #58595b;
+	margin-top: 5px;
+	font-weight: normal;
 }
 
 .page-nav {
@@ -84,4 +153,22 @@ ul.errorlist li {
 	line-height: 10px;
 	color: white;
 	text-decoration: none;
+}
+
+.right {
+	float: right;
+}
+
+.left-column {
+	float: left;
+	width: 50%;
+}
+
+.right-column {
+	float: right;
+	width: 40%;
+}
+
+.help-text {
+	padding-left: 185px;
 }
