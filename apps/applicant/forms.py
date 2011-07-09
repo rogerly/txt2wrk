@@ -56,7 +56,7 @@ class ApplicantRegistrationForm(RegistrationForm):
         self.base_fields.keyOrder = ['username', 'mobile_number', 'password1', 'password2', 'first_name', 'last_name', 'email']
         super(ApplicantRegistrationForm, self).__init__(*args, **kwargs)
 
-    mobile_number = USPhoneNumberField(label = _("Mobile Phone Number"),
+    mobile_number = USPhoneNumberField(label = _("Phone Number"),
                                        widget=forms.TextInput(attrs=attrs_dict),
                                        required = True,
                                        )
@@ -66,10 +66,10 @@ class ApplicantRegistrationForm(RegistrationForm):
     last_name = forms.CharField(label = _('Last Name'), required = True)
     
     password1 = PhonePINField(widget = forms.PasswordInput(attrs=attrs_dict, render_value=False),
-                              label = _('Password'))
+                              label = _('PIN (4 numbers)'))
 
     password2 = PhonePINField(widget = forms.PasswordInput(attrs=attrs_dict, render_value=False),
-                              label = _('Confirm Password'))
+                              label = _('Confirm PIN'))
 
     def clean_mobile_number(self):
         if 'mobile_number' in self.cleaned_data:

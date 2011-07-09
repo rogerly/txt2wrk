@@ -1,8 +1,47 @@
 {% extends "base.html" %}
 
+{% block page_css %}
+<style type="text/css">
+	.right-column {
+		width: 432px;
+	}
+	
+	h2 {
+		border-bottom: 1px solid #58595b;
+	}
+	
+	#benefits {
+		font-size: 24px;
+		font-weight: bold;
+		margin-top: 0px;
+	}
+</style>
+{% endblock %}
+
+{% block nav_content %}
+	<ul>
+		<li>Have an Account? <a href="{% url applicant_login %}"><button>Login</button></a></li>
+	</ul>
+{% endblock %}
+
 {% block body_content %}
-<h1>Sign up</h1>
+<h1>Create an Account</h1>
 <div class="left-column">
+	<ul id="benefits" class="no-bullets">
+		<li>Lorem Ipsum</li>
+		<li>Lorem Ipsum</li>
+		<li>Lorem Ipsum</li>
+	</ul>
+	<p><strong>txt2wrk</strong> Bacon ipsum dolor sit amet swine tail ribeye hamburger beef. Hamburger brisket drumstick shoulder, jowl beef pork short ribs salami andouille fatback t-bone bresaola chicken ham. Salami pork chop corned beef, tenderloin swine brisket t-bone sausage.</p>
+	<h2>Who are <strong>txt2wrk</strong> employers?</h2>
+	<p><strong>txt2wrk</strong> Bacon ipsum dolor sit amet swine tail ribeye hamburger beef. Hamburger brisket drumstick shoulder, jowl beef pork short ribs salami andouille fatback t-bone bresaola chicken ham.</p>
+	<p><strong>txt2wrk</strong> Bacon ipsum dolor sit amet swine tail ribeye hamburger beef. Hamburger brisket drumstick shoulder, jowl beef pork short ribs salami andouille fatback t-bone bresaola chicken ham. Salami pork chop corned beef, tenderloin.</p>
+	<h2>How can <strong>txt2wrk</strong> help you?</h2>
+	<p><strong>Bacon ipsum dolor sit amet</strong> Hamburger brisket drumstick shoulder, jowl beef pork short ribs</p>
+	<p><strong>Bacon ipsum dolor sit amet</strong> Hamburger brisket drumstick shoulder, jowl beef pork short ribs. Hamburger brisket drumstick shoulder, jowl beef pork short ribs</p>
+	<p><strong>Bacon ipsum dolor sit amet</strong> Hamburger brisket drumstick shoulder, jowl beef pork short ribs. Hamburger brisket drumstick shoulder, jowl beef pork short ribs. Hamburger brisket drumstick shoulder, jowl beef pork short ribs</p>
+</div>
+<div class="right-column">
 	<form action="{% url applicant_register %}" method="post">
 		{% csrf_token %}
 	    {{ form.non_field_errors }}
@@ -31,7 +70,7 @@
 	            {{ form.email.label_tag }} {{ form.email }} {{ form.email.errors }}
 	        </div>
 	    </fieldset>
-	    <button>Sign Up</button>
+	    <div class="right"><button>Create Account</button></div>
 	</form>
 </div>
 {% endblock %}
