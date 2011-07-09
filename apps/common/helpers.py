@@ -44,5 +44,5 @@ class PhonePINField(CharField):
             return u''
         m = pin_re.search(value)
         if m:
-            return u'%s' % (m,)
+            return value
         raise ValidationError(self.error_messages['invalid'])
