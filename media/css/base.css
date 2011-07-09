@@ -14,8 +14,12 @@ body {
 	color: #58595b;
 }
 
-a, a:hover, a:visited, a:active {
-	color: #0343fa;
+a, a:visited {
+	color: #58595b;
+}
+
+a:hover, a:active {
+	color: #000000;
 }
 
 h1, h2, h3, h4, h5 {
@@ -34,15 +38,15 @@ h2 {
 	display: block;
 	width: 950px;
 	margin: auto;
-	padding: 20px;
-	padding-top: 50px;
+	padding: 35px;
+	padding-top: 20px;
 	min-height: 550px;
 }
 
 fieldset {
 	border: 0px solid #ffffff;
 	margin: 0px 0px 20px 0px;
-	padding: 0px;
+	padding: 20px 0px 0px 0px;
 }
 
 legend {
@@ -60,6 +64,7 @@ label {
 	width: 200px;
 	display: inline-block;
 	font-size: 18px;
+	line-height: 36px;
 }
 
 input[type=text], input[type=password] {
@@ -81,6 +86,7 @@ textarea {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+	font-size: 14px;
 }
 
 button {
@@ -95,11 +101,16 @@ button {
 	text-shadow: #58595b 1px 1px 2px;
 	font-weight: bold;
 	padding: .8em;
+	cursor: pointer;
 }
 
 strong {
 	color: #0091ce;
 	font-weight: inherit;
+}
+
+p {
+	margin-top: 0px;
 }
 
 ul.errorlist {
@@ -134,11 +145,17 @@ div.fieldWrapper {
 	font-weight: normal;
 }
 
-.page-nav {
+header {
 	background-color: black;
-	position: absolute;
 	height: 30px;
 	width: 100%;
+}
+
+.page-nav {
+	width: 950px;
+	margin: auto;
+	height: 0px;
+	padding: 0px 35px 0px 35px;
 }
 
 
@@ -150,9 +167,16 @@ div.fieldWrapper {
 }
 
 .page-nav a {
-	line-height: 10px;
-	color: white;
+	line-height: 35px;
 	text-decoration: none;
+}
+
+nav * button {
+	font-size: 14px;
+	padding: 5px 25px 5px 25px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .right {
@@ -170,5 +194,5 @@ div.fieldWrapper {
 }
 
 .help-text {
-	padding-left: 185px;
+	padding-left: 200px;
 }

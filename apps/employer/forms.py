@@ -9,11 +9,28 @@ from common.helpers import USPhoneNumberField
 from registration.forms import RegistrationForm
 
 class EmployerProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.first_time_setup = kwargs.pop('first_time_setup')
+        super(EmployerProfileForm, self).__init__(*args, **kwargs)
+
+        if self.first_time_setup:
+            # Hide the phone number field if this is a first time
+            # profile setup
+            self.fields['phone_number'].widget = forms.HiddenInput()
+
+        self.fields['user'].widget = forms.HiddenInput()
+
+        # Fields aren't required in the database, but we require them
+        # when submitting the profile form
+        self.fields['business_name'].required=True
+        self.fields['business_address1'].required=True
+        self.fields['city'].required=True
+        self.fields['zip_code'].required=True
+        self.fields['business_description'].required=True
     
     class Meta:
         model = EmployerProfile
-        exclude = ('user', 'phone_number')
-        
+
 attrs_dict = { 'class': 'required' }
 
 class EmployerRegistrationForm(RegistrationForm):

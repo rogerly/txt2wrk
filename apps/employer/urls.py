@@ -36,12 +36,21 @@ urlpatterns = patterns('',
         },
         name='employer_registration_complete'),
 
+    url(r'^setup_profile/',
+        'employer.views.employer_profile',
+        {
+         'template': 'employer/account/profile.html',
+         'first_time_setup': True,
+        },
+        name='employer_profile_setup'),
+
     url(r'^profile/',
         'employer.views.employer_profile',
         {
          'template': 'employer/account/profile.html'
         },
         name='employer_profile'),
+
     url(r'^dashboard/',
         'employer.views.employer_dashboard',
         {
