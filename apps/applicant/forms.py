@@ -21,7 +21,7 @@ class ApplicantProfileForm(forms.ModelForm):
     industry = forms.ModelMultipleChoiceField(
                     widget = forms.CheckboxSelectMultiple,
                     label = 'Please select areas with the most experience',
-                    queryset = Industry.objects.all()
+                    queryset = Industry.objects.all().order_by('name')
     )
     
     class Meta:
