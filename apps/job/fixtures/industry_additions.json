@@ -1,0 +1,202 @@
+[
+	{
+		"pk": 1, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "retail"
+			}
+	}, 
+	{
+		"pk": 2, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "construction"
+			}
+	}, 
+	{
+		"pk": 3, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "food/beverage/hospitality"
+			}
+	},
+	{
+		"pk": 4, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "admin/clerical/office"
+			}
+	},
+	{
+		"pk": 5, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "art/media/design"
+			}
+	},
+	{
+		"pk": 6, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "carpentry"
+			}
+	},
+	{
+		"pk": 7, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "child care"
+			}
+	},
+	{
+		"pk": 8, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "customer service"
+			}
+	},
+	{
+		"pk": 9, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "education"
+			}
+	},
+	{
+		"pk": 10, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "electrical work"
+			}
+	},
+	{
+		"pk": 11, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "gardening/groundskeeping"
+			}
+	},
+	{
+		"pk": 12, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "general labor"
+			}
+	},
+	{
+		"pk": 13, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "housekeeping"
+			}
+	},
+	{
+		"pk": 14, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "legal/paralegal"
+			}
+	},
+	{
+		"pk": 15, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "manufacturing"
+			}
+	},
+	{
+		"pk": 16, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "painting"
+			}
+	},
+	{
+		"pk": 17, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "plumbing"
+			}
+	},
+	{
+		"pk": 18, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "real estate"
+			}
+	},
+	{
+		"pk": 19, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "sales"
+			}
+	},
+	{
+		"pk": 20, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "salon/spa/fitness"
+			}
+	},
+	{
+		"pk": 21, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "security"
+			}
+	},
+	{
+		"pk": 22, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "software"
+			}
+	},
+	{
+		"pk": 23, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "transportation"
+			}
+	},
+	{
+		"pk": 24, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "waste management"
+			}
+	},
+	{
+		"pk": 25, 
+		"model": "job.industry", 
+		"fields": 
+			{
+				"name": "writing/editing"
+			}
+	}
+]
