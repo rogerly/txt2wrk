@@ -80,6 +80,10 @@ input[type=text], input[type=password] {
 	border-radius: 5px;
 }
 
+select {
+	width: 220px;
+}
+
 textarea {
 	width: 100%;
 	border: 1px solid #cccccc;
@@ -145,7 +149,7 @@ div.fieldWrapper {
 	font-weight: normal;
 }
 
-header {
+body > header {
 	background-color: black;
 	height: 30px;
 	width: 100%;
@@ -195,4 +199,73 @@ nav * button {
 
 .help-text {
 	padding-left: 200px;
+}
+
+section {
+	margin-bottom: 50px;
+}
+
+section > header {
+	color: #0091ce;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+section > header * button {
+	float: right;
+	font-size: 14px;
+	padding: 3px 8px 3px 8px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+thead {
+	background-color: #d2d3d5;
+}
+
+th, td {
+	text-align: left;
+	padding: 5px 15px 5px 15px;
+}
+
+th {
+	font-weight: normal;
+	font-size: 14px;
+}
+
+td {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+tbody > tr {
+	border-bottom: 1px solid #a6a8ab;
+}
+
+button.dashboard {
+	text-align: left;
+	font-size: 14px;
+	font-weight: normal;
+	width: 150px;
+	height: 48px;
+	padding: 6px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	display: inline-block;
+}
+
+button.job-description {
+	background: url('/static/images/search_icon.png') no-repeat right, #0091ce !important;
+	background: url('/static/images/search_icon.png') no-repeat right, -webkit-gradient(linear, left bottom, right bottom, color-stop(0.0, #0091ce), color-stop(0.7, #0091ce), color-stop(0.7, #ffffff)) !important;
+	background: url('/static/images/search_icon.png') no-repeat right, -moz-linear-gradient(left, #0091ce 70%, #ffffff 30%) !important;
+}
+
+button.job-remove {
+	background: url('/static/images/close_icon.png') no-repeat right, #a6a8ab !important;
+	background: url('/static/images/close_icon.png') no-repeat right, -webkit-gradient(linear, left bottom, right bottom, color-stop(0.0, #a6a8ab), color-stop(0.7, #a6a8ab), color-stop(0.7, #ffffff)) !important;
+	background: url('/static/images/close_icon.png') no-repeat right, -moz-linear-gradient(left, #a6a8ab 70%, #ffffff 30%) !important;
 }

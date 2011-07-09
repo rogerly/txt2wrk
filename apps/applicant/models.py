@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from account.models import Profile
 from job.models import Criteria, Job
 from datetime import date
-
+from signals import job_applied
     
 class ApplicantProfile(Profile, Criteria):
     
@@ -34,4 +34,10 @@ class ApplicantJob(models.Model):
     date_submitted = models.DateField(default=date.today())
     job = models.ForeignKey(Job, related_name='applicant_job')
     applicant = models.ForeignKey(ApplicantProfile)
-    
+
+    # Send save signal to handle anything needs to happen when an application
+    # is submitted    
+    def save(self):
+        super(ApplicantJob, self).save()
+        job_applied.send(sender=self.__class__,
+                         job=self.job, applicant=self.applicant)

@@ -1,63 +1,70 @@
 {% extends "applicant/applicant_base.html" %}
 
 {% block body_content %}
-<h1>Applicant Dashboard</h1>
+<h1>Hi, {{ user.first_name }}!</h1>
 
-<div id="personal">
-	<h3> Personal Info (<a href="#"> Edit </a>)</h3>
-	{{ profile.user.email }} <br/>
+<section id="phone-number" class="left-column" style="width: 400px;">
+	<header>Phone number <a href=""><button>Edit</button></a></header>
 	{{ profile.mobile_number }}
-</div>
+</section>
 
-<br/> <br/>
-
-<div id="search">
-	<h3> Job Search (<a href="{% url applicant_profile %}"> Edit</a>)</h3> 
+<section id="search" class="right-column" style="width: 460px;">
+	<header>Job Search Criteria <a href="{% url applicant_profile %}"><button>Edit</button></a></header> 
 	Availability: {{ profile.availability }} <br/>
 	Location: Near {{ profile.location }} <br/>
 	Experience: {{ profile.education }}, {{ profile.experience }} <br/>
 	Workdays: {% for workday in profile.workday.all %} {{ workday }}{% if not forloop.last %}, {% endif %} {% endfor %}  <br/>
 	Skills: {% for industry in profile.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %}  
-</div>
+</section>
 
-<br/> <br/>
+<div style="clear: both;"></div>
 
-<div id="notifications">
-	<h3>{{ notifications.notification.label_tag }} </h3> {{ notifications.notification }}
-</div>
-
-<br/> <br/>
-
-<div id="matches">
-	<h3> Recent Matching Jobs </h3>
-	<table>
-		<tr> 
-			<th> Employer </th>
-			<th> Job Title </th>
-			<th> Dated Posted </th>			
+<section id="matches">
+	<header>Recent Matching Jobs</header>
+	<table style="width: 100%;">
+		<thead>
+			<tr> 
+				<th style="width: 20%;">Employer</th>
+				<th style="width: 20%;">Job Title</th>
+				<th style="width: 20%;">Dated Posted</th>
+				<th style="width: 40%;"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for job_recommendation in job_recommendations %}
+			<tr>
+				<td>{{ job_recommendation.job.employer.business_name }}</td>
+				<td>{{ job_recommendation.job.title }}</td>
+				<td>{{ job_recommendation.job.date_created }}</td>
+				<td><a href="{% url view_job job_recommendation.job.job_code %}"><button class="dashboard job-description">View Job Description</button></a> <a href=""><button class="dashboard job-remove">Remove Job</button></a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
 	</table>
-</div>
+</section>
 
-<br/> <br/>
-
-<div id="applied">
-	<h3> Jobs you applied to</h3>
-	<table>
-		<tr> 
-			<th> Employer </th>
-			<th> Job Title </th>
-			<th> Dated Applied </th>			
-		</tr>
-		{% for applicant_job in applicant_jobs %}
-		<tr>
-			<td> {{ applicant_job.job.employer.business_name }} </td>
-			<td> <a href="/job/view/{{ applicant_job.job.job_code }} "> {{ applicant_job.job.title }} </a> </td>
-			<td> {{ applicant_job.date_submitted }} </td>
-			<td> <a href="#"> delete</a> </td>
-		</tr>
-		{% endfor %}
-		
+<section id="applied">
+	<header>Jobs You Applied For</header>
+	<table style="width: 100%;">
+		<thead>
+			<tr> 
+				<th style="width: 20%;">Employer</th>
+				<th style="width: 20%;">Job Title</th>
+				<th style="width: 20%;">Dated Applied</th>			
+				<th style="width: 40%;"></th>			
+			</tr>
+		</thead>
+		<tbody>
+			{% for applicant_job in applicant_jobs %}
+				<tr>
+					<td>{{ applicant_job.job.employer.business_name }}</td>
+					<td>{{ applicant_job.job.title }}</td>
+					<td>{{ applicant_job.date_submitted }}</td>
+					<td><a href="{% url view_job applicant_job.job.job_code %}"><button class="dashboard job-description">View Job Description</button></a> <a href=""><button class="dashboard job-remove">Remove Job</button></a></td>
+				</tr>
+			{% endfor %}
+		</tbody>
 	</table>
-</div>
+</section>
 
 {% endblock %}
