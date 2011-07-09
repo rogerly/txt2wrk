@@ -65,9 +65,11 @@ class ApplicantRegistrationForm(RegistrationForm):
 
     last_name = forms.CharField(label = _('Last Name'), required = True)
     
-    password1 = PhonePINField(widget = forms.PasswordInput(attrs=attrs_dict, render_value=False))
+    password1 = PhonePINField(widget = forms.PasswordInput(attrs=attrs_dict, render_value=False),
+                              label = _('Password'))
 
-    password2 = PhonePINField(widget = forms.PasswordInput(attrs=attrs_dict, render_value=False))
+    password2 = PhonePINField(widget = forms.PasswordInput(attrs=attrs_dict, render_value=False),
+                              label = _('Confirm Password'))
 
     def clean_mobile_number(self):
         if 'mobile_number' in self.cleaned_data:
