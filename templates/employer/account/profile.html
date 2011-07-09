@@ -7,57 +7,94 @@
 	.examples {
 		font-size: 14px;
 	}
+	
+	ul.examples li {
+		font-size: 14px;
+	}
+	
+	div.left-column fieldset#business-description legend {
+		border-top: 0px;
+	}
 </style>
 {% endblock %}
 
 {% block body_content %}
 
-<h1>Employer Profile</h1>
-<p>
-Before you begin posting jobs, we need to collect some information about your business.<br />
-This information will be used to provide job seekers with location information for the jobs you post, and provide a brief description about your business.</p>
-<form action="{% url employer_profile %}" method="post">
+{% if first_time_setup %}
+	<h1>Welcome to txt2wrk, {{ user.first_name }}</h1>
+	<p>Before you begin posting jobs, we need to collect some information about your business.<br />
+	This information will be used to provide job seekers with location information for the jobs you post, and provide a brief description about your business.</p>
+{% else %}
+	<h1>Hi, {{ user.first_name }}!</h1>
+	<p>Update account and profile information below.</p>
+	<p>Your account details and contact information will be used to alert you to new applications.</p>
+	<p>The business information and description will be used to provide job seekers with location information for the jobs you post, and provide a brief description about your business.</p>
+{% endif %}
+<form action="{% if first_time_setup %}{% url employer_profile_setup %}{% else %}{% url employer_profile %}{% endif %}" method="post">
 	{% csrf_token %}
     {{ form.non_field_errors }}
-	{{ form.errors }} 
-	<fieldset class="left-column">
-		<legend>Business Information <span class="required-fields">* Required field</span></legend>
-		<div class="fieldWrapper">
-			{{ form.business_name.label_tag }} {{ form.business_name }} {{ form.business_name.errors }}
+    <div class="left-column" style="width: 45%;">
+		<fieldset id="business-information">
+			<legend>Business Information <span class="required-fields">* Required field</span></legend>
+			<div class="fieldWrapper">
+				{{ form.business_name.label_tag }} {{ form.business_name }} {{ form.business_name.errors }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.business_address1.label_tag }} {{ form.business_address1 }} {{ form.business_address1.errors }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.business_address2.label_tag }} {{ form.business_address2 }} {{ form.business_address2.errors }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.city.label_tag }} {{ form.city }} {{ form.city.errors }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.zip_code.label_tag }} {{ form.zip_code }} {{ form.zip_code.errors }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.business_phone_number.label_tag }} {{ form.business_phone_number }} {{ form.business_phone_number.errors }}
+			</div>
+			<div class="fieldWrapper">
+				{{ form.business_website_url.label_tag }} {{ form.business_website_url }} {{ form.business_website_url.errors }}
+			</div>
+		</fieldset>
+	{% if first_time_setup %}
 		</div>
-		<div class="fieldWrapper">
-			{{ form.business_address1.label_tag }} {{ form.business_address1 }} {{ form.business_address1.errors }}
+		<div class="right-column" style="width: 45%;">
+	{% endif %}
+		<fieldset id="business-description">
+			<legend>Business Description <span class="required-fields">Required field</span></legend>
+			<p class="examples">Examples of things to write about:</p>
+			<ul class="no-bullets examples">
+				<li>What kinds of work does your business engage in?</li>
+				<li>What is important for job seekers to know about your business?</li>
+				<li>What qualities are you looking in potential employees?</li>
+				<li>How would you describe the work environment?</li>
+			</ul>
+			<div class="fieldWrapper">
+				{{ form.business_description }} {{ form.business_description.errors }}
+			</div>
+		</fieldset>    
+	</div>
+	{% if not first_time_setup %}
+		<div class="right-column" style="width: 45%;">
+			<fieldset id="contact-information">
+				<legend>Contact Information: <span class="required-fields">All fields required</span></legend>
+				{{ form.user }}
+				<div class="fieldWrapper">
+					{{ form.phone_number.label_tag }} {{ form.phone_number }} {{ form.phone_number.errors }}
+				</div>
+		    	<div class="help-text">
+		    		<p>Please note that all job matches will be sent to the email address that you enter here.</p>
+		    	</div>
+			</fieldset>
 		</div>
-		<div class="fieldWrapper">
-			{{ form.business_address2.label_tag }} {{ form.business_address2 }} {{ form.business_address2.errors }}
-		</div>
-		<div class="fieldWrapper">
-			{{ form.city.label_tag }} {{ form.city }} {{ form.city.errors }}
-		</div>
-		<div class="fieldWrapper">
-			{{ form.zip_code.label_tag }} {{ form.zip_code }} {{ form.zip_code.errors }}
-		</div>
-		<div class="fieldWrapper">
-			{{ form.business_phone_number.label_tag }} {{ form.business_phone_number }} {{ form.business_phone_number.errors }}
-		</div>
-		<div class="fieldWrapper">
-			{{ form.business_website_url.label_tag }} {{ form.business_website_url }} {{ form.business_website_url.errors }}
-		</div>
-	</fieldset>
-	<fieldset class="right-column">
-		<legend>Business Description <span class="required-fields">Required field</span></legend>
-		<p class="examples">Examples of things to write about:</p>
-		<ul class="no-bullets examples">
-			<li></li>
-			<li></li>
-			<li></li>
-		</ul>
-		<div class="fieldWrapper">
-			{{ form.business_description }} {{ form.business_description.errors }}
-		</div>
-		<div class="right">
-			<button>Create Profile</button>
-		</div>
-	</fieldset>    
+	{% else %}
+		{{ form.user }}
+		{{ form.phone_number }}
+	{% endif %}
+	<div class="right">
+		<button>{% if first_time_setup %}Create Profile{% else %}Update Profile{% endif %}</button>
+	</div>
 </form>
 {% endblock %}

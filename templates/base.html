@@ -5,11 +5,15 @@
 		<!--[if lte IE 9]>
 			<script type="text/javascript" src="{{ STATIC_URL }}/js/iehtml5.js"></script>
 		<![endif]-->
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}js/base.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/base.css" />
 		{% block page_css %} {% endblock %}
+		{% block extra_css %}{% endblock %}
 	</head>
 	<body>
+		<header>txt2wrk</header>
 		<nav class="page-nav">
 			{% block nav_content %} {% endblock %}		
 		</nav>
