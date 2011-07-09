@@ -7,7 +7,7 @@ from job import models
 from models import ApplicantProfile
 from job.models import Industry, Workday
 
-from common.helpers import createUniqueDjangoUsername, USPhoneNumberField
+from common.helpers import createUniqueDjangoUsername, USPhoneNumberField, PhonePINField
 from registration.forms import RegistrationForm
 
 class ApplicantProfileForm(forms.ModelForm):
@@ -64,6 +64,10 @@ class ApplicantRegistrationForm(RegistrationForm):
     first_name = forms.CharField(label = _('First Name'), required = True)
 
     last_name = forms.CharField(label = _('Last Name'), required = True)
+    
+    password1 = PhonePINField(widget = forms.PasswordInput(attrs=attrs_dict, render_value=False))
+
+    password2 = PhonePINField(widget = forms.PasswordInput(attrs=attrs_dict, render_value=False))
 
     def clean_mobile_number(self):
         if 'mobile_number' in self.cleaned_data:
@@ -74,7 +78,6 @@ class ApplicantRegistrationForm(RegistrationForm):
                 pass
         
         return self.cleaned_data['mobile_number']
-        
 
     def clean(self):
         return super(ApplicantRegistrationForm, self).clean()

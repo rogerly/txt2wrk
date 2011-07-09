@@ -30,3 +30,19 @@ class USPhoneNumberField(CharField):
         if m:
             return u'%s-%s-%s' % (m.group(1), m.group(2), m.group(3))
         raise ValidationError(self.error_messages['invalid'])
+
+pin_re = re.compile(r'^(\d{4})$')
+
+class PhonePINField(CharField):
+    default_error_messages = {
+        'invalid': _('Password must be four digits long.'),
+    }
+    
+    def clean(self, value):
+        super(PhonePINField, self).clean(value)
+        if value in EMPTY_VALUES:
+            return u''
+        m = pin_re.search(value)
+        if m:
+            return u'%s' % (m,)
+        raise ValidationError(self.error_messages['invalid'])
