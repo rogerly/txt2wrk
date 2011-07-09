@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from sms.models import SMS, RES_UNKNOWN, RES_NUMBER_CONFIRMATION, RES_UNSUBSCRIBE
 from sms.models import ACK_NUMBER_CONFIRMATION, ACK_UNSUBSCRIBE, ACK_JOB_APPLY, ACK_UNKNOWN
 from sms.forms import ReceiveSMSForm
-from applicant.models import ApplicantProfile
+from applicant.models import ApplicantProfile, ApplicantJob
 from job.models import Job
 
 sms_templates = {
@@ -90,6 +90,10 @@ def do_unsubscribe(response, profile):
 def do_job_apply(response, profile):
     try:
         job = Job.objects.get(job_code=response)
+        applications = ApplicantJob.objects.filter(job=job, applicant=profile)
+        if applications.count() == 0:
+            application = ApplicantJob(job=job, applicant=profile)
+            application.save()
     except Job.DoesNotExist:
         job = None
 

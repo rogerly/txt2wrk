@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from models import Call, CallFragment, INBOUND_CHECK_JOBS
 from models import *
 from forms import ReceiveCallForm, HandleFragmentForm, VerifyPasswordForm, JobCodeFragmentForm, HandleDifferentPhoneForm
-from applicant.models import ApplicantProfile
+from applicant.models import ApplicantProfile, ApplicantJob
 from job.models import Job
 from job_recommendation.models import JobRecommendation
 
@@ -256,8 +256,10 @@ def apply(request, listing_type=None, job_recommendation_id=None, template=None)
     
     call = Call.objects.get(call_sid=fields['CallSid'])
     recommendation = JobRecommendation.objects.get(id=job_recommendation_id)
-    recommendation.state = JobRecommendation.APPLIED_REC
-    recommendation.save()
+    applications = ApplicantJob.objects.filter(job=recommendation.job, applicant=recommendation.applicant)
+    if applications.count() == 0:
+        application = ApplicantJob(job=recommendation.job, applicant=recommendation.applicant)
+        application.save()
     context['recommendation'] = recommendation
     context['listing_type'] = listing_type
 

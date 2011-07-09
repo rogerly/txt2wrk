@@ -1,6 +1,8 @@
 from django.db import models
+from django.dispatch import receiver
 
-from applicant.models import ApplicantProfile
+from applicant.models import ApplicantProfile, ApplicantJob
+from applicant.signals import job_applied
 from job.models import Job
 
 class JobRecommendation(models.Model):
@@ -43,3 +45,19 @@ class JobRecommendation(models.Model):
     
     def __unicode__(self):
         return u'%s - %s' % (self.job.title, self.applicant.mobile_number,)
+
+    # Update job recommendation state upon job application
+    # Once applied, user should not hear the job in the phone tree or
+    # via SMS
+    @staticmethod
+    @receiver(job_applied, sender=ApplicantJob)
+    def update_applied_state(sender, **kwargs):
+        applicant = kwargs['applicant']
+        job = kwargs['job']
+        if applicant is not None and job is not None:
+            try:
+                recommendation = JobRecommendation.objects.get(job=job, applicant=applicant)
+                recommendation.state = JobRecommendation.APPLIED_REC
+                recommendation.save()
+            except JobRecommendation.DoesNotExist:
+                pass
