@@ -18,7 +18,7 @@ class JobForm(forms.ModelForm):
     industry = forms.ModelMultipleChoiceField(
                     widget = forms.CheckboxSelectMultiple,
                     label = 'Please select areas with the most experience',
-                    queryset = models.Industry.objects.all()
+                    queryset = models.Industry.objects.all().order_by('name')
     )
     
     def __init__(self, *args, **kwargs):
