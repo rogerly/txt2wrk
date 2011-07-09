@@ -2,18 +2,36 @@
 
 {% block body_content %}
 <h1>Sign up</h1>
-<form action="{% url applicant_register %}" method="post">
-	{% csrf_token %}
-    {{ form.non_field_errors }}
-    {% for field in form %}
-        <div class="fieldWrapper">
-			{% if field.is_hidden %}
-			   	{{ field }}
-			{% else %}
-	            {{ field.label_tag }} {{ field }} {{ field.errors }}
-			{% endif %}
-        </div>
-    {% endfor %}
-  	<input type="submit" name="register" value="Register" />
-</form>
+<div class="left-column">
+	<form action="{% url applicant_register %}" method="post">
+		{% csrf_token %}
+	    {{ form.non_field_errors }}
+	    {{ form.username }}
+	    <fieldset>
+	    	<legend>Let's set up some account details: <span class="required-fields">All Fields Required</span></legend>
+	        <div class="fieldWrapper">
+	            {{ form.mobile_number.label_tag }} {{ form.mobile_number }} {{ form.mobile_number.errors }}
+	        </div>
+	        <div class="fieldWrapper">
+	            {{ form.password1.label_tag }} {{ form.password1 }} {{ form.password1.errors }}
+	        </div>
+	        <div class="fieldWrapper">
+	            {{ form.password2.label_tag }} {{ form.password2 }} {{ form.password2.errors }}
+	        </div>
+	    </fieldset>
+	    <fieldset>
+	    	<legend>Basic Information: <span class="required-fields">* Required Field</span></legend>
+	        <div class="fieldWrapper">
+	            {{ form.first_name.label_tag }} {{ form.first_name }} {{ form.first_name.errors }}
+	        </div>
+	        <div class="fieldWrapper">
+	            {{ form.last_name.label_tag }} {{ form.last_name }} {{ form.last_name.errors }}
+	        </div>
+	        <div class="fieldWrapper">
+	            {{ form.email.label_tag }} {{ form.email }} {{ form.email.errors }}
+	        </div>
+	    </fieldset>
+	    <button>Sign Up</button>
+	</form>
+</div>
 {% endblock %}

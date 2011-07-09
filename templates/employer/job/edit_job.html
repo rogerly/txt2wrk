@@ -17,57 +17,61 @@ pariatur. Andouille brisket aliqua culpa, cupidatat chicken et short ribs bresao
 <form action="./{{job_code}}" method="post">
 	{% csrf_token %}
     {{ form.non_field_errors }}
-    <div class="fieldWrapper">
-    	<label for="{{ form.title.auto_id}}">   
-    	{{ form.title.label }}
-      	{% if form.title.field.required %} <span class="req"> * </span> {% endif %}
-    	</label>
-    	{{ form.title }} {{ form.title.errors }}
-    </div>
-    <div class="fieldWrapper">
-    	<label for="{{ form.availability.auto_id}}">   
-    	{{ form.description.label }}
-      	{% if form.description.field.required %} <span class="req"> * </span> {% endif %}
-    	</label>
-    	{{ form.description }} {{ form.description.errors }}
-    </div>
-
-    <div class="fieldWrapper">
-    	<label for="{{ form.availability.auto_id}}">   
-    	{{ form.availability.label }}
-      	{% if form.availability.field.required %} <span class="req"> * </span> {% endif %}
-    	</label>
-    	{{ form.availability }} {{ form.availability.errors }}
-    </div>
-    <div class="fieldWrapper" id="workdayWrapper">
-    	{{ form.workday.label_tag }} {{ form.workday }} 
-    </div>
-    <div class="fieldWrapper">
-    	{{ form.zip_code.label_tag }} {{ form.zip_code }} {{ form.zip_code.errors }}
-    </div>
-    <div class="fieldWrapper">
-    	{{ form.location_range.label_tag }} {{ form.location_range }} {{ form.location_range.errors }}
-    </div>
-    <div class="fieldWrapper">
-    	<label for="{{ form.education.auto_id}}">   
-    	{{ form.education.label }}
-      	{% if form.education.field.required %} <span class="req"> * </span> {% endif %}
-    	</label>
-    	{{ form.education }} {{ form.education.errors }}
-    </div>
-    <div class="fieldWrapper">
-    	<label for="{{ form.education.auto_id}}">   
-    	{{ form.experience.label }}
-      	{% if form.experience.field.required %} <span class="req"> * </span> {% endif %}
-    	</label>
-    	{{ form.experience }} {{ form.experience.errors }}
-    </div>
-    <div class="fieldWrapper" id="industryWrapper">
-    	{{ form.industry.label_tag }} {{ form.industry }} {{ form.industry.errors }} 
-    </div>
-    
-    {{ form.employer }}
-    
-  	<input type="submit" name="create" value="Save Profile" />
+    <fieldset>
+    	<legend>Job Details <span class="required-fields">All Fields Required</span></legend>
+	    <div class="fieldWrapper">
+	    	<label for="{{ form.title.auto_id}}">   
+	    	{{ form.title.label }}
+	      	{% if form.title.field.required %} <span class="req"> * </span> {% endif %}
+	    	</label>
+	    	{{ form.title }} {{ form.title.errors }}
+	    </div>
+	    <div class="fieldWrapper">
+	    	<label for="{{ form.availability.auto_id}}">   
+	    	{{ form.description.label }}
+	      	{% if form.description.field.required %} <span class="req"> * </span> {% endif %}
+	    	</label>
+	    	{{ form.description }} {{ form.description.errors }}
+	    </div>
+	
+	    <div class="fieldWrapper">
+	    	<label for="{{ form.availability.auto_id}}">   
+	    	{{ form.availability.label }}
+	      	{% if form.availability.field.required %} <span class="req"> * </span> {% endif %}
+	    	</label>
+	    	{{ form.availability }} {{ form.availability.errors }}
+	    </div>
+	    <div class="fieldWrapper" id="workdayWrapper">
+	    	{{ form.workday.label_tag }} {{ form.workday }} 
+	    </div>
+	    <div class="fieldWrapper">
+	    	{{ form.zip_code.label_tag }} {{ form.zip_code }} {{ form.zip_code.errors }}
+	    </div>
+	    <div class="fieldWrapper">
+	    	{{ form.location_range.label_tag }} {{ form.location_range }} {{ form.location_range.errors }}
+	    </div>
+	    <div class="fieldWrapper">
+	    	<label for="{{ form.education.auto_id}}">   
+	    	{{ form.education.label }}
+	      	{% if form.education.field.required %} <span class="req"> * </span> {% endif %}
+	    	</label>
+	    	{{ form.education }} {{ form.education.errors }}
+	    </div>
+	    <div class="fieldWrapper">
+	    	<label for="{{ form.education.auto_id}}">   
+	    	{{ form.experience.label }}
+	      	{% if form.experience.field.required %} <span class="req"> * </span> {% endif %}
+	    	</label>
+	    	{{ form.experience }} {{ form.experience.errors }}
+	    </div>
+	    <div class="fieldWrapper" id="industryWrapper">
+	    	{{ form.industry.label_tag }} {{ form.industry }} {{ form.industry.errors }} 
+	    </div>
+	    
+	    {{ form.employer }}
+	    
+	    <a href="{% url employer_dashboard %}"><button>Cancel</button></a>
+	  	<button>Post Job</button>
+	</fieldset>
 </form>
 {% endblock %}
