@@ -6,6 +6,7 @@ Created on Jun 18, 2011
 
 from models import Job, JobLocation
 from forms import JobForm
+from applicant.models import ApplicantProfile, ApplicantJob
 from employer.models import EmployerProfile
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render_to_response,redirect
@@ -24,12 +25,21 @@ def manage_job(request, job_code = None, template = 'job/view_job.html'):
                                   context_instance = RequestContext(request))
     return redirect(create_job)
 
-
-def view_job(request, job_code = None, template = None):
+def view_job(request, job_code = None, is_applicant = False, template = None):
+    ctxt = {}
     if request.method == 'GET' and job_code:
         job = Job.objects.all().select_related('joblocation').get(job_code=job_code)
+        ctxt['job'] = job
+        if is_applicant:
+            ctxt['is_applicant'] = is_applicant
+            try:
+                applicant = ApplicantProfile.objects.get(user=request.user)
+                application = ApplicantJob.objects.get(applicant=applicant, job = job)
+                ctxt['already_applied'] = True
+            except ApplicantJob.DoesNotExist:
+                ctxt['already_applied'] = False
         return render_to_response(template,
-                                  {'job' : job}, 
+                                  ctxt,
                                   context_instance = RequestContext(request))
     return redirect(create_job)
 

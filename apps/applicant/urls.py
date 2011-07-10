@@ -52,7 +52,13 @@ urlpatterns = patterns('',
     url(r'^job/view/(?P<job_code>\d+)$',
         'job.views.view_job',
         {
-         'template' : 'applicant/job/job.html'
+         'template' : 'applicant/job/job.html',
+         'is_applicant': True,
          },
         name='applicant_view_job'),
+
+    url(r'^job/apply/(?P<job_code>\d+)$',
+        'applicant.views.apply',
+        {'redirect_url' : 'applicant_dashboard'},
+        name='applicant_apply'),
 )

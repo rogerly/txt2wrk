@@ -8,6 +8,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import user_passes_test
 from forms import ApplicantProfileForm, MobileNotificationForm
 from models import ApplicantProfile, ApplicantJob
+from job.models import Job
 from job_recommendation.models import JobRecommendation
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/applicant/login')
@@ -35,3 +36,15 @@ def applicant_dashboard(request, template='applicant/account/dashboard.html'):
                                'applicant_jobs' : applicant_jobs,
                                'job_recommendations': job_recommendations, },
                               context_instance=RequestContext(request))
+
+def apply(request, job_code=None, redirect_url=None):
+
+    profile = ApplicantProfile.objects.get(user=request.user)
+    try:
+        job = Job.objects.get(job_code = job_code)
+        application = ApplicantJob(applicant=profile, job=job)
+        application.save()
+    except Job.DoesNotExist:
+        pass
+
+    return redirect(reverse(redirect_url))
