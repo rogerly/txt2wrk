@@ -1,29 +1,41 @@
 {% extends "employer/employer_base.html" %}
 
+{% block page_css %}
+<style type="text/css">
+    h2 {
+        color: #0091ce;
+    }
+</style>
+{% endblock %}
+
 {% block body_content %}
 
-<div id="name">
-	<h2>{{ profile.business_name }} </h2>
-	Create a new job or review applicants for job postings you have already created
+<h1>{{ profile.business_name }}</h1>
+<div class="left-column">
+    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+    <p>Create a new job posting, review applicants for existing job postings, or delete filled job postings.</p>
 </div>
-
-<div id="create-job">
-	<a href="{% url create_job %}"> Create job</a>
+<div id="create-job" class="right-column">
+	<a class="right" href="{% url create_job %}"><button type="button" class="create-job">Create New Job Posting</button></a>
 </div>
-
-<table>
-	<tr> 
-		<th> Job Title </th>
-		<th> Date Created </th>
-		<th> # of Applicants </th>
-	</tr>
-	{% for job in jobs %}
-	<tr>
-		<td> <a href="/job/view/{{job.job_code}}"> {{ job.title }} </a> </td>
-		<td> {{ job.date_created }}  </td>
-		<td> <a href="#"> {{ job.applicant_job.count }} </a> </td>
-		<td> <a href="#"> delete </a> </td>
-	</tr>
-	{% endfor %}
-</table>
+<div style="clear: both;"></div>
+<table style="width: 100%;">
+    <thead>
+        <tr>
+            <th style="width: 20%;">Job Title</th>
+            <th style="width: 20%;">Date Created</th>
+            <th style="width: 20%;">Applicants</th>
+            <th style="width: 40%;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for job in jobs %}
+            <tr>
+                <td><a href="{% url view_job job.job_code %}">{{ job.title }}</a></td>
+                <td>{{ job.date_created }}</td>
+                <td>{{ job.applicant_job.count }}</a></td>
+                <td style="padding-right: 0px;"><a href="{% url view_job job.job_code %}"><button class="dashboard view-applicants">View Applicants</button></a> <a href=""><button class="dashboard delete-posting">Delete Posting</button></a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
 {% endblock %}
