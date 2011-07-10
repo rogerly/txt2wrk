@@ -84,13 +84,25 @@ select {
 	width: 220px;
 }
 
+
+select, option {
+    display: inline;
+    font-size: 18px;
+    height: 36px;
+    padding: 2px 5px 2px 5px;
+    -webkit-appearance: none;
+    border-color: #cccccc;
+    color: #aaaaaa;
+}
+
 textarea {
 	width: 100%;
 	border: 1px solid #cccccc;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	font-size: 14px;
+	font-size: 18px;
+    color: #aaaaaa;
 }
 
 button {
@@ -268,4 +280,8 @@ button.job-remove {
 	background: url('/static/images/close_icon.png') no-repeat right, #a6a8ab !important;
 	background: url('/static/images/close_icon.png') no-repeat right, -webkit-gradient(linear, left bottom, right bottom, color-stop(0.0, #a6a8ab), color-stop(0.7, #a6a8ab), color-stop(0.7, #ffffff)) !important;
 	background: url('/static/images/close_icon.png') no-repeat right, -moz-linear-gradient(left, #a6a8ab 70%, #ffffff 30%) !important;
+}
+
+.help-text {
+    font-size: 14px;
 }

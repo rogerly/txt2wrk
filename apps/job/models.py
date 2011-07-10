@@ -50,7 +50,6 @@ class Criteria(models.Model):
     class Meta:
         abstract = True
 
-
 class Job(Criteria):
 
     title = models.CharField('Job Title',
@@ -58,8 +57,7 @@ class Job(Criteria):
                              blank=False,
                              help_text='This is the title of the job.')
 
-    description = models.CharField('Job Description',
-                                   max_length=255,
+    description = models.TextField('Job Description',
                                    blank=True,
                                    help_text='This is the description of the job.')
     
@@ -72,8 +70,7 @@ class Job(Criteria):
     date_created = models.DateField(blank=False, default=date.today)
     
     employer = models.ForeignKey(EmployerProfile, null=False, related_name='jobs')
-    
-    
+
     # Auto-create a job code if there isn't one set
     def save(self, *args, **kwargs):
         new_job = False
@@ -92,5 +89,38 @@ class Job(Criteria):
     def __unicode__(self):
         return u'%s' % (self.title,)
 
+class JobLocation(models.Model):
 
-    
+    business_name = models.CharField('Business Name',
+                                     blank=False,
+                                     max_length=100,
+                                     )
+
+    business_address1 = models.CharField('Business Address 1',
+                                         blank=False,
+                                         max_length=100,
+                                         )
+
+    business_address2 = models.CharField('Business Address 2',
+                                         blank=True,
+                                         max_length=100,
+                                         )
+
+    city = models.CharField('City',
+                            blank=False,
+                            max_length=32,
+                            )
+
+    zip_code = models.CharField('Zip Code',
+                                blank=False,
+                                max_length=10,
+                                )
+
+    latitude = models.CharField(null=True, blank=True, max_length=15)
+    longitude = models.CharField(null=True, blank=True, max_length=15)
+
+    job = models.ForeignKey(Job, null=False, related_name='location')
+
+    def __unicode__(self):
+        return u'%s - %s, %s' % (self.business_name, self.business_address1, self.city)
+
