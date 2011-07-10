@@ -1,0 +1,52 @@
+<h1>{{ job.title }}, {{ job.employer.business_name }}</h1>
+<div class="left-column" style="width: 25%;">
+    <section>
+        <header>Job Location</header>
+        {% for location in job.location.all %}
+            <ul class="no-bullets">
+                <li>{{ location.business_name }}</li>
+                <li>{{ location.business_address1 }}</li>
+                {% if location.business_address2 %}<li>{{ location.business_address2 }}</li>{% endif %}
+                <li>{{ location.city }}</li>
+                <li>{{ location.zip_code }}</li>
+            </ul>
+        {% endfor %}
+    </section>
+    <section>
+        <header>Distance From You</header>
+    </section>
+</div>
+<div class="right-column" style="width: 70%;">
+    <section>
+        <header>Job Details</header>
+        <div>
+            <span class="label">Job Title</span>
+            <span class="value">{{ job.title }}</span>
+        </div>
+        <div>
+            <span class="label">Job Description</span>
+            <span class="value">{{ job.description }}</span>
+        </div>
+        <div>
+            <span class="label">Education Level</span>
+            <span class="value">{{ job.get_education_display }}</span>
+        </div>
+        <div>
+            <span class="label"> Years of Work Experience</span> <br/>
+            <span class="value"> {{ job.get_experience_display }} </span>
+        </div>
+        <div>
+            <span class="label">Required Availability</span> <br/>
+            <span class="value">
+                 {% for workday in job.workday.all %} {{ workday }}{% if not forloop.last %}, {% endif %} {% endfor %}
+            </span>
+        </div>
+        <div>
+            <span class="label">Type of Work</span> <br>
+            <span class="value">
+                {% for industry in job.industry.all %} {{ industry }} {% if not forloop.last %}, {% endif %} {% endfor %}
+            </span>
+        </div>
+    </section>
+</div>
+<div style="clear: both;"></div>

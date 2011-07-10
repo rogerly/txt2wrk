@@ -25,9 +25,9 @@ def manage_job(request, job_code = None, template = 'job/view_job.html'):
     return redirect(create_job)
 
 
-def view_job(request, job_code = None, template = 'employer/view_job.html'):
+def view_job(request, job_code = None, template = None):
     if request.method == 'GET' and job_code:
-        job = Job.objects.get(job_code=job_code)
+        job = Job.objects.all().select_related('joblocation').get(job_code=job_code)
         return render_to_response(template,
                                   {'job' : job}, 
                                   context_instance = RequestContext(request))

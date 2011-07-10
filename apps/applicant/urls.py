@@ -48,4 +48,11 @@ urlpatterns = patterns('',
          'template' : 'applicant/account/dashboard.html'
          },
         name='applicant_dashboard'),
+
+    url(r'^job/view/(?P<job_code>\d+)$',
+        'job.views.view_job',
+        {
+         'template' : 'applicant/job/job.html'
+         },
+        name='applicant_view_job'),
 )
