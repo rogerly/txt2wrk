@@ -30,7 +30,9 @@
 {% block body_content %}
     {% include 'job/job.html' %}
     <div class="right">
-        <a href="{% url applicant_dashboard %}"><button>Cancel</button></a>
-        <a href="/job/edit/{{job.job_code}}"><button>Apply to Job</button></a>
+        <a href="{% url applicant_dashboard %}"><button>{% if already_applied %}Back{% else %}Cancel{% endif %}</button></a>
+        {% if not already_applied %}
+            <a href="{% url applicant_apply job.job_code %}"><button>Apply to Job</button></a>
+        {% endif %}
     </div>
 {% endblock %}
