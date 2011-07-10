@@ -4,7 +4,7 @@
 <h1>Hi, {{ user.first_name }}!</h1>
 
 <section id="phone-number" class="left-column" style="width: 400px;">
-	<header>Phone number <a href=""><button>Edit</button></a></header>
+	<header>Phone number <a href="{% url applicant_profile %}"><button>Edit</button></a></header>
 	{{ profile.mobile_number }}
 </section>
 

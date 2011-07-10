@@ -26,7 +26,7 @@ class ApplicantProfileForm(forms.ModelForm):
     
     class Meta:
         model = ApplicantProfile
-        exclude = ('user', 'mobile_number', 'confirmed_phone', 'jobs', 'latitude', 'longitude')
+        exclude = ('user', 'mobile_number', 'confirmed_phone', 'jobs', 'latitude', 'longitude', 'availability')
         
 class MobileNotificationForm(forms.Form):
     

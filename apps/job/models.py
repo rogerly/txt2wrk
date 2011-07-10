@@ -41,8 +41,8 @@ class Criteria(models.Model):
     experience = models.IntegerField(null=True, choices=EXPERIENCE_CHOICES, default=1)
     education = models.IntegerField(null=True, choices=EDUCATION_CHOICES, default=1)
     industry = models.ManyToManyField(Industry)
-    latitude = models.CharField(null=True, max_length=5)
-    longitude = models.CharField(null=True, max_length=5)
+    latitude = models.CharField(null=True, max_length=15)
+    longitude = models.CharField(null=True, max_length=15)
 
     def is_complete(self):
         return self.availability or self.education or self.experience 
