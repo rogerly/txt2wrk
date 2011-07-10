@@ -8,17 +8,25 @@ from django import forms
 from employer import models
 from job import models
 
+from common.helpers import CheckboxSelectMultipleDiv
+
 class JobForm(forms.ModelForm):
     workday = forms.ModelMultipleChoiceField(
-                    widget = forms.CheckboxSelectMultiple,
+                    widget = CheckboxSelectMultipleDiv,
                     label = 'Days available to work',
                     queryset = models.Workday.objects.all()
     )
     
     industry = forms.ModelMultipleChoiceField(
-                    widget = forms.CheckboxSelectMultiple,
+                    widget = CheckboxSelectMultipleDiv,
                     label = 'Please select areas with the most experience',
                     queryset = models.Industry.objects.all().order_by('name')
+    )
+
+    edit_location = forms.CharField(
+                    widget = forms.HiddenInput(),
+                    label = '',
+                    required = False,
     )
     
     def __init__(self, *args, **kwargs):

@@ -2,9 +2,11 @@ import uuid
 import re
 
 from django.core.validators import EMPTY_VALUES
+from django import forms
 from django.forms import ValidationError
 from django.forms.fields import Field, RegexField, Select, CharField
 from django.utils.encoding import smart_unicode
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 def createUniqueDjangoUsername():
@@ -46,3 +48,8 @@ class PhonePINField(CharField):
         if m:
             return value
         raise ValidationError(self.error_messages['invalid'])
+
+class CheckboxSelectMultipleDiv(forms.CheckboxSelectMultiple):
+    def render(self, *args, **kwargs):
+        output = super(CheckboxSelectMultipleDiv, self).render(*args,**kwargs)
+        return mark_safe(output.replace(u'<ul>', u'').replace(u'</ul>', u'').replace(u'<li>', u'<div>').replace(u'</li>', u'</div>'))
