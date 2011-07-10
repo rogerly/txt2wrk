@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     url(r'^view/(?P<job_code>\d+)$',
         'job.views.view_job',
         {
-         'template' : 'employer/job/employer_job.html'
+         'template' : 'employer/job/job.html'
          }, 
         name='view_job'),
     url(r'^manage/(?P<job_code>\d+)$',
