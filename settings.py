@@ -139,6 +139,8 @@ ACCOUNT_TOKEN = 'dced388cac35ce1a10aea82623348777'
 # Outgoing Caller ID previously validated with Twilio
 CALLER_ID = '5103943562';
 
+APPLICANT_HOST = 'http://www.txt2wrk.net'
+EMPLOYER_HOST = 'http://employers.txt2wrk.net'
 
 def local_overrides(global_dict):
     pass

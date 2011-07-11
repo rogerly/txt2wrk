@@ -4,11 +4,12 @@ Created on Jun 13, 2011
 @author: Jon
 '''
 
+import settings
 from django.shortcuts import render_to_response
 from forms import PotentialUsersForm
 from django.template import RequestContext
 
-def splash(request):
+def contact(request):
     newform = PotentialUsersForm()
     if request.POST:
         form = PotentialUsersForm(request.POST)
@@ -23,4 +24,5 @@ def splash(request):
     return render_to_response('about/prerelease.html', {'form' : newform },
                 context_instance = RequestContext(request))
 
-    
+def splash(request, template=None):
+    return render_to_response(template, { 'settings': settings }, context_instance = RequestContext(request))
