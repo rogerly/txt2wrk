@@ -27,6 +27,8 @@ class EmployerProfileForm(forms.ModelForm):
         self.fields['city'].required=True
         self.fields['zip_code'].required=True
         self.fields['business_description'].required=True
+        self.fields['business_phone_number'].required=True
+        self.fields['business_website_url'].required=True
     
     class Meta:
         model = EmployerProfile
