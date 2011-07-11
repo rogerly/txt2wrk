@@ -12,8 +12,7 @@ from applicant.forms import ApplicantLoginForm
 urlpatterns = patterns('',
     # Example:
     # (r'^txt2wrk/', include('txt2wrk.foo.urls')),
-    url(r'^$', 'prelaunch.views.splash'),
-    
+    url(r'^$', direct_to_template, { 'template:' 'about/splash.html', }, name='splash'),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:

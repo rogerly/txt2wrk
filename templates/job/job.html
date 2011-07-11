@@ -37,9 +37,7 @@
         </div>
         <div>
             <span class="label">Required Availability</span> <br/>
-            <span class="value">
-                 {% for workday in job.workday.all %} {{ workday }}{% if not forloop.last %}, {% endif %} {% endfor %}
-            </span>
+            <span class="value">{{ job.get_workday_display }}</span>
         </div>
         <div>
             <span class="label">Type of Work</span> <br>

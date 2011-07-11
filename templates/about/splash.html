@@ -1,267 +1,299 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
- 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
-<head> 
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
- 
-	<title>txt2wrk</title> 
- 
-<style type="text/css" media="screen"> 
- 
-#container
-{
-	margin: 0 auto;
-	width: 700px;
-	background:#fff;
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-	font-size: smaller;
-}
- 
-#header
-{
-	margin-top: 50px;
-	padding-bottom: 25px;
-}
- 
-#content
-{
-	line-height: 150%;
-	clear: left;
-	padding: 20px;
-	color: #000;
-	
-}
- 
-#content h2
-{
-	color:#000;
-	font-size: 160%;
-	margin: 0 0 .5em;
-}
- 
-#footer
-{
-	text-align: center;
-	padding-bottom: 20px;
-	height: 1%;
-	font-size: x-small;
-	color: #bbb;
-}
- 
-#description
-{
-	background-color: #d7e4ef;
-	padding-left: 25px;
-	padding-right: 25px;
-	padding-bottom: 10px;	
-	padding-top: 5px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px; /* future proofing */
-	-khtml-border-radius: 10px; /* for old Konqueror browsers */
-}
- 
-#contact {
-	background-color: #d7e4ef;
-	padding-left: 25px;
-	padding-right: 25px;
-	padding-bottom: 15px;	
-	padding-top: 5px;
-	margin-top: 25px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px; /* future proofing */
-	-khtml-border-radius: 10px; /* for old Konqueror browsers */
-}
- 
-#about
-{
-	background-color: #d7e4ef;
-	padding-left: 25px;
-	padding-right: 25px;
-	padding-bottom: 15px;	
-	padding-top: 5px;
-	margin-top: 25px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px; /* future proofing */
-	-khtml-border-radius: 10px; /* for old Konqueror browsers */
-}
- 
-p#lede {
-	line-height: normal;
-	font-size: x-large;
-}
- 
-ul {
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-}
- 
-ul#names li {
-	list-style-type: square;
-}
- 
-a {
-	color: #0343fa;
-}
- 
-.contactInfo {
-	color: gray;
-	font-size: small;
-}
- 
-.contactInfo a {
-	color: gray;
-	text-decoration: none;
-}
- 
-.contactInfo a:hover {
-	color: #0343fa;
-}
- 
-#emailFootnote {
-	font-size: x-small; color: #888;
-}
- 
-img#title
-{
-	display:block;
-	margin-left: auto;
-	margin-right: auto;
-}
- 
-img#blueprint
-{
-	display:block;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
- 
-input#id_first_name {
-	width: 300px;
-	padding: 5px;
-	color: #aaa;
-	border: 1px solid #cccccc;
-	font-size: larger;
-	margin-bottom: 5px;
-}
- 
-input#id_last_name {
-	width: 259px;
-	padding: 5px;
-	color: #aaa;
-	border: 1px solid #cccccc;
-	font-size: larger;
-	margin-bottom: 5px;
-}
- 
-input#id_email {
-	width: 575px;
-	padding: 5px;
-	color: #aaa;
-	border: 1px solid #cccccc;
-	font-size: larger;
-	margin-bottom: 5px;
-}
- 
-textarea#id_comments {
-	color: #aaa;
-	font-size: larger;
-	width: 575px;
-	height: 120px;
-	border: 1px solid #cccccc;
-	padding: 5px;
-	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-}
+<!DOCTYPE html>
+<html dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>txt2wrk - an easier way to connect job seekers to employers</title>
+        <!--[if lte IE 9]>
+            <script type="text/javascript" src="{{ STATIC_URL }}/js/iehtml5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/base.css" />
+        <style type="text/css">
+            body {
+                width: 1024px;
+                margin: auto;
+                margin-top: 0px;
+                padding: 0px;
+                background: url('{{ STATIC_URL }}images/splash_header.jpg') top no-repeat, #fff;
+                font-family: Helvetica, Arial, sans-serif;
+                font-size: 18px;
+            }
 
-div#success {
-	color: #458B00;
-	font-size: 10px;
-}
+            body > div {
+                margin: 0px 35px 0px 35px;
+            }
 
-div#fail {
-	color: #CD5555;
-	font-size: 10px;
-}
- 
-</style> 
- 
-<script type="text/javascript"> 
- 
-function setbg(color)
-{
-document.getElementById("id_comments").style.background=color
-}
- 
-</script> 
-	
-</head> 
- 
-<body> 
- 
- 
-<div id="container"> 
-	<div id="header"> 
-		<img src="{{ STATIC_URL }}images/txt2wrk_logotype.png" width="602px" height="129px" alt="txt2wrk" id="title" />
-	</div> 
-	<div id="content"> 
-		<div id="description"> 
-			<p id="lede">With txt2wrk, job seekers can <strong>listen to job postings</strong> and <strong>submit their resume</strong> to  employers using <strong>any mobile phone</strong>.</p> 	
-			<p>Once a person signs up with txt2wrk, they can receive text message notifications for jobs as they are posted, access spoken job descriptions, and send their resume to prospective employers. txt2wrk works with any phone that can send and receive text messages and make voice calls.</p> 
-			
-			<p>Originally designed for parolees, txt for work also empowers a wide range of populations. The service significantly reduces barriers for people with low literacy and limited access to technology, in order to help them compete more effectively in today's job market.</p> 
-		</div>	
-		
-		
-		<div id="contact"> 
-			<p>We are currently developing txt2wrk for submission to <a href="http://appsforcommunities.challenge.gov/">Apps for Communities</a> by July 11, 2011.</p> 
-			
-			<p>Follow us on Twitter at <a href="http://www.twitter.com/txt2wrk">@txt2wrk</a>, or sign up below to receive more information about txt2wrk as it becomes available.</p> 
-	
-			<p> 
-				<form action="." method="post">{% csrf_token %}
-				{{form.first_name}}
-				{{form.last_name}} <br/>
-				{{form.email}}  <br/>
-				{{form.comments}}	<br /> 
-				<input type="submit" value="Submit" id="button" /> <span id="emailFootnote">(We hate spam too! We'll send you only updates about txt2wrk.)</span> 
-				<br/> <br/>
-				{% if success_message %}
-				<div id='success'> {{ success_message }} </div>
-				{% endif %}
-				{% if error_message %}
-				<div id='fail'> {{ error_message }}  </div>
-				{% endif %}
-				
-				{{form.first_name.errors}}
-			</form>
-			</p> 
-		</div> 
- 
-		<div id="about"> 
-			<p>txt2wrk was conceived and developed in a few hours at <a href="http://www.codeforoakland.org">Code for Oakland</a> on June 4, 2011 by:</p> 
-	
-			<p> 
-				<ul id="names"> 
-					<li>Elise Ackerman <span class="contactInfo"><a href="https://twitter.com/EliseAckerman">@EliseAckerman</a></span></li> 
-					<li>Tanja Altamurto <span class="contactInfo"><a href="https://twitter.com/TanjaAita">@TanjaAita</a></span></li> 
-					<li>Jonathan Chan <span class="contactInfo"><a href="https://twitter.com/Jonathanchan">@Jonathanchan</a></span></li> 
-					<li><a href="http://www.d4v3.net">Dave Chiu</a> <span class="contactInfo"><a href="http://twitter.com/scoobyfoo">@scoobyfoo</a></span></li> 
-					<li>Roger Ly <span class="contactInfo"><a href="https://twitter.com/rogerly">@rogerly</a></span></li> 
-					<li>Dror Matalon <span class="contactInfo"><a href="https://twitter.com/drormata">@drormata</a></span></li> 
-					<li>Alex Tam <span class="contactInfo"><a href="https://twitter.com/AlexTam">@AlexTam</a></span></li> 
-				</ul> 
-			</p> 
-		</div> 
- 
-	</div> 
-	<div id="footer"> 
-		Copyright © txt2wrk.net, 2011
-	</div> 
-</div> 
- 
-</body> 
-</html> 
+            body > div > header {
+                height: 10px;
+                margin-top: 180px;
+            }
+
+            body > div > header nav ul {
+                list-style-type: none;
+                float: right;
+                margin: 10px 0px 0px 0px;
+                color: #0091ce;
+                font-size: 16px;
+            }
+
+            body > div > header nav ul li {
+                display: inline;
+            }
+
+            body > div > section {
+                margin-top: 35px;
+                border-top: 1px solid #d2d3d5;
+            }
+
+            a, a:hover, a:visited, a:active {
+                color: #0091ce;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            ul.box {
+                list-style-type: none;
+                padding: 0px;
+            }
+
+            ul.box > li {
+                display: inline;
+                margin: 0px;
+            }
+
+            section.box {
+                display: block;
+                float: left;
+                border-radius: 10px;
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 10px;
+                border: 1px solid #d2d3d5;
+                width: 410px;
+                padding: 20px;
+                margin: 0px;
+                font-size: 16px;
+            }
+
+            section.box header {
+                position: relative;
+                top: 0px;
+                height: 85px;
+                margin: 0px;
+                padding: 10px 0px 10px 80px;
+            }
+
+            section.job-seeker {
+                background: #b2def0;
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.3, #ffffff), color-stop(0.3, #b2def0));
+                background: -moz-linear-gradient(top, #ffffff 30%, #b2def0 30%);
+            }
+
+            section.employer {
+                margin-left: 50px;
+                background-color: #dddee0;
+                background: #dddee0;
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.3, #ffffff), color-stop(0.3, #dddee0));
+                background: -moz-linear-gradient(top, #ffffff 30%, #dddee0 30%);
+            }
+
+            section#intro * section.box {
+                height: 325px;
+            }
+
+            section#intro * section.box button {
+                float: right;
+            }
+
+            section.box header {
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                font-size: 30px;
+                font-weight: bold;
+                line-height: 50px;
+            }
+
+            section#intro * section.employer header {
+                background-image: url('{{ STATIC_URL }}images/employer_icon.png');
+                color: #58595b;
+            }
+
+            section#intro * section.job-seeker button {
+                margin-top: 30px;
+            }
+
+            section#intro * section.employer button {
+                margin-top: 48px;
+            }
+
+            section#intro * section.job-seeker header {
+                background-image: url('{{ STATIC_URL }}images/job_seeker_icon.png');
+            }
+
+            section#how-it-works * section.employer header {
+                color: #58595b;
+            }
+
+            section.step-1 {
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.5, #ffffff), color-stop(0.5, #b2def0)) !important;
+                background: -moz-linear-gradient(top, #ffffff 50%, #b2def0 50%) !important;
+            }
+
+            section.step-1 header {
+                background-image: url('{{ STATIC_URL }}images/1_icon.png');
+            }
+
+            section.step-2 {
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.6, #ffffff), color-stop(0.6, #dddee0)) !important;
+                background: -moz-linear-gradient(top, #ffffff 60%, #dddee0 60%) !important;
+            }
+
+            section.step-2 header {
+                background-image: url('{{ STATIC_URL }}images/2_icon.png');
+            }
+
+            section.step-3 {
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.55, #ffffff), color-stop(0.55, #b2def0)) !important;
+                background: -moz-linear-gradient(top, #ffffff 60%, #b2def0 60%) !important;
+            }
+
+            section.step-3 header {
+                background-image: url('{{ STATIC_URL }}images/3_icon.png');
+            }
+
+            section.step-4 {
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.4, #ffffff), color-stop(0.4, #b2def0)) !important;
+                background: -moz-linear-gradient(top, #ffffff 40%, #b2def0 40%) !important;
+            }
+
+            section.step-4 header {
+                background-image: url('{{ STATIC_URL }}images/4_icon.png');
+            }
+
+            section.step-5 {
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.5, #ffffff), color-stop(0.5, #dddee0)) !important;
+                background: -moz-linear-gradient(top, #ffffff 50%, #dddee0 50%) !important;
+            }
+
+            section.step-5 header {
+                background-image: url('{{ STATIC_URL }}images/5_icon.png');
+            }
+
+            section.step-6 {
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.5, #ffffff), color-stop(0.5, #b2def0)) !important;
+                background: -moz-linear-gradient(top, #ffffff 50%, #b2def0 50%) !important;
+            }
+
+            section.step-6 header {
+                background-image: url('{{ STATIC_URL }}images/6_icon.png');
+            }
+
+            section.box ul li {
+                margin-bottom: 20px;
+            }
+
+            strong {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="">contact us</a></li> |
+                        <li><a href="#about">about txt2wrk</a></li> |
+                        <li><a href="">sign-in</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <section id="intro">
+                <p><strong>txt2wrk</strong> is an easier way to connect job seekers to employers.</p>
+                <p>Job seekers can listen to job postings and submit their resume to employers using any mobile phone.</p>
+                <ul class="box">
+                    <li>
+                        <section class="box job-seeker">
+                            <header>I'm looking for work</header>
+                            <ul>
+                                <li>Find out about new jobs as soon as they are posted, even without a computer.</li>
+                                <li>Listen to job descriptions over the phone.</li>
+                                <li>Apply to jobs immediately with any mobile phone.</li>
+                            </ul>
+                            <a href="{% url applicant_register %}"><button>Get Started</button></a>
+                        </section>
+                    </li>
+                    <li>
+                        <section class="box employer">
+                            <header>I'm looking to hire</header>
+                            <ul>
+                                <li>Get access to more applicants.</li>
+                                <li>Reach out to people instantly wherever they are.</li>
+                                <li>Get responses faster and get the help you need.</li>
+                            </ul>
+                            <a href="{% url employer_register %}"><button>Learn More</button></a>
+                        </section>
+                    </li>
+                </ul>
+            </section>
+            <div style="clear: both;"></div>
+            <section id="how-it-works">
+                <header>How it Works</header>
+                <ul class="box">
+                    <li>
+                        <section class="box job-seeker step-1">
+                            <header>Create a Profile</header>
+                            <p>Sign up with txt2wrk, register your phone, create a Job Seeker profile describing the kinds of work you are looking for, and optionally upload a resume.</p>
+                        </section>
+                    </li>
+                    <li>
+                        <section class="box employer step-2" style="margin-top: 100px;">
+                            <header>Post Jobs</header>
+                            <p>Sign up with txt2wrk and post job openings for free.</p>
+                        </section>
+                    </li>
+                    <li>
+                        <section class="box job-seeker step-3" style="margin-top: -30px;">
+                            <header>Receive a TXT</header>
+                            <p>When employers post jobs matching your qualifications, you are immediately notified of the job via text message.</p>
+                        </section>
+                        <div style="clear: both; height: 30px;"></div>
+                    </li>
+                    <li>
+                        <section class="box job-seeker step-4">
+                            <header>Listen & Apply to Jobs</header>
+                            <p>Call txt2wrk and listen to the job description.</p>
+                            <p>If you like what you hear, apply for the job right over the phone. Your contact information and Job Seeker profile are immediately sent directly to the employer.</p>
+                        </section>
+                    </li>
+                    <li>
+                        <section class="box employer step-5" style="margin-top: 100px;">
+                            <header>Review Applications</header>
+                            <p>Job Seeker profiles are collected for each job posting as job seekers respond to your posting. Review individual profiles and contact prospective hires directly.</p>
+                        </section>
+                    </li>
+                    <li>
+                        <section class="box job-seeker step-6" style="margin-top: -30px;">
+                            <header>Receive Call Backs</header>
+                            <p>Employers who are interested in your profile will contact you directly on the phone you registered with txt2wrk.</p>
+                        </section>
+                    </li>
+                </ul>
+            </section>
+            <div style="clear: both;"></div>
+            <section id="about">
+                <header>About txt2wrk</header>
+                <p><strong>txt2wrk</strong> was awarded the Ramsell Prize for the best app at the Code for Oakland hackathon on June 4, 2011.</p>
+                <p><strong>txt2wrk</strong> was founded in Oakland, CA to improve access to employment information for people with low literacy and limited access to broadband. Specifically, we wanted to help parolees, who make up a disproportionate percentage of Oakland’s population, find jobs. In addition to low literacy, parolees seeking work are challenged by infrequent Internet connectivity. Typically, their only access is 1 hour per day at a career center or public library.</p>
+                <p><strong>txt2wrk</strong> helps parolees and other seekers compete on a more level playing field by providing</p>
+                <ul>
+                    <li>text-to-speech delivery of job postings on any mobile phone, including inexpensive models</li>
+                    <li>real-time alerts of job postings even when a job seeker is not near a computer</li>
+                    <li>the ability to apply for a job and submit a resume using any mobile phone</li>
+                    <li>24-hour access to job postings using any mobile phone</li>
+                    <li>access to public and private job information through partnerships with organizations dedicated to helping former felons find jobs</li>
+                </ul>
+                <p>For parolees in particular, <strong>txt2wrk</strong> provides a receipt that can serve as required proof they are applying for jobs.</p>
+                <p>Beyond serving parolees, <strong>txt2wrk</strong> empowers a wide range of populations, including immigrants, people without permanent addresses, and women escaping domestic violence.</p>
+            </section>
+        </div>
+    </body>
+</html>
