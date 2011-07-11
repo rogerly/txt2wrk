@@ -22,7 +22,7 @@
 <h1>Hi, {{ user.first_name}}!</h1>
 <p>Update your account and profile information below.</p>
 
-<form action="{% url applicant_profile %}" method="post">
+<form action="{% url applicant_profile %}" method="post"  enctype="multipart/form-data">
 	{% csrf_token %}
     {{ form.non_field_errors }}
     {{ form.user }}
@@ -43,6 +43,9 @@
 		    </div>
 		    <div class="fieldWrapper">
 		    	{{ form.location_range.label_tag }} {{ form.location_range }} {{ form.location_range.errors }}
+		    </div>
+		    <div class="fieldWrapper">
+		    	{{ form.resume.label_tag }} {{ form.resume }} {{ form.resume.errors }} 
 		    </div>
     	</fieldset>
     </div>
