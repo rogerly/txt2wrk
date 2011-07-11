@@ -80,6 +80,13 @@ urlpatterns = patterns('',
         },
         name='handle_listing_detail'),
 
+    url(r'^handle_listen_saved/',
+        'call.views.handle_listen_saved',
+        {
+            'template': 'call/fragments/handle_listen_saved.html',
+        },
+        name='call_handle_listen_saved'),
+
     url(r'^listing_info/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/(?P<job_index>\d+)/(?P<job_total>\d+)/',
         'call.views.listing_info',
         {
