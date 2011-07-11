@@ -205,6 +205,7 @@ def new_listings(request, job_recommendation_id=None, job_index=1, job_total=1, 
                               context,
                               context_instance=RequestContext(request))
 
+@csrf_exempt
 def handle_listing(request, listing_type=None, job_recommendation_id=None, job_index=1, job_total=1, detail=False, template=None):
     if request.method == 'POST':
         fields = request.POST
@@ -237,6 +238,33 @@ def handle_listing(request, listing_type=None, job_recommendation_id=None, job_i
                               context_instance=RequestContext(request))
 
 @csrf_exempt
+def handle_listen_saved(request, template=None):
+    if request.method == 'POST':
+        fields = request.POST
+    else:
+        fields = request.GET
+
+    form = HandleFragmentForm(fields)
+    context = {}
+    context['form'] = form
+    call = Call.objects.get(call_sid=fields['CallSid'])
+
+    saved_jobs = call.applicant.recommendations.filter(state=JobRecommendation.SAVED_REC).filter(job__state=Job.JOB_OPEN)
+    saved_jobs.order_by('id')
+    context['saved_jobs'] = saved_jobs
+
+    if form.is_valid():
+        if 'Digits' in form.cleaned_data and form.cleaned_data['Digits'] != '':
+            context['digits'] = form.cleaned_data['Digits']
+        else:
+            fragment = CallFragment(call=call, outbound=True, fragment_type=CallFragment.OUTBOUND_ENTER_PASSWORD)
+            fragment.save()
+
+    return render_to_response(template,
+                              context,
+                              context_instance=RequestContext(request))
+
+@csrf_exempt
 def saved_listings(request, job_recommendation_id=None, job_index=1, job_total=1, template=None):
     if request.method == 'POST':
         fields = request.POST
@@ -247,6 +275,7 @@ def saved_listings(request, job_recommendation_id=None, job_index=1, job_total=1
     context = {}
     context['form'] = form
     
+    context['job_index'] = int(job_index)
     if job_recommendation_id is not None:
         context['job_index'] = int(job_index) + 1
     context['job_total'] = int(job_total)

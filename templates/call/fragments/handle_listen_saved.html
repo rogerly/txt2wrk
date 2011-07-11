@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Response>
+    {% if digits %}
+        {% if digits == '1' %}
+            <Redirect method="GET">{% url call_saved_listings 1 saved_jobs.count %}</Redirect>
+        {% endif %}
+        {% if digits == '2' %}
+            <Redirect method="GET">{% url call_hangup %}</Redirect>
+        {% endif %}
+        <Redirect method="GET">{% url call_handle_listen_saved %}</Redirect>
+    {% else %}
+        <Gather method="GET" action="{% url call_handle_listen_saved %}" numDigits="1">
+            <Say>To listen to your saved jobs, press 1.</Say>
+            <Say>Otherwise, to end this call, press 2.</Say>
+        </Gather>
+        <Redirect method="GET">{% url call_handle_listen_saved %}</Redirect>
+    {% endif %}
+</Response>
