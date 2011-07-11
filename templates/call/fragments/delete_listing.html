@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <Response>
-	<Say>You have deleted this job listing.</Say>
-	{% if listing_type %}
-		<Say>Next listing.</Say>
-		{% if listing_type == '1' %}
-			<Redirect>{% url call_new_listings recommendation.id %}</Redirect>
-		{% else %}
-			<Redirect>{% url call_saved_listings recommendation.id %}</Redirect>
-		{% endif %}
-	{% else %}
-		<Redirect>{% url call_main_menu %}</Redirect>
-	{% endif %}
+    {% if listing_type == '1' %}
+        <Redirect>{% url call_new_listings recommendation.id job_index job_total %}</Redirect>
+    {% else %}
+        <Redirect>{% url call_saved_listings recommendation.id %}</Redirect>
+    {% endif %}
 </Response>

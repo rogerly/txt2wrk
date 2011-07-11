@@ -17,19 +17,14 @@
 			{% endif %}
 		{% endwith %}
 	{% else %}
-		{% if jobs.count > 0 %}
-			{% with recommendation=jobs|first %}
-				<Say>{{ recommendation.job.title }}</Say>
-				<Gather numDigits="1">
-					<Say>Press 1 for more information about this job.</Say>
-					<Say>Press 2 to apply for this job.</Say>
-					<Say>Press 3 to delete this job.</Say>
-					<Say>Press 4 to skip to the next job.</Say>
-				</Gather>
-			{% endwith %}
+        {% if job_index > job_total %}
+            <Say>You have no saved jobs to review.</Say>
+            <Redirect>{% url call_hangup %}</Redirect>
 		{% else %}
-			<Say>You have no more saved listings</Say>
-			<Redirect>{% url call_main_menu %}</Redirect>
+            {% with recommendation=jobs|first %}
+                <Say>Job {{ job_index }} of {{ job_total }}: {{ recommendation.job.title }} at {% for location in recommendation.job.location.all %}{{ location.business_name }}.{% endfor %}</Say>
+                <Redirect>{% url handle_listing 2 recommendation.id job_index job_total %}</Redirect>
+            {% endwith %}
 		{% endif %}
 	{% endif %}
 </Response>

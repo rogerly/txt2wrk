@@ -65,6 +65,28 @@ urlpatterns = patterns('',
          },
         name='call_new_listings'),
 
+    url(r'^handle_listing/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/(?P<job_index>\d+)/(?P<job_total>\d+)/',
+        'call.views.handle_listing',
+        {
+            'template': 'call/fragments/handle_listing.html',
+        },
+        name='handle_listing'),
+
+    url(r'^handle_listing_detail/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/(?P<job_index>\d+)/(?P<job_total>\d+)/',
+        'call.views.handle_listing',
+        {
+            'template': 'call/fragments/handle_listing.html',
+            'detail': True,
+        },
+        name='handle_listing_detail'),
+
+    url(r'^listing_info/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/(?P<job_index>\d+)/(?P<job_total>\d+)/',
+        'call.views.listing_info',
+        {
+         'template': 'call/fragments/listing_info.html',
+         },
+        name='call_listing_info'),
+
     url(r'^listing_info/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/',
         'call.views.listing_info',
         {
@@ -78,6 +100,13 @@ urlpatterns = patterns('',
          'template': 'call/fragments/listing_info.html',
          },
         name='call_listing_info'),
+
+    url(r'^apply/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/(?P<job_index>\d+)/(?P<job_total>\d+)/',
+        'call.views.apply',
+        {
+         'template': 'call/fragments/apply.html',
+         },
+        name='call_apply'),
 
     url(r'^apply/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/',
         'call.views.apply',
@@ -93,6 +122,13 @@ urlpatterns = patterns('',
          },
         name='call_apply'),
 
+    url(r'^save_listing/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/(?P<job_index>\d+)/(?P<job_total>\d+)/',
+        'call.views.save_listing',
+        {
+         'template': 'call/fragments/save_listing.html',
+         },
+        name='call_save_listing'),
+
     url(r'^save_listing/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/',
         'call.views.save_listing',
         {
@@ -107,6 +143,13 @@ urlpatterns = patterns('',
          },
         name='call_save_listing'),
 
+    url(r'^delete_listing/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/(?P<job_index>\d+)/(?P<job_total>\d+)/',
+        'call.views.delete_listing',
+        {
+         'template': 'call/fragments/delete_listing.html',
+         },
+        name='call_delete_listing'),
+
     url(r'^delete_listing/(?P<listing_type>\d+)/(?P<job_recommendation_id>\d+)/',
         'call.views.delete_listing',
         {
@@ -120,6 +163,13 @@ urlpatterns = patterns('',
          'template': 'call/fragments/delete_listing.html',
          },
         name='call_delete_listing'),
+
+    url(r'^saved_listings/(?P<job_recommendation_id>\d+)/(?P<job_index>\d+)/(?P<job_total>\d+)/',
+        'call.views.saved_listings',
+        {
+         'template': 'call/fragments/saved_listings.html',
+         },
+        name='call_saved_listings'),
 
     url(r'^saved_listings/(?P<job_recommendation_id>\d+)/',
         'call.views.saved_listings',

@@ -176,13 +176,50 @@ def new_listings(request, job_recommendation_id=None, job_index=1, job_total=1, 
     form = HandleFragmentForm(fields)
     context = {}
     context['form'] = form
-    context['job_index'] = job_index
-    context['job_total'] = job_total
+
+    context['job_index'] = int(job_index)
+    if job_recommendation_id is not None:
+        context['job_index'] = int(job_index) + 1
+    context['job_total'] = int(job_total)
+
+    context['listing_type'] = 1
     
+    call = Call.objects.get(call_sid=fields['CallSid'])
+    jobs = call.applicant.recommendations.filter(state__lte=JobRecommendation.KEPT_NEW_REC).filter(job__state=Job.JOB_OPEN)
+    if job_recommendation_id is not None:
+        jobs = jobs.filter(id__gt=job_recommendation_id)
+    context['jobs'] = jobs
+    saved_jobs = call.applicant.recommendations.filter(state=JobRecommendation.SAVED_REC).filter(job__state=Job.JOB_OPEN)
+    context['saved_jobs'] = saved_jobs
+
+    if form.is_valid():
+        if 'Digits' in form.cleaned_data and form.cleaned_data['Digits'] != '':
+            context['digits'] = form.cleaned_data['Digits']
+        else:
+            fragment = CallFragment(call=call, outbound=True, fragment_type=CallFragment.OUTBOUND_ENTER_PASSWORD)
+            fragment.save()
+
+    return render_to_response(template,
+                              context,
+                              context_instance=RequestContext(request))
+
+def handle_listing(request, listing_type=None, job_recommendation_id=None, job_index=1, job_total=1, detail=False, template=None):
+    if request.method == 'POST':
+        fields = request.POST
+    else:
+        fields = request.GET
+
+    form = HandleFragmentForm(fields)
+    context = {}
+    context['form'] = form
+    context['listing_type'] = listing_type
+    context['job_index'] = int(job_index)
+    context['job_total'] = int(job_total)
+    context['detail'] = detail
     call = Call.objects.get(call_sid=fields['CallSid'])
     jobs = call.applicant.recommendations.filter(state__lte=JobRecommendation.KEPT_NEW_REC)
     if job_recommendation_id is not None:
-        jobs = jobs.filter(id__gt=job_recommendation_id)
+        jobs = jobs.filter(id__gte=job_recommendation_id)
     context['jobs'] = jobs
 
     if form.is_valid():
@@ -197,7 +234,7 @@ def new_listings(request, job_recommendation_id=None, job_index=1, job_total=1, 
                               context_instance=RequestContext(request))
 
 @csrf_exempt
-def saved_listings(request, job_recommendation_id=None, template=None):
+def saved_listings(request, job_recommendation_id=None, job_index=1, job_total=1, template=None):
     if request.method == 'POST':
         fields = request.POST
     else:
@@ -207,8 +244,14 @@ def saved_listings(request, job_recommendation_id=None, template=None):
     context = {}
     context['form'] = form
     
+    if job_recommendation_id is not None:
+        context['job_index'] = int(job_index) + 1
+    context['job_total'] = int(job_total)
+
+    context['listing_type'] = 2
+
     call = Call.objects.get(call_sid=fields['CallSid'])
-    jobs = call.applicant.recommendations.filter(state=JobRecommendation.SAVED_REC)
+    jobs = call.applicant.recommendations.filter(state=JobRecommendation.SAVED_REC).filter(job__state=Job.JOB_OPEN)
     if job_recommendation_id is not None:
         jobs = jobs.filter(id__gt=job_recommendation_id)
     context['jobs'] = jobs
@@ -225,7 +268,7 @@ def saved_listings(request, job_recommendation_id=None, template=None):
                               context_instance=RequestContext(request))
 
 @csrf_exempt
-def listing_info(request, listing_type=None, job_recommendation_id=None, template=None):
+def listing_info(request, listing_type=None, job_recommendation_id=None, job_index=1, job_total=1, template=None):
     if request.method == 'POST':
         fields = request.POST
     else:
@@ -234,7 +277,9 @@ def listing_info(request, listing_type=None, job_recommendation_id=None, templat
     form = HandleFragmentForm(fields)
     context = {}
     context['form'] = form
-    
+    context['job_index'] = int(job_index)
+    context['job_total'] = int(job_total)
+
     call = Call.objects.get(call_sid=fields['CallSid'])
     recommendation = JobRecommendation.objects.get(id=job_recommendation_id)
     context['recommendation'] = recommendation
@@ -252,7 +297,7 @@ def listing_info(request, listing_type=None, job_recommendation_id=None, templat
                               context_instance=RequestContext(request))
 
 @csrf_exempt
-def apply(request, listing_type=None, job_recommendation_id=None, template=None):
+def apply(request, listing_type=None, job_recommendation_id=None, job_index=1, job_total=1, template=None):
     if request.method == 'POST':
         fields = request.POST
     else:
@@ -261,6 +306,8 @@ def apply(request, listing_type=None, job_recommendation_id=None, template=None)
     form = HandleFragmentForm(fields)
     context = {}
     context['form'] = form
+    context['job_index'] = int(job_index)
+    context['job_total'] = int(job_total)
     
     call = Call.objects.get(call_sid=fields['CallSid'])
     recommendation = JobRecommendation.objects.get(id=job_recommendation_id)
@@ -279,7 +326,7 @@ def apply(request, listing_type=None, job_recommendation_id=None, template=None)
                               context_instance=RequestContext(request))
 
 @csrf_exempt
-def save_listing(request, listing_type=None, job_recommendation_id=None, template=None):
+def save_listing(request, listing_type=None, job_recommendation_id=None, job_index=1, job_total=1, template=None):
     if request.method == 'POST':
         fields = request.POST
     else:
@@ -304,7 +351,7 @@ def save_listing(request, listing_type=None, job_recommendation_id=None, templat
                               context_instance=RequestContext(request))
 
 @csrf_exempt
-def delete_listing(request, listing_type=None, job_recommendation_id=None, template=None):
+def delete_listing(request, listing_type=None, job_recommendation_id=None, job_index=1, job_total=1, template=None):
     if request.method == 'POST':
         fields = request.POST
     else:
@@ -313,6 +360,8 @@ def delete_listing(request, listing_type=None, job_recommendation_id=None, templ
     form = HandleFragmentForm(fields)
     context = {}
     context['form'] = form
+    context['job_index'] = int(job_index)
+    context['job_total'] = int(job_total)
     
     call = Call.objects.get(call_sid=fields['CallSid'])
     recommendation = JobRecommendation.objects.get(id=job_recommendation_id)
