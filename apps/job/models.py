@@ -1,3 +1,9 @@
+import urllib
+try:
+    import json as simplejson
+except ImportError:
+    import simplejson
+
 from random import random
 from datetime import date
 from django.db import models
@@ -140,6 +146,13 @@ class Job(Criteria):
 
 class JobLocation(models.Model):
 
+    def __init__(self, *args, **kwargs):
+        super(JobLocation, self).__init__(*args, **kwargs)
+        self.business_address1_old = self.business_address1
+        self.business_address2_old = self.business_address2
+        self.city_old = self.city
+        self.zip_code_old = self.zip_code
+
     business_name = models.CharField('Business Name',
                                      blank=False,
                                      max_length=100,
@@ -173,3 +186,19 @@ class JobLocation(models.Model):
     def __unicode__(self):
         return u'%s - %s, %s' % (self.business_name, self.business_address1, self.city)
 
+    def save(self):
+        if self.business_address1 != self.business_address1_old or self.business_address2 != self.business_address2_old or self.city != self.city_old or self.zip_code != self.zip_code_old:
+
+            try:
+                location = '%s %s %s %s' % (self.business_address1, self.business_address2, self.city, self.zip_code)
+                location = urllib.quote_plus(location)
+                request = "http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=%s" % (location,)
+                result = simplejson.load(urllib.urlopen(request))
+
+                if result['status'] == 'OK':
+                    self.latitude = result['results'][0]['geometry']['location']['lat']
+                    self.longitude = result['results'][0]['geometry']['location']['lng']
+            except:
+                pass
+
+        super(JobLocation, self).save()
