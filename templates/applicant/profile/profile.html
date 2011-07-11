@@ -1,0 +1,53 @@
+{% extends "employer/employer_base.html" %}
+
+{% block head_title %} Applicant Profile {% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/applicant.css" />
+<style type="text/css">
+    #phone-number {
+        margin-bottom: 25px;
+    }
+</style>
+{% endblock %}
+
+{% block body_content %}
+   <h1>{{ applicant.user.first_name }} {{ applicant.user.last_name }} <span>applying for </span></h1>
+    <div class="left-column" style="width: 45%;">
+        <section>
+            <header>Phone Number</header>
+            <div id="phone-number">{{ applicant.mobile_number }}</div>
+            <header>Resume Available (.pdf)</header>
+            <button class="dashboard view-resume">View Resume</button>
+        </section>
+    </div>
+    <div class="right-column" style="width: 50%">
+        <section>
+            <header>Job Seeker Details</header>
+            <div>
+                <span class="label">Availability</span>
+                <span class="value">{{ applicant.availability }}</span>
+            </div>
+            <div>
+                <span class="label">Type of work</span>
+                <span class="value">{{ applicant.employment_type }}</span>
+            </div>
+            <div>
+                <span class="label">Overtime</span>
+                <span class="value">{{ applicant.overtime }}</span>
+            </div>
+            <div>
+                <span class="label">Education</span>
+                <span class="value">{{ applicant.education }}</span>
+            </div>
+            <div>
+                <span class="label">Experience</span>
+                <span class="value">{{ applicant.experience }}</span>
+            </div>
+            <div>
+                <span class="label">Skills</span>
+                <span class="value">{{ applicant.industry }}</span>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -27,9 +27,10 @@ class Criteria(models.Model):
     AVAILABILITY_CHOICES = ((1, "Immediately"), 
                             (2, "Within a month"))
     
-    EDUCATION_CHOICES = ((1, "High school diploma"), 
-                            (2, "Associates Degree"), 
-                            (3, "Bachelor's Degree"))
+    EDUCATION_CHOICES = ((1, "High school diploma"),
+                            (2, 'GED'),
+                            (3, "Associates Degree"),
+                            (4, "Bachelor's Degree"))
     
     EXPERIENCE_CHOICES = ((1, "0-1 years"), 
                             (2, "1-4 years"), 

@@ -271,7 +271,7 @@ button.dashboard {
 	display: inline-block;
 }
 
-button.job-description, button.view-applicants, button.view-profile {
+button.job-description, button.view-applicants, button.view-profile, button.view-resume {
 	background: url('/static/images/search_icon.png') no-repeat right, #0091ce !important;
 	background: url('/static/images/search_icon.png') no-repeat right, -webkit-gradient(linear, left bottom, right bottom, color-stop(0.0, #0091ce), color-stop(0.7, #0091ce), color-stop(0.7, #ffffff)) !important;
 	background: url('/static/images/search_icon.png') no-repeat right, -moz-linear-gradient(left, #0091ce 70%, #ffffff 30%) !important;
@@ -283,7 +283,7 @@ button.job-remove, button.delete-posting, button.remove-applicant {
 	background: url('/static/images/close_icon.png') no-repeat right, -moz-linear-gradient(left, #a6a8ab 70%, #ffffff 30%) !important;
 }
 
-button.view-profile, button.remove-applicant {
+button.view-profile, button.remove-applicant, button.view-resume {
     width: 130px;
 }
 
