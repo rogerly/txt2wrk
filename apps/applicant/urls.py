@@ -44,6 +44,15 @@ urlpatterns = patterns('',
          'template': 'applicant/account/profile.html'
         },
         name='applicant_profile'),
+
+    url(r'^setup_profile/',
+        'applicant.views.applicant_profile',
+        {
+         'template': 'applicant/account/profile.html',
+         'first_time_setup': True,
+        },
+        name='applicant_profile_setup'),
+
     url(r'^dashboard/',
         'applicant.views.applicant_dashboard',
         {

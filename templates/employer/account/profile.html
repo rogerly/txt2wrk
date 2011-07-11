@@ -33,6 +33,7 @@
 <form action="{% if first_time_setup %}{% url employer_profile_setup %}{% else %}{% url employer_profile %}{% endif %}" method="post">
 	{% csrf_token %}
     {{ form.non_field_errors }}
+    {{ form.user }}
     <div class="left-column" style="width: 45%;">
 		<fieldset id="business-information">
 			<legend>Business Information <span class="required-fields">* Required field</span></legend>
@@ -78,19 +79,35 @@
 	</div>
 	{% if not first_time_setup %}
 		<div class="right-column" style="width: 45%;">
-			<fieldset id="contact-information">
-				<legend>Contact Information: <span class="required-fields">All fields required</span></legend>
-				{{ form.user }}
-				<div class="fieldWrapper">
-					{{ form.phone_number.label_tag }} {{ form.phone_number }} {{ form.phone_number.errors }}
-				</div>
-		    	<div class="help-text">
-		    		<p>Please note that all job matches will be sent to the email address that you enter here.</p>
-		    	</div>
-			</fieldset>
+            <fieldset>
+                <legend>Account Details</legend>
+                <div class="fieldWrapper">
+                    {{ form.username.label_tag }} {{ form.username }} {{ form.username.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.password1.label_tag }} {{ form.password1 }} {{ form.password1.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.password2.label_tag }} {{ form.password2 }} {{ form.password2.errors }}
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Contact Information</legend>
+                <div class="fieldWrapper">
+                    {{ form.first_name.label_tag }} {{ form.first_name }} {{ form.first_name.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.last_name.label_tag }} {{ form.last_name }} {{ form.last_name.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.email.label_tag }} {{ form.email }} {{ form.email.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.phone_number.label_tag }} {{ form.phone_number }} {{ form.phone_number.errors }}
+                </div>
+            </fieldset>
 		</div>
 	{% else %}
-		{{ form.user }}
 		{{ form.phone_number }}
 	{% endif %}
 	<div class="right">

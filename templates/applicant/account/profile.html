@@ -22,11 +22,11 @@
 <h1>Hi, {{ user.first_name}}!</h1>
 <p>Update your account and profile information below.</p>
 
-<form action="{% url applicant_profile %}" method="post"  enctype="multipart/form-data">
+<form action="{% if first_time_setup %}{% url applicant_profile_setup %}{% else %}{% url applicant_profile %}{% endif %}" method="post"  enctype="multipart/form-data">
 	{% csrf_token %}
     {{ form.non_field_errors }}
     {{ form.user }}
-    <div class="left-column" style="width: 45%">
+    <div class="left-column" style="width: {% if first_time_setup %}45%{% else %}52%{% endif %}">
     	<fieldset>
     		<legend>Description of Your Skills <span class="required-fields">All Fields Required</span></legend>
 		    <div class="fieldWrapper">
@@ -50,12 +50,11 @@
 		    <div class="fieldWrapper">
 		    	{{ form.distance.label_tag }} {{ form.distance }} {{ form.distance.errors }}
 		    </div>
-		    <div class="fieldWrapper">
-		    	{{ form.resume.label_tag }} {{ form.resume }} {{ form.resume.errors }} 
-		    </div>
     	</fieldset>
-    </div>
-    <div class="right-column" style="width: 52%;">
+    {% if first_time_setup %}
+        </div>
+        <div class="right-column" style="width: 52%;">
+    {% endif %}
     	<fieldset>
 			<legend>I Have Experience in the Following Areas <span class="required-fields">Required field</span></legend>
 			<p>(Available jobs will be matched against these categories.)</p>
@@ -64,7 +63,44 @@
 		    	 {{ form.industry.errors }}
 		    </div>
     	</fieldset>
-	    <div class="right"><button>Create Profile</button></div>
+    {% if not first_time_setup %}
+        </div>
+        <div class="right-column" style="width: 45%;">
+            <fieldset>
+                <legend>Update Your Account Details</legend>
+                <div class="fieldWrapper">
+                    {{ form.mobile_number.label_tag }} {{ form.mobile_number }} {{ form.mobile_number.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.password1.label_tag }} {{ form.password1 }} {{ form.password1.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.password2.label_tag }} {{ form.password2 }} {{ form.password2.errors }}
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Contact Information</legend>
+                <div class="fieldWrapper">
+                    {{ form.first_name.label_tag }} {{ form.first_name }} {{ form.first_name.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.last_name.label_tag }} {{ form.last_name }} {{ form.last_name.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.email.label_tag }} {{ form.email }} {{ form.email.errors }}
+                </div>
+            </fieldset>
+    {% else %}
+        {{ form.mobile_number }}
+    {% endif %}
+        <fieldset>
+            <legend>Resume</legend>
+            <p>If you have a resume, upload it to <strong>txt2wrk</strong> as a PDF and it will be sent to every job you apply for using the <strong>txt2wrk</strong> service.</p>
+            <div class="fieldWrapper">
+                {{ form.resume.label_tag }}<br /> {{ form.resume }} {{ form.resume.errors }}
+            </div>
+        </fieldset>
+	    <div class="right"><button>{% if first_time_setup %}Create Profile{% else %}Update Profile{% endif %}</button></div>
     </div>
 	
 </form>

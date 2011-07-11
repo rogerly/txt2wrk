@@ -35,9 +35,12 @@ class ApplicantProfile(Profile, Criteria):
         return u'%s' % (self.mobile_number,)
     
     def save(self, *args, **kwargs):
-        profile = ApplicantProfile.objects.get(id=self.id)
-        if profile.resume and  profile.resume != self.resume:
-            profile.resume.delete(save=False)
+        try:
+            profile = ApplicantProfile.objects.get(id=self.id)
+            if profile.resume and  profile.resume != self.resume:
+                profile.resume.delete(save=False)
+        except ApplicantProfile.DoesNotExist:
+            pass
         super(ApplicantProfile, self).save(*args, **kwargs)
 
 

@@ -12,18 +12,34 @@ from job.models import Job
 from job_recommendation.models import JobRecommendation
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/applicant/login')
-def applicant_profile(request, template='applicant/account/profile.html'):
+def applicant_profile(request, first_time_setup=False, template='applicant/account/profile.html'):
     form = None 
+    ctxt = {}
+    ctxt['first_time_setup'] = first_time_setup
     profile = ApplicantProfile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = ApplicantProfileForm(data=request.POST, files=request.FILES, instance=profile)
+        form = ApplicantProfileForm(data=request.POST, files=request.FILES, instance=profile, first_time_setup=first_time_setup, user=request.user)
         if form.is_valid():
             form.save()
+
+            if 'first_name' in form.cleaned_data and form.cleaned_data['first_name'] != '':
+                user = request.user
+                user.first_name = form.cleaned_data['first_name']
+                user.last_name = form.cleaned_data['last_name']
+                user.email = form.cleaned_data['email']
+
+                if 'password1' in form.cleaned_data and form.cleaned_data['password1'] != '':
+                    user.set_password(form.cleaned_data['password1'])
+
+                user.save()
+
             return redirect(applicant_dashboard)
     else:
-        form = ApplicantProfileForm(instance=profile)
-    return render_to_response(template, 
-                              {'form' : form}, 
+        form = ApplicantProfileForm(instance=profile, first_time_setup=first_time_setup, user=request.user)
+
+    ctxt['form'] = form
+    return render_to_response(template,
+                              ctxt,
                               context_instance=RequestContext(request))
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/applicant/login')
