@@ -135,7 +135,7 @@ class ApplicantBackend(object):
         user registration.
         
         """
-        return ('applicant_registration_complete', (), {})
+        return ('applicant_profile_setup', (), {})
 
     def post_activation_redirect(self, request, user):
         raise NotImplementedError

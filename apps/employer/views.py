@@ -15,12 +15,24 @@ def employer_profile(request, first_time_setup=False, template='employer/account
     ctxt = {}
     ctxt['first_time_setup'] = first_time_setup
     if request.method == 'POST':
-        form = EmployerProfileForm(data=request.POST, instance=EmployerProfile.objects.get(user=request.user), first_time_setup=first_time_setup)
+        form = EmployerProfileForm(data=request.POST, instance=EmployerProfile.objects.get(user=request.user), first_time_setup=first_time_setup, user=request.user)
         if form.is_valid():
             form.save()
+
+            if 'first_name' in form.cleaned_data and form.cleaned_data['first_name'] != '':
+                user = request.user
+                user.first_name = form.cleaned_data['first_name']
+                user.last_name = form.cleaned_data['last_name']
+                user.email = form.cleaned_data['email']
+                user.username = form.cleaned_data['username']
+
+                if 'password1' in form.cleaned_data and form.cleaned_data['password1'] != '':
+                    user.set_password(form.cleaned_data['password1'])
+
+                user.save()
             return redirect(employer_dashboard)
     else:
-        form = EmployerProfileForm(instance=EmployerProfile.objects.get(user=request.user), first_time_setup=first_time_setup)
+        form = EmployerProfileForm(instance=EmployerProfile.objects.get(user=request.user), first_time_setup=first_time_setup, user=request.user)
     
     ctxt['form'] = form
     ctxt['request'] = request
