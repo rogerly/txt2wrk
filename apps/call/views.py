@@ -335,7 +335,9 @@ def save_listing(request, listing_type=None, job_recommendation_id=None, job_ind
     form = HandleFragmentForm(fields)
     context = {}
     context['form'] = form
-    
+    context['job_index'] = job_index
+    context['job_total'] = job_total
+
     call = Call.objects.get(call_sid=fields['CallSid'])
     recommendation = JobRecommendation.objects.get(id=job_recommendation_id)
     recommendation.state = JobRecommendation.SAVED_REC
