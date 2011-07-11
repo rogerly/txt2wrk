@@ -37,4 +37,8 @@ urlpatterns = patterns('',
          'template' : 'employer/job/manage_job.html'
          },
         name='manage_job'),
+    url(r'^close/(?P<job_code>\d+)$',
+        'job.views.close_job',
+        {'redirect_url' : 'employer_dashboard'},
+        name='close_job'),
 )

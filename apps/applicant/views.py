@@ -29,8 +29,8 @@ def applicant_profile(request, template='applicant/account/profile.html'):
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/applicant/login')
 def applicant_dashboard(request, template='applicant/account/dashboard.html'):
     profile = ApplicantProfile.objects.get(user=request.user)
-    job_recommendations = JobRecommendation.objects.filter(applicant=profile).filter(Q(state=JobRecommendation.NEW_REC) | Q(state=JobRecommendation.KEPT_NEW_REC) | Q(state=JobRecommendation.SAVED_REC))
-    applicant_jobs = ApplicantJob.objects.filter(applicant=profile, state=1)
+    job_recommendations = JobRecommendation.objects.filter(applicant=profile).filter(job__state=Job.JOB_OPEN).filter(Q(state=JobRecommendation.NEW_REC) | Q(state=JobRecommendation.KEPT_NEW_REC) | Q(state=JobRecommendation.SAVED_REC))
+    applicant_jobs = ApplicantJob.objects.filter(applicant=profile, state=ApplicantJob.APPLICATION_APPLIED).filter(job__state=Job.JOB_OPEN)
     return render_to_response(template, 
                               {'profile' : profile,
                                'applicant_jobs' : applicant_jobs,

@@ -71,6 +71,16 @@ class Job(Criteria):
     
     employer = models.ForeignKey(EmployerProfile, null=False, related_name='jobs')
 
+    JOB_OPEN = 1
+    JOB_FILLED = 2
+    JOB_CLOSED = 3
+
+    JOB_STATE_CHOICES = ((JOB_OPEN, 'Job Open'),
+                         (JOB_FILLED, 'Job Position Filled'),
+                         (JOB_CLOSED, 'Job Position Closed'))
+
+    state = models.IntegerField(null=False, default=JOB_OPEN, choices=JOB_STATE_CHOICES)
+
     # Auto-create a job code if there isn't one set
     def save(self, *args, **kwargs):
         new_job = False

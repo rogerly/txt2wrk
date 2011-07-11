@@ -9,6 +9,7 @@ from forms import JobForm
 from applicant.models import ApplicantProfile, ApplicantJob
 from employer.models import EmployerProfile
 from django.contrib.auth.decorators import user_passes_test
+from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response,redirect
 from django.template import RequestContext
 from django.forms.models import inlineformset_factory
@@ -106,6 +107,13 @@ def create_job(request, job_code=None, template = 'job/edit_job.html'):
                                'formset' : formset, } ,
                               context_instance=RequestContext(request))
 
+@user_passes_test(lambda u: u.is_authenticated(), login_url='/employer/login')
+def close_job(request, job_code=None, redirect_url=None):
+    try:
+        job = Job.objects.get(job_code=job_code)
+        job.state = Job.JOB_FILLED
+        job.save()
+    except Job.DoesNotExist:
+        pass
 
-
-    
+    return redirect(reverse(redirect_url))

@@ -16,6 +16,7 @@ body {
 
 a, a:visited {
 	color: #58595b;
+    text-decoration: none;
 }
 
 a:hover, a:active {
@@ -184,7 +185,6 @@ body > header {
 
 .page-nav a {
 	line-height: 35px;
-	text-decoration: none;
 }
 
 nav * button {
