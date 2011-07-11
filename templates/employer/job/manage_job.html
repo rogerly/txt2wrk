@@ -1,36 +1,67 @@
 {% extends "employer/employer_base.html" %}
 
+{% block page_css %}
+<style type="text/css">
+.application-withdrawn {
+    font-size: 12px;
+}
+</style>
+{% endblock %}
 {% block body_content %}
-<h1>Manage Job </h1>
+<h1>{{ job.title }}</h1>
 
-<ul>
-	<li>
-		Title: {{ job.title }}
-	</li>
-	<li>
-		Description: {{ job.description }}
-	</li>
-	<li>
-		{{ profile.business_name }}
-	</li>
-	<li> 
-		{{ profile.business_address1 }}
-	</li>
-</ul>
+<section class="left-column" style="width: 25%;">
+    <header>Job Description</header>
+    <p>{{ job.description }}</p>
+    <hr />
+    <ul class="no-bullets">
+        {% for location in job.location.all %}
+            <li>{{ location.business_name }}</li>
+            <li>{{ location.business_address1 }}</li>
+            {% if location.business_address2 %}<li>{{ profile.business_address12 }}</li>{% endif %}
+            <li>{{ location.city }}</li>
+            <li>{{ location.zip_code}}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url edit_job job.job_code %}"><button>Update Job</button></a>
+    <hr />
+    <p>Found someone for this job?</p>
+    <a href=""><button class="dashboard delete-posting">Delete Posting</button></a>
+</section>
 
+<section class="right-column" style="width: 70%;">
+    <header>Job Applicants</header>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th width="30%">Applicant Name</th>
+                <th width="30%">Date Applied</th>
+                <th width="40%">Profile</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications.all %}
+                <tr>
+                    <td>{{ application.applicant.user.first_name }} {{ application.applicant.user.last_name }}</td>
+                    <td>
+                        {% if application.state == 1 %}
+                            {{ application.date_submitted }}
+                        {% else %}
+                            <span class="application-withdrawn">Application Withdrawn</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if application.state == 1 %}
+                            <a href=""><button class="dashboard view-profile">View Profile</button></a>
+                        {% else %}
+                            <a href=""><button class="dashboard remove-applicant">Hide</button></a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
 
-<h2> Applicants </h2>
-
-<table>
-	<tr>
-		<th> Applicant Name </th>
-		<th> Resume </th>
-	</tr>
-</table>
-
-{{ applicants }} 
-
-Found someone for this job?
-<a href='#'> Delete Job </a>
 {% endblock %}
 

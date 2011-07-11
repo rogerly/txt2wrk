@@ -35,5 +35,6 @@ urlpatterns = patterns('',
         'job.views.manage_job',
         {
          'template' : 'employer/job/manage_job.html'
-         }),
+         },
+        name='manage_job'),
 )
