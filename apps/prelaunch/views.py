@@ -4,7 +4,7 @@ Created on Jun 13, 2011
 @author: Jon
 '''
 
-import settings
+from django.conf import settings
 from django.shortcuts import render_to_response
 from forms import PotentialUsersForm
 from django.template import RequestContext
