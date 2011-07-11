@@ -30,7 +30,7 @@ def employer_profile(request, first_time_setup=False, template='employer/account
                     user.set_password(form.cleaned_data['password1'])
 
                 user.save()
-            return redirect(employer_dashboard)
+            return redirect(reverse('employer_dashboard'))
     else:
         form = EmployerProfileForm(instance=EmployerProfile.objects.get(user=request.user), first_time_setup=first_time_setup, user=request.user)
     
