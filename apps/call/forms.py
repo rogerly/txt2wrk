@@ -13,22 +13,31 @@ class ReceiveCallForm(forms.Form):
     CallSid = forms.CharField(required=True)
 
 class HandleFragmentForm(forms.Form):
-    
+
+    From = USPhoneNumberField(required=True)
     CallSid = forms.CharField(required=True)
     Digits = forms.CharField(required=False)
     
 class VerifyPasswordForm(forms.Form):
     
     CallSid = forms.CharField(required=True)
-    Digits = forms.CharField(required=True)
-    
+    Digits = forms.CharField(required=False)
+
+    def clean_Digits(self):
+        if 'Digits' in self.cleaned_data:
+            if len(self.cleaned_data['Digits']) > 0 and len(self.cleaned_data['Digits']) != 4:
+                raise forms.ValidationError(_('Not enough numbers.'))
+            return self.cleaned_data['Digits']
+        return ''
+
     def clean(self):
         if 'Digits' in self.cleaned_data:
-            call = Call.objects.get(call_sid=self.cleaned_data['CallSid'])
-            profile = call.applicant
-            user = authenticate(username=profile.mobile_number, password=self.cleaned_data['Digits'])
-            if user is None:
-                raise forms.ValidationError(_('Bad password.'))
+            if len(self.cleaned_data['Digits']) != 0:
+                call = Call.objects.get(call_sid=self.cleaned_data['CallSid'])
+                profile = call.applicant
+                user = authenticate(username=profile.mobile_number, password=self.cleaned_data['Digits'])
+                if user is None:
+                    raise forms.ValidationError(_('Bad password.'))
         
         return super(VerifyPasswordForm, self).clean()
     
