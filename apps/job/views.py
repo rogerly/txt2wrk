@@ -4,6 +4,7 @@ Created on Jun 18, 2011
 @author: Jon
 '''
 
+from math import acos, cos, radians, sin
 from models import Job, JobLocation
 from forms import JobForm
 from applicant.models import ApplicantProfile, ApplicantJob
@@ -33,12 +34,28 @@ def view_job(request, job_code = None, is_applicant = False, template = None):
         ctxt['job'] = job
         if is_applicant:
             ctxt['is_applicant'] = is_applicant
+            applicant = ApplicantProfile.objects.get(user=request.user)
             try:
-                applicant = ApplicantProfile.objects.get(user=request.user)
                 application = ApplicantJob.objects.get(applicant=applicant, job = job)
                 ctxt['already_applied'] = True
             except ApplicantJob.DoesNotExist:
                 ctxt['already_applied'] = False
+
+            try:
+                latitude1 = applicant.latitude
+                longitude1 = applicant.longitude
+
+                latitude2 = job.location.all()[0].latitude
+                longitude2 = job.location.all()[0].longitude
+
+                if latitude1 is not None and latitude1 != '' and latitude2 is not None and latitude2 != '' and longitude1 is not None and longitude1 != '' and longitude2 is not None and longitude2 != '':
+                    # distance calculation from
+                    # http://stackoverflow.com/questions/1916953/filter-zipcodes-by-proximity-in-django-with-the-spherical-law-of-cosines
+                    distance = acos(cos(radians(float(latitude1))) * cos(radians(float(latitude2))) * cos(radians(float(longitude2)) - radians(float(longitude1))) + sin(radians(float(latitude1))) * sin(radians(float(latitude2)))) * 3959
+                    ctxt['distance'] = distance
+            except:
+                pass
+
         return render_to_response(template,
                                   ctxt,
                                   context_instance = RequestContext(request))
