@@ -3,27 +3,27 @@
 	{% if digits %}
 		{% if digits == '1' %}
 			{% if listing_type %}
-				<Redirect>{% url call_apply listing_type recommendation.id %}</Redirect>
+				<Redirect method="GET">{% url call_apply listing_type recommendation.id %}</Redirect>
 			{% else %}
-				<Redirect>{% url call_apply recommendation.id %}</Redirect>
+				<Redirect method="GET">{% url call_apply recommendation.id %}</Redirect>
 			{% endif %}
 		{% endif %}
 		{% if digits == '2' %}
 			{% if listing_type %}
-				<Redirect>{% url call_save_listing listing_type recommendation.id %}</Redirect>
+				<Redirect method="GET">{% url call_save_listing listing_type recommendation.id %}</Redirect>
 			{% else %}
-				<Redirect>{% url call_save_listing recommendation.id %}</Redirect>
+				<Redirect method="GET">{% url call_save_listing recommendation.id %}</Redirect>
 			{% endif %}
 		{% endif %}
 		{% if digits == '3' %}
 			{% if listing_type %}
-				<Redirect>{% url call_delete_listing listing_type recommendation.id %}</Redirect>
+				<Redirect method="GET">{% url call_delete_listing listing_type recommendation.id %}</Redirect>
 			{% else %}
-				<Redirect>{% url call_delete_listing recommendation.id %}</Redirect>
+				<Redirect method="GET">{% url call_delete_listing recommendation.id %}</Redirect>
 			{% endif %}
 		{% endif %}
 	{% else %}
 		<Say>{{ recommendation.job.description }}</Say>
-        <Redirect>{% url handle_listing_detail listing_type recommendation.id job_index job_total %}</Redirect>
+        <Redirect method="GET">{% url handle_listing_detail listing_type recommendation.id job_index job_total %}</Redirect>
 	{% endif %}
 </Response>

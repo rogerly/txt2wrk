@@ -3,18 +3,18 @@
     {% if digits %}
         {% with recommendation=jobs|first %}
             {% if digits == '1' %}
-                <Redirect>{% url call_listing_info listing_type recommendation.id job_index job_total %}</Redirect>
+                <Redirect method="GET">{% url call_listing_info listing_type recommendation.id job_index job_total %}</Redirect>
             {% endif %}
             {% if digits == '2' %}
-                <Redirect>{% url call_apply listing_type recommendation.id job_index job_total %}</Redirect>
+                <Redirect method="GET">{% url call_apply listing_type recommendation.id job_index job_total %}</Redirect>
             {% endif %}
             {% if digits == '3' %}
-                <Redirect>{% url call_save_listing recommendation.id job_index job_total %}</Redirect>
+                <Redirect method="GET">{% url call_save_listing recommendation.id job_index job_total %}</Redirect>
             {% endif %}
             {% if digits == '4' %}
-                <Redirect>{% url call_delete_listing listing_type recommendation.id job_index job_total %}</Redirect>
+                <Redirect method="GET">{% url call_delete_listing listing_type recommendation.id job_index job_total %}</Redirect>
             {% endif %}
-            <Redirect>{% url handle_listing listing_type recommendation.id job_index job_total %}</Redirect>
+            <Redirect method="GET">{% url handle_listing listing_type recommendation.id job_index job_total %}</Redirect>
         {% endwith %}
     {% else %}
         {% with recommendation=jobs|first %}
@@ -27,7 +27,7 @@
                 <Say>To erase this job, press 4.</Say>
                 <Say>To listen to these options again, press 9.</Say>
             </Gather>
-            <Redirect>
+            <Redirect method="GET">
                 {% if detail %}
                     {% url handle_listing_detail listing_type recommendation.id job_index job_total %}
                 {% else %}

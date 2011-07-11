@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <Response> 
 	{% if applicant %}
-		<Redirect>{% url call_enter_password %}</Redirect>
+		<Redirect method="GET">{% url call_enter_password %}</Redirect>
 	{% else %}
 		{% if form.errors %}
 			<Say>The phone number you entered was not recognized.</Say>
@@ -9,6 +9,6 @@
 		<Gather method="GET" action="{% url call_wrong_user %}" numDigits="10">
 			<Say>Please enter the phone number you registered with text 2 work.</Say>
 		</Gather>
-		<Redirect>{% url call_wrong_user %}</Redirect>
+		<Redirect method="GET">{% url call_wrong_user %}</Redirect>
 	{% endif %}
 </Response>
