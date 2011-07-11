@@ -49,6 +49,12 @@ urlpatterns = patterns('',
          },
         name='applicant_dashboard'),
 
+    url(r'^view/(?P<applicant_id>\d+)$',
+        'applicant.views.view_profile',
+        {
+         'template': 'applicant/profile/profile.html'
+        },
+        name='applicant_view_profile'),
     url(r'^job/view/(?P<job_code>\d+)$',
         'job.views.view_job',
         {

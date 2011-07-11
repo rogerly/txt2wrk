@@ -17,8 +17,19 @@ class ApplicantProfile(Profile, Criteria):
                                     )
 
     confirmed_phone = models.BooleanField(default=False)
-
     resume = models.FileField(upload_to='resumes', null=True)
+    zip_code = models.CharField('Zip Code', null=True, blank=False, max_length=10)
+
+    DISTANCE_OPTIONS = ((5, 'Less than 5 miles'),
+                        (10, 'Less than 10 miles'),
+                        (15, 'Less than 15 miles'),
+                        (20, 'Less than 20 miles'),
+                        (30, 'Less than 30 miles'),
+                        (100, 'Less than 100 miles'))
+
+    distance = models.IntegerField('Distance Willing to Travel for Work',
+                                   choices=DISTANCE_OPTIONS,
+                                   default=5)
 
     def __unicode__(self):
         return u'%s' % (self.mobile_number,)
@@ -35,6 +46,40 @@ class ApplicantProfile(Profile, Criteria):
             return reverse('applicant_dashboard')
         else:
             return reverse('applicant_profile')
+
+    def overtime_display(self):
+        if self.overtime:
+            return 'Yes'
+        else:
+            return 'No'
+
+    def distance_display(self):
+        for distance_option in self.DISTANCE_OPTIONS:
+            if distance_option[0] == self.distance:
+                return distance_option[1]
+
+        return ''
+
+    def employment_type_display(self):
+        for employment_type_option in Criteria.EMPLOYMENT_TYPE_CHOICES:
+            if employment_type_option[0] == self.employment_type:
+                return employment_type_option[1]
+
+        return ''
+
+    def education_display(self):
+        for education_option in Criteria.EDUCATION_CHOICES:
+            if education_option[0] == self.education:
+                return education_option[1]
+
+        return ''
+
+    def experience_display(self):
+        for experience_option in Criteria.EXPERIENCE_CHOICES:
+            if experience_option[0] == self.experience:
+                return experience_option[1]
+
+        return ''
 
 class ApplicantJob(models.Model):
     date_submitted = models.DateField(default=date.today())

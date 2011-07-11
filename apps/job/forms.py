@@ -28,7 +28,9 @@ class JobForm(forms.ModelForm):
                     label = '',
                     required = False,
     )
-    
+
+    overtime = forms.BooleanField(required=False, label="Overtime Available")
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         super(JobForm, self).__init__(*args, **kwargs)
@@ -45,6 +47,8 @@ class JobForm(forms.ModelForm):
                   'education',
                   'experience',
                   'industry',
-                  'employer'
+                  'employer',
+                  'overtime',
+                  'employment_type',
                   )
 

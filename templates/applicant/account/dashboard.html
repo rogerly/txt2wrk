@@ -10,11 +10,13 @@
 
 <section id="search" class="right-column" style="width: 460px;">
 	<header>Job Search Criteria <a href="{% url applicant_profile %}"><button>Edit</button></a></header> 
-	Availability: {{ profile.availability }} <br/>
-	Location: Near {{ profile.location }} <br/>
-	Experience: {{ profile.education }}, {{ profile.experience }} <br/>
-	Workdays: {% for workday in profile.workday.all %} {{ workday }}{% if not forloop.last %}, {% endif %} {% endfor %}  <br/>
-	Skills: {% for industry in profile.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %}  
+    Availability: {% for workday in profile.workday.all %} {{ workday }}{% if not forloop.last %}, {% endif %} {% endfor %}  <br/>
+    Type of Work: {{ profile.employment_type_display }}<br />
+    Overtime: {{ profile.overtime_display }}<br />
+	Location: {{ profile.distance_display }} <br/>
+    Education: {{ profile.education_display }}<br />
+	Experience: {{ profile.experience_display }} work experience <br/>
+	Skills: {% for industry in profile.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %}
 </section>
 
 <div style="clear: both;"></div>
