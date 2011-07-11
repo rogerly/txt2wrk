@@ -44,6 +44,10 @@
         margin-bottom: 10px;
     }
 
+    #id_overtime {
+        margin-left: 15px;
+    }
+
 </style>
 
 <script type="text/javascript">
@@ -70,7 +74,7 @@ pariatur. Andouille brisket aliqua culpa, cupidatat chicken et short ribs bresao
     {{ formset.management_form }}
 	{% csrf_token %}
     {{ form.non_field_errors }}
-    <fieldset class="left-column" style="width: 30%;" id="fieldset-location">
+    <fieldset class="left-column" style="width: 25%;" id="fieldset-location">
         <legend>Job Location <span class="required-fields">All Fields Required</span></legend>
         {% for locationform in formset %}
             <div id="location">
@@ -91,7 +95,7 @@ pariatur. Andouille brisket aliqua culpa, cupidatat chicken et short ribs bresao
         {% endfor %}
         {{ form.edit_location }}
     </fieldset>
-    <fieldset class="right-column" style="width: 65%;">
+    <fieldset class="right-column" style="width: 70%;">
     	<legend>Job Details <span class="required-fields">All Fields Required</span></legend>
 	    <div class="fieldWrapper">
             {{ form.title.label_tag }} {{ form.title }} {{ form.title.errors }}
@@ -99,6 +103,10 @@ pariatur. Andouille brisket aliqua culpa, cupidatat chicken et short ribs bresao
 	    <div class="fieldWrapper">
 	    	{{ form.description.label_tag }} {{ form.description }} {{ form.description.errors }}
 	    </div>
+        <div class="fieldWrapper">
+            {{ form.employment_type.label_tag }} {{ form.employment_type }}
+            {{ form.overtime }} {{ form.overtime.label_tag }}
+        </div>
 	
 	    <div class="fieldWrapper">
 	    	{{ form.availability.label_tag }} {{ form.availability }} {{ form.availability.errors }}

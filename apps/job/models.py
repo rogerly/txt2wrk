@@ -35,11 +35,16 @@ class Criteria(models.Model):
                             (2, "1-4 years"), 
                             (3, "4-10 years"))
 
+    EMPLOYMENT_TYPE_CHOICES = ((1, 'Full-time'),
+                               (2, 'Part-time'),
+                               (3, 'Temporary'))
     
     availability = models.IntegerField(null=True, choices=AVAILABILITY_CHOICES, default=1)
     workday = models.ManyToManyField(Workday)
     experience = models.IntegerField(null=True, choices=EXPERIENCE_CHOICES, default=1)
     education = models.IntegerField(null=True, choices=EDUCATION_CHOICES, default=1)
+    employment_type = models.IntegerField(null=True, choices=EMPLOYMENT_TYPE_CHOICES, default=1)
+    overtime = models.BooleanField(null=False, choices=((True, 'Yes'),(False, 'No')), default=True)
     industry = models.ManyToManyField(Industry)
     latitude = models.CharField(null=True, max_length=15)
     longitude = models.CharField(null=True, max_length=15)
