@@ -20,7 +20,7 @@
         {% if job_index > job_total %}
             {% if listing_type == 1 %}
                 {% if saved_jobs.count > 0 %}
-                    <Redirect method="GET">{% url call_saved_listings %}</Redirect>
+                    <Redirect method="GET">{% url call_saved_listings 1 saved_jobs.count %}</Redirect>
                 {% else %}
                     <Say>You have no saved jobs to review.</Say>
                     <Redirect method="GET">{% url call_hangup %}</Redirect>

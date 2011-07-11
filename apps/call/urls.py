@@ -171,6 +171,13 @@ urlpatterns = patterns('',
          },
         name='call_saved_listings'),
 
+    url(r'^saved_listings/(?P<job_index>\d+)/(?P<job_total>\d+)/',
+        'call.views.saved_listings',
+        {
+         'template': 'call/fragments/saved_listings.html',
+         },
+        name='call_saved_listings'),
+
     url(r'^saved_listings/(?P<job_recommendation_id>\d+)/',
         'call.views.saved_listings',
         {
