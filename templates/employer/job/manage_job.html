@@ -26,7 +26,7 @@
     <a href="{% url edit_job job.job_code %}"><button>Update Job</button></a>
     <hr />
     <p>Found someone for this job?</p>
-    <a href=""><button class="dashboard delete-posting">Delete Posting</button></a>
+    <a href="{% url close_job job.job_code %}"><button class="dashboard delete-posting">Delete Posting</button></a>
 </section>
 
 <section class="right-column" style="width: 70%;">

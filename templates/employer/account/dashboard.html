@@ -31,10 +31,10 @@
     <tbody>
         {% for job in jobs %}
             <tr>
-                <td><a href="{% url view_job job.job_code %}">{{ job.title }}</a></td>
+                <td>{{ job.title }}</td>
                 <td>{{ job.date_created }}</td>
                 <td>{{ job.active_applicants }}</a></td>
-                <td style="padding-right: 0px;"><a href="{% url manage_job job.job_code %}"><button class="dashboard view-applicants">View Applicants</button></a> <a href=""><button class="dashboard delete-posting">Delete Posting</button></a></td>
+                <td style="padding-right: 0px;"><a href="{% url manage_job job.job_code %}"><button class="dashboard view-applicants">View Applicants</button></a> <a href="{% url close_job job.job_code %}"><button class="dashboard delete-posting">Delete Posting</button></a></td>
             </tr>
         {% endfor %}
     </tbody>

@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import user_passes_test
 from forms import EmployerProfileForm
 from models import EmployerProfile
 from applicant.models import ApplicantJob
+from job.models import Job
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/employer/login')
 def employer_profile(request, first_time_setup=False, template='employer/account/profile.html'):
@@ -30,7 +31,7 @@ def employer_profile(request, first_time_setup=False, template='employer/account
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/employer/login')
 def employer_dashboard(request, template='employer/account/dashboard.html'):
     profile = EmployerProfile.objects.get(user=request.user)
-    jobs = profile.jobs.all().extra(select={'active_applicants':'SELECT COUNT(*) FROM applicant_applicantjob WHERE state=1 AND applicant_applicantjob.job_id=job_job.id',},)
+    jobs = profile.jobs.all().filter(state=Job.JOB_OPEN).extra(select={'active_applicants':'SELECT COUNT(*) FROM applicant_applicantjob WHERE state=%d AND applicant_applicantjob.job_id=job_job.id' % (ApplicantJob.APPLICATION_APPLIED,),},)
 
     return render_to_response(template, 
                               {'profile' : profile,

@@ -18,8 +18,6 @@ class ApplicantProfile(Profile, Criteria):
 
     confirmed_phone = models.BooleanField(default=False)
 
-    jobs = models.ManyToManyField(Job, related_name='applicants')
-
     def __unicode__(self):
         return u'%s' % (self.mobile_number,)
 
@@ -35,15 +33,18 @@ class ApplicantJob(models.Model):
     job = models.ForeignKey(Job, related_name='applicant_job')
     applicant = models.ForeignKey(ApplicantProfile)
 
-    STATE_CHOICES = ((1, 'Applied'),
-                     (2, 'Removed application'))
+    APPLICATION_APPLIED = 1
+    APPLICATION_REMOVED = 2
 
-    state = models.IntegerField(null=False, default=1, choices=STATE_CHOICES)
+    APPLICATION_STATE_CHOICES = ((APPLICATION_APPLIED, 'Applied'),
+                                 (APPLICATION_REMOVED, 'Removed application'))
+
+    state = models.IntegerField(null=False, default=APPLICATION_APPLIED, choices=APPLICATION_STATE_CHOICES)
 
     # Send save signal to handle anything needs to happen when an application
     # is submitted    
     def save(self):
         super(ApplicantJob, self).save()
-        if self.state == 1:
+        if self.state == ApplicantJob.APPLICATION_APPLIED:
             job_applied.send(sender=self.__class__,
                              job=self.job, applicant=self.applicant)
