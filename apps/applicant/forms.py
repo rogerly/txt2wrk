@@ -12,7 +12,12 @@ from common.helpers import createUniqueDjangoUsername, USPhoneNumberField, Phone
 from registration.forms import RegistrationForm
 
 class ApplicantProfileForm(forms.ModelForm):
-    
+
+    def __init__(self, *args, **kwargs):
+        super(ApplicantProfileForm, self).__init__(*args, **kwargs)
+        self.fields['employment_type'].label = 'Employment Preference'
+        self.fields['overtime'].label = 'Can Work Overtime?'
+
     workday = forms.ModelMultipleChoiceField(
                     widget = CheckboxSelectMultipleDiv,
                     label = 'Days available to work',
