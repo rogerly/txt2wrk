@@ -24,14 +24,6 @@
 		{% endif %}
 	{% else %}
 		<Say>{{ recommendation.job.description }}</Say>
-		{% if listing_type %}
-			<Gather action="{% url call_listing_info listing_type recommendation.id %}" numDigits="1">
-		{% else %}
-			<Gather action="{% url call_listing_info recommendation.id %}" numDigits="1">
-		{% endif %}
-			<Say>Press 1 to apply for this job.</Say>
-			<Say>Press 2 to save this job.</Say>
-			<Say>Press 3 to delete this job.</Say>
-		</Gather>
+        <Redirect>{% url handle_listing_detail listing_type recommendation.id job_index job_total %}</Redirect>
 	{% endif %}
 </Response>

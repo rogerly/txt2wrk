@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Response>
+    {% if digits %}
+        {% with recommendation=jobs|first %}
+            {% if digits == '1' %}
+                <Redirect>{% url call_listing_info listing_type recommendation.id job_index job_total %}</Redirect>
+            {% endif %}
+            {% if digits == '2' %}
+                <Redirect>{% url call_apply listing_type recommendation.id job_index job_total %}</Redirect>
+            {% endif %}
+            {% if digits == '3' %}
+                <Redirect>{% url call_save_listing recommendation.id job_index job_total %}</Redirect>
+            {% endif %}
+            {% if digits == '4' %}
+                <Redirect>{% url call_delete_listing listing_type recommendation.id job_index job_total %}</Redirect>
+            {% endif %}
+            <Redirect>{% url handle_listing listing_type recommendation.id job_index job_total %}</Redirect>
+        {% endwith %}
+    {% else %}
+        {% with recommendation=jobs|first %}
+            <Gather action="{% url handle_listing listing_type recommendation.id job_index job_total %}" numDigits="1">
+                {% if not detail %}
+                    <Say>For more details, press 1.</Say>
+                {% endif %}
+                <Say>To apply for this job, press 2.</Say>
+                <Say>To save this job and review the next job, press 3.</Say>
+                <Say>To erase this job, press 4.</Say>
+                <Say>To listen to these options again, press 9.</Say>
+            </Gather>
+            <Redirect>
+                {% if detail %}
+                    {% url handle_listing_detail listing_type recommendation.id job_index job_total %}
+                {% else %}
+                    {% url handle_listing listing_type recommendation.id job_index job_total %}
+                {% endif %}
+            </Redirect>
+        {% endwith %}
+    {% endif %}
+</Response>
