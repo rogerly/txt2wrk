@@ -17,7 +17,7 @@ class ApplicantProfile(Profile, Criteria):
                                     )
 
     confirmed_phone = models.BooleanField(default=False)
-
+    resume = models.FileField(upload_to='resumes', null=True)
     zip_code = models.CharField('Zip Code', null=True, blank=False, max_length=10)
 
     DISTANCE_OPTIONS = ((5, 'Less than 5 miles'),
@@ -33,6 +33,12 @@ class ApplicantProfile(Profile, Criteria):
 
     def __unicode__(self):
         return u'%s' % (self.mobile_number,)
+    
+    def save(self, *args, **kwargs):
+        profile = ApplicantProfile.objects.get(id=self.id)
+        if profile.resume and  profile.resume != self.resume:
+            profile.resume.delete(save=False)
+        super(ApplicantProfile, self).save(*args, **kwargs)
 
 
     def get_login_destination(self):

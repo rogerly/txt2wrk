@@ -24,27 +24,31 @@ class Industry(BaseModel):
 
 class Criteria(models.Model):
     
-    AVAILABILITY_CHOICES = ((1, "Immediately"), 
+    AVAILABILITY_CHOICES = ((None, "Please select one"),
+                            (1, "Immediately"), 
                             (2, "Within a month"))
     
-    EDUCATION_CHOICES = ((1, "High school diploma"),
+    EDUCATION_CHOICES = ((None, "Please select one"),
+                        (1, "High school diploma"),
                             (2, 'GED'),
                             (3, "Associates Degree"),
                             (4, "Bachelor's Degree"))
     
-    EXPERIENCE_CHOICES = ((1, "0-1 years"), 
+    EXPERIENCE_CHOICES = ((None, "Please select one"),
+                          (1, "0-1 years"), 
                             (2, "1-4 years"), 
                             (3, "4-10 years"))
 
-    EMPLOYMENT_TYPE_CHOICES = ((1, 'Full-time'),
+    EMPLOYMENT_TYPE_CHOICES = ((None, "Please select one"),
+                               (1, 'Full-time'),
                                (2, 'Part-time'),
                                (3, 'Temporary'))
     
-    availability = models.IntegerField(null=True, choices=AVAILABILITY_CHOICES, default=1)
+    availability = models.IntegerField(null=True, choices=AVAILABILITY_CHOICES, default=None)
     workday = models.ManyToManyField(Workday)
-    experience = models.IntegerField(null=True, choices=EXPERIENCE_CHOICES, default=1)
-    education = models.IntegerField(null=True, choices=EDUCATION_CHOICES, default=1)
-    employment_type = models.IntegerField(null=True, choices=EMPLOYMENT_TYPE_CHOICES, default=1)
+    experience = models.IntegerField(null=True, choices=EXPERIENCE_CHOICES, default=None)
+    education = models.IntegerField(null=True, choices=EDUCATION_CHOICES, default=None)
+    employment_type = models.IntegerField(null=True, choices=EMPLOYMENT_TYPE_CHOICES, default=None)
     overtime = models.BooleanField(null=False, choices=((True, 'Yes'),(False, 'No')), default=True)
     industry = models.ManyToManyField(Industry)
     latitude = models.CharField(null=True, max_length=15)
@@ -93,7 +97,7 @@ class Job(Criteria):
                              help_text='This is the title of the job.')
 
     description = models.TextField('Job Description',
-                                   blank=True,
+                                   blank=False,
                                    help_text='This is the description of the job.')
     
     job_code = models.CharField('Job Code',

@@ -32,15 +32,15 @@
             <span class="value">{{ job.get_education_display }}</span>
         </div>
         <div>
-            <span class="label"> Years of Work Experience</span> <br/>
+            <span class="label"> Years of Work Experience</span>
             <span class="value"> {{ job.get_experience_display }} </span>
         </div>
         <div>
-            <span class="label">Required Availability</span> <br/>
+            <span class="label">Required Availability</span>
             <span class="value">{{ job.get_workday_display }}</span>
         </div>
         <div>
-            <span class="label">Type of Work</span> <br>
+            <span class="label">Type of Work</span> 
             <span class="value">
                 {% for industry in job.industry.all %} {{ industry }} {% if not forloop.last %}, {% endif %} {% endfor %}
             </span>

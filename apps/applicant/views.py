@@ -16,7 +16,7 @@ def applicant_profile(request, template='applicant/account/profile.html'):
     form = None 
     profile = ApplicantProfile.objects.get(user=request.user)
     if request.method == 'POST':
-        form = ApplicantProfileForm(data=request.POST, instance=profile)
+        form = ApplicantProfileForm(data=request.POST, files=request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             return redirect(applicant_dashboard)
@@ -36,6 +36,7 @@ def applicant_dashboard(request, template='applicant/account/dashboard.html'):
                                'applicant_jobs' : applicant_jobs,
                                'job_recommendations': job_recommendations, },
                               context_instance=RequestContext(request))
+
 
 def apply(request, job_code=None, redirect_url=None):
 

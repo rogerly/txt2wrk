@@ -18,7 +18,7 @@
             <header>Phone Number</header>
             <div id="phone-number">{{ applicant.mobile_number }}</div>
             <header>Resume Available (.pdf)</header>
-            <button class="dashboard view-resume">View Resume</button>
+            <a href="{{ applicant.resume.url}}"><button class="dashboard view-resume">View Resume</button> </a>
         </section>
     </div>
     <div class="right-column" style="width: 50%">
