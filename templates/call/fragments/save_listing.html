@@ -4,11 +4,11 @@
 	{% if listing_type %}
 		<Say>Next listing.</Say>
 		{% if listing_type == '1' %}
-			<Redirect>{% url call_new_listings recommendation.id %}</Redirect>
+			<Redirect method="GET">{% url call_new_listings recommendation.id %}</Redirect>
 		{% else %}
-			<Redirect>{% url call_saved_listings recommendation.id %}</Redirect>
+			<Redirect method="GET">{% url call_saved_listings recommendation.id %}</Redirect>
 		{% endif %}
 	{% else %}
-		<Redirect>{% url call_main_menu %}</Redirect>
+		<Redirect method="GET">{% url call_main_menu %}</Redirect>
 	{% endif %}
 </Response>

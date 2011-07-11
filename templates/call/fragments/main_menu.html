@@ -3,20 +3,20 @@
 	{% if digits %}
 		{% if digits == '1' %}
 			<Say>New Listings.</Say>
-			<Redirect>{% url call_new_listings %}</Redirect>
+			<Redirect method="GET">{% url call_new_listings %}</Redirect>
 		{% endif %}
 		{% if digits == '2' %}
 			<Say>Saved Listings</Say>
-			<Redirect>{% url call_saved_listings %}</Redirect>
+			<Redirect method="GET">{% url call_saved_listings %}</Redirect>
 		{% endif %}
 		{% if digits == '3' %}
-			<Redirect>{% url call_job_code %}</Redirect>
+			<Redirect method="GET">{% url call_job_code %}</Redirect>
 		{% endif %}
 		{% if digits == '9' %}
-			<Redirect>{% url call_hangup %}</Redirect>
+			<Redirect method="GET">{% url call_hangup %}</Redirect>
 		{% endif %}
 		<Say>You have pressed an invalid key.</Say>
-		<Redirect>{% url call_main_menu %}</Redirect>
+		<Redirect method="GET">{% url call_main_menu %}</Redirect>
 	{% else %}
 		<Gather method="GET" action="{% url call_main_menu %}" numDigits="1">
 			{% if jobs.count != 0 %}
@@ -26,6 +26,6 @@
 			<Say>Press 3 if you have a code for a specific job.</Say>
 			<Say>Press 9 or just hang up to end this call.</Say>
 		</Gather>
-		<Redirect>{% url call_main_menu %}</Redirect>
+		<Redirect method="GET">{% url call_main_menu %}</Redirect>
 	{% endif %}
 </Response>

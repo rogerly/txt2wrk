@@ -3,34 +3,34 @@
 	{% if digits %}
 		{% with recommendation=jobs|first %}
 			{% if digits == '1' %}
-				<Redirect>{% url call_listing_info 1 recommendation.id %}</Redirect>
+				<Redirect method="GET">{% url call_listing_info 1 recommendation.id %}</Redirect>
 			{% endif %}
 			{% if digits == '2' %}
-				<Redirect>{% url call_apply 1 recommendation.id %}</Redirect>
+				<Redirect method="GET">{% url call_apply 1 recommendation.id %}</Redirect>
 			{% endif %}
 			{% if digits == '3' %}
-				<Redirect>{% url call_delete_listing 1 recommendation.id %}</Redirect>
+				<Redirect method="GET">{% url call_delete_listing 1 recommendation.id %}</Redirect>
 			{% endif %}
 			{% if digits == '4' %}
 				<Say>Next listing.</Say>
-				<Redirect>{% url call_new_listings recommendation.id %}</Redirect>
+				<Redirect method="GET">{% url call_new_listings recommendation.id %}</Redirect>
 			{% endif %}
 		{% endwith %}
 	{% else %}
         {% if job_index > job_total %}
             {% if listing_type == 1 %}
                 {% if saved_jobs.count > 0 %}
-                    <Redirect>{% url call_saved_listings %}</Redirect>
+                    <Redirect method="GET">{% url call_saved_listings %}</Redirect>
                 {% else %}
                     <Say>You have no saved jobs to review.</Say>
-                    <Redirect>{% url call_hangup %}</Redirect>
+                    <Redirect method="GET">{% url call_hangup %}</Redirect>
                 {% endif %}
             {% else %}
             {% endif %}
         {% else %}
 			{% with recommendation=jobs|first %}
 				<Say>Job {{ job_index }} of {{ job_total }}: {{ recommendation.job.title }} at {% for location in recommendation.job.location.all %}{{ location.business_name }}.{% endfor %}</Say>
-                <Redirect>{% url handle_listing 1 recommendation.id job_index job_total %}</Redirect>
+                <Redirect method="GET">{% url handle_listing 1 recommendation.id job_index job_total %}</Redirect>
 			{% endwith %}
         {% endif %}
 	{% endif %}

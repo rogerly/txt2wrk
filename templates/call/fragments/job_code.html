@@ -3,14 +3,14 @@
 	{% if digits %}
 		{% if form.errors %}
 			<Say>You have entered an invalid job code.</Say>
-			<Redirect>{% url call_job_code %}</Redirect>
+			<Redirect method="GET">{% url call_job_code %}</Redirect>
 		{% else %}
-			<Redirect>{% url call_listing_info recommendation.id %}</Redirect>
+			<Redirect method="GET">{% url call_listing_info recommendation.id %}</Redirect>
 		{% endif %}
 	{% else %}
 		<Gather method="GET" action="{% url call_job_code %}" numDigits="8">
 			<Say>Enter your eight digit job code.</Say>
 		</Gather>
-		<Redirect>{% url call_job_code %}</Redirect>
+		<Redirect method="GET">{% url call_job_code %}</Redirect>
 	{% endif %}
 </Response>
