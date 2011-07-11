@@ -52,7 +52,7 @@
                     </td>
                     <td>
                         {% if application.state == 1 %}
-                            <a href=""><button class="dashboard view-profile">View Profile</button></a>
+                            <a href="{% url applicant_view_profile application.applicant.id %}"><button class="dashboard view-profile">View Profile</button></a>
                         {% else %}
                             <a href=""><button class="dashboard remove-applicant">Hide</button></a>
                         {% endif %}
