@@ -129,6 +129,7 @@ def verify_password(request, template=None):
             context['new_number'] = True
         fragment_type=CallFragment.OUTBOUND_UNKNOWN_FRAGMENT
         context['jobs'] = call.applicant.recommendations.filter(state__lte=JobRecommendation.KEPT_NEW_REC).filter(job__state=Job.JOB_OPEN)
+        context['saved_jobs'] = call.applicant.recommendations.filter(state=JobRecommendation.SAVED_REC).filter(job__state=Job.JOB_OPEN)
     else:
         fragment_type=CallFragment.OUTBOUND_WRONG_PASSWORD
 
