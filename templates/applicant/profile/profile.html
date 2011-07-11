@@ -26,23 +26,23 @@
             <header>Job Seeker Details</header>
             <div>
                 <span class="label">Availability:</span>
-                <span class="value">{% for workday in applicant.workday.all %} {{ workday }}{% if not forloop.last %}, {% endif %} {% endfor %}</span>
+                <span class="value">{{ applicant.get_workday_display }}</span>
             </div>
             <div>
                 <span class="label">Type of work:</span>
-                <span class="value">{{ applicant.employment_type_display }}</span>
+                <span class="value">{{ applicant.get_employment_type_display }}</span>
             </div>
             <div>
                 <span class="label">Overtime:</span>
-                <span class="value">{{ applicant.overtime_display }}</span>
+                <span class="value">{{ applicant.get_overtime_display }}</span>
             </div>
             <div>
                 <span class="label">Education:</span>
-                <span class="value">{{ applicant.education_display }}</span>
+                <span class="value">{{ applicant.get_education_display }}</span>
             </div>
             <div>
                 <span class="label">Experience:</span>
-                <span class="value">{{ applicant.experience_display }} work experience</span>
+                <span class="value">{{ applicant.get_experience_display }} work experience</span>
             </div>
             <div>
                 <span class="label">Skills:</span>
