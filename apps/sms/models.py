@@ -10,7 +10,7 @@ from xml.dom import minidom
 from applicant.models import ApplicantProfile
 from job_recommendation.models import JobRecommendation
 
-job_posting_id_re = re.compile(r'^[^0-9]*(\d{8})[^0-9]*$')
+job_posting_id_re = re.compile(r'^[^0-9]*(\d{5})[^0-9]*$')
 unsubscribe_re = re.compile(r'[Uu][Nn][Ss][Uu][Bb][Ss][Cc][Rr][Ii][Bb][Ee]')
 stop_re = re.compile(r'[Ss][Tt][Oo][Pp]')
 
