@@ -53,6 +53,35 @@ class Criteria(models.Model):
     def is_complete(self):
         return self.availability or self.education or self.experience 
 
+    def get_overtime_display(self):
+        if self.overtime:
+            return 'Yes'
+        else:
+            return 'No'
+
+    def get_workday_display(self):
+        val = ''
+        for i, day in enumerate(self.workday.all().order_by('id')):
+            val += day.name
+            if i != self.workday.count()-1:
+                val += ', '
+
+        if val.startswith('Monday, Tuesday, Wednesday, Thursday, Friday'):
+            if val.find('Saturday') != -1:
+                if val.find('Sunday') != -1:
+                    val = 'Everyday'
+                else:
+                    val = 'Weekdays and Saturday'
+            else:
+                if val.find('Sunday') != -1:
+                    val = 'Weekdays and Sunday'
+                else:
+                    val = 'Weekdays'
+        elif val.startswith('Saturday') and val.find('Sunday') != -1:
+            val = 'Weekends'
+
+        return val
+
     class Meta:
         abstract = True
 
