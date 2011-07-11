@@ -30,7 +30,7 @@ def applicant_profile(request, template='applicant/account/profile.html'):
 def applicant_dashboard(request, template='applicant/account/dashboard.html'):
     profile = ApplicantProfile.objects.get(user=request.user)
     job_recommendations = JobRecommendation.objects.filter(applicant=profile).filter(Q(state=JobRecommendation.NEW_REC) | Q(state=JobRecommendation.KEPT_NEW_REC) | Q(state=JobRecommendation.SAVED_REC))
-    applicant_jobs = ApplicantJob.objects.filter(applicant=profile)
+    applicant_jobs = ApplicantJob.objects.filter(applicant=profile, state=1)
     return render_to_response(template, 
                               {'profile' : profile,
                                'applicant_jobs' : applicant_jobs,
@@ -45,6 +45,24 @@ def apply(request, job_code=None, redirect_url=None):
         application = ApplicantJob(applicant=profile, job=job)
         application.save()
     except Job.DoesNotExist:
+        pass
+
+    return redirect(reverse(redirect_url))
+
+def remove_job(request, job_code=None, redirect_url=None):
+    profile = ApplicantProfile.objects.get(user=request.user)
+    try:
+        job = Job.objects.get(job_code = job_code)
+        recommendation = JobRecommendation.objects.get(job=job, applicant=profile)
+        recommendation.state = JobRecommendation.DELETED_REC
+        recommendation.save()
+        try:
+            application = ApplicantJob.objects.get(job=job, applicant=profile)
+            application.state = 2
+            application.save()
+        except ApplicantJob.DoesNotExist:
+            pass
+    except Job.DoesNotExist, JobRecommendation.DoesNotExist:
         pass
 
     return redirect(reverse(redirect_url))

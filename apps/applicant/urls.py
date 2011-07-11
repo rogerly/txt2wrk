@@ -61,4 +61,9 @@ urlpatterns = patterns('',
         'applicant.views.apply',
         {'redirect_url' : 'applicant_dashboard'},
         name='applicant_apply'),
+
+    url(r'^job/remove/(?P<job_code>\d+)$',
+        'applicant.views.remove_job',
+        {'redirect_url' : 'applicant_dashboard'},
+        name='applicant_remove_job'),
 )

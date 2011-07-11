@@ -35,9 +35,15 @@ class ApplicantJob(models.Model):
     job = models.ForeignKey(Job, related_name='applicant_job')
     applicant = models.ForeignKey(ApplicantProfile)
 
+    STATE_CHOICES = ((1, 'Applied'),
+                     (2, 'Removed application'))
+
+    state = models.IntegerField(null=False, default=1, choices=STATE_CHOICES)
+
     # Send save signal to handle anything needs to happen when an application
     # is submitted    
     def save(self):
         super(ApplicantJob, self).save()
-        job_applied.send(sender=self.__class__,
-                         job=self.job, applicant=self.applicant)
+        if self.state == 1:
+            job_applied.send(sender=self.__class__,
+                             job=self.job, applicant=self.applicant)
