@@ -63,7 +63,7 @@ def edit_job(request, job_code, template = 'job/edit_job.html'):
 
             if form.is_valid():
                 job = form.save()
-                return redirect(view_job, job_code)
+                return redirect(reverse('employer_dashboard'))
     else:
         form = JobForm(instance=job, user=request.user)
         formset = JobLocationInlineFormSet(instance=job)
@@ -86,7 +86,7 @@ def create_job(request, job_code=None, template = 'job/edit_job.html'):
             if formset.is_valid:
                 jobForm.save()
                 formset.save()
-                return redirect(view_job, job.job_code)
+                return redirect(reverse('employer_dashboard'))
         else:
             formset = JobLocationInlineFormSet(data=request.POST)
             formset.is_valid
