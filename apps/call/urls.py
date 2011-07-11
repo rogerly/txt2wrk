@@ -37,6 +37,20 @@ urlpatterns = patterns('',
          },
         name='call_main_menu'),
 
+    url(r'^new_listings/(?P<job_recommendation_id>\d+)/(?P<job_index>\d+)/(?P<job_total>\d+)/',
+        'call.views.new_listings',
+        {
+         'template': 'call/fragments/new_listings.html',
+         },
+        name='call_new_listings'),
+
+    url(r'^new_listings/(?P<job_index>\d+)/(?P<job_total>\d+)/',
+        'call.views.new_listings',
+        {
+         'template': 'call/fragments/new_listings.html',
+         },
+        name='call_new_listings'),
+
     url(r'^new_listings/(?P<job_recommendation_id>\d+)/',
         'call.views.new_listings',
         {
