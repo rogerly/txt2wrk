@@ -21,7 +21,7 @@ def manage_job(request, job_code = None, template = 'job/view_job.html'):
         return render_to_response(template,
                                   {'job' : job, 
                                    'profile' : profile,
-                                   'applicants' : job.applicants.all() }, 
+                                   'applications' : job.applicant_job.all() },
                                   context_instance = RequestContext(request))
     return redirect(create_job)
 
