@@ -9,7 +9,7 @@
                 <Redirect method="GET">{% url call_apply listing_type recommendation.id job_index job_total %}</Redirect>
             {% endif %}
             {% if digits == '3' %}
-                <Redirect method="GET">{% url call_save_listing recommendation.id job_index job_total %}</Redirect>
+                <Redirect method="GET">{% url call_save_listing listing_type recommendation.id job_index job_total %}</Redirect>
             {% endif %}
             {% if digits == '4' %}
                 <Redirect method="GET">{% url call_delete_listing listing_type recommendation.id job_index job_total %}</Redirect>
