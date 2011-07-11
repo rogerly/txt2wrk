@@ -1,0 +1,25 @@
+#Sat Jul 09 17:02:36 PDT 2011
+eclipse.preferences.version=1
+encoding//apps/account/migrations/0001_initial.py=utf-8
+encoding//apps/applicant/migrations/0001_initial.py=utf-8
+encoding//apps/applicant/migrations/0002_auto__add_field_applicantprofile_availability__add_field_applicantprof.py=utf-8
+encoding//apps/applicant/migrations/0003_auto__add_applicantjob__del_field_applicantprofile_location__add_field.py=utf-8
+encoding//apps/applicant/migrations/0004_add_field_ApplicantProfile_availability.py=utf-8
+encoding//apps/applicant/migrations/0005_add_field_ApplicantProfile_education.py=utf-8
+encoding//apps/applicant/migrations/0006_add_field_ApplicantProfile_experience.py=utf-8
+encoding//apps/applicant/migrations/0007_auto__chg_field_applicantprofile_experience__chg_field_applicantprofil.py=utf-8
+encoding//apps/applicant/migrations/0008_auto__chg_field_applicantprofile_longitude__chg_field_applicantprofile.py=utf-8
+encoding//apps/employer/migrations/0002_auto__del_employer__add_employerprofile.py=utf-8
+encoding//apps/job/migrations/0002_auto__add_experience__add_availability__add_workday__add_education__ad.py=utf-8
+encoding//apps/job/migrations/0003_load_job_fixtures.py=utf-8
+encoding//apps/job/migrations/0004_default_values.py=utf-8
+encoding//apps/job/migrations/0005_auto__chg_field_job_experience__chg_field_job_availability__chg_field_.py=utf-8
+encoding//apps/job/migrations/0007_auto__del_availability__del_education__del_experience__del_location__d.py=utf-8
+encoding//apps/job/migrations/0011_add_field_Job_employer.py=utf-8
+encoding//apps/job/migrations/0013_update_industries.py=utf-8
+encoding//apps/job/migrations/0014_auto__chg_field_job_longitude__chg_field_job_latitude.py=utf-8
+encoding//apps/job_recommendation/migrations/0001_initial.py=utf-8
+encoding//apps/sms/migrations/0001_initial.py=utf-8
+encoding//apps/sms/migrations/0002_auto__chg_field_sms_applicant.py=utf-8
+encoding//apps/sms/migrations/0003_auto__add_field_sms_message_type.py=utf-8
+encoding//third-party/registration/migrations/0001_initial.py=utf-8

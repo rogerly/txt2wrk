@@ -10,6 +10,41 @@ from job.models import Industry, Workday
 
 from common.helpers import createUniqueDjangoUsername, USPhoneNumberField, PhonePINField, CheckboxSelectMultipleDiv
 from registration.forms import RegistrationForm
+from django.forms.widgets import FileInput
+import os
+from django.utils.safestring import mark_safe
+from django.utils.encoding import force_unicode
+from django.utils.html import escape
+
+class ExtensionFileField(forms.FileField):
+    valid_extensions = ('.doc', '.pdf')
+
+    def clean(self, *args, **kwargs):
+        data = super(ExtensionFileField, self).clean(*args, **kwargs)
+        name = data.name
+        ext = os.path.splitext(name)[1]
+        if ext not in self.valid_extensions:
+            raise forms.ValidationError("Resume must be a pdf or a Microsoft word document")
+        return data
+
+class FileUploader(FileInput):
+    input_type = 'file'
+    needs_multipart_form = True
+
+    def render(self, name, value, attrs=None):
+        substitutions = dict()
+        substitutions['input'] = super(FileUploader, self).render(name, value, attrs=attrs) 
+        template = '%(input)s'
+        
+        if value and hasattr(value, "url"):
+            template = "<div class='file'> %(anchor)s </div> <div class='fileinput'> %(input)s </div>" 
+            filename = self.get_filename(force_unicode(value))
+            substitutions['anchor'] = (u'<a href="%s">%s</a>' % (escape(value.url), filename))
+        return mark_safe(template % substitutions)
+
+    def get_filename(self, path):
+        return os.path.split(path)[1]
+
 
 class ApplicantProfileForm(forms.ModelForm):
 
@@ -29,13 +64,16 @@ class ApplicantProfileForm(forms.ModelForm):
                     label = 'Please select areas with the most experience',
                     queryset = Industry.objects.all().order_by('name')
     )
-
+    
+    resume = ExtensionFileField(widget=FileUploader)
     zip_code = USZipCodeField(label = 'Zip Code')
 
     class Meta:
         model = ApplicantProfile
         exclude = ('user', 'mobile_number', 'confirmed_phone', 'jobs', 'latitude', 'longitude', 'availability')
         
+ 
+
 class MobileNotificationForm(forms.Form):
     
     NOTIFICATION_CHOICES = (("1","Just call me"), 

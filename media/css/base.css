@@ -1,7 +1,8 @@
-// Default display setting for HTML5 elements
-// for browsers that dont understand them
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section { 
+/*
+Default display setting for HTML5 elements
+ for browsers that dont understand them
+*/
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
     display:block;
 }
 
