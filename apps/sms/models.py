@@ -110,7 +110,8 @@ class SMS(models.Model):
         if recommendation is not None and recommendation.state == JobRecommendation.NEW_REC:
             applicant = recommendation.applicant
             job = recommendation.job
-            message = u'New job posted! %s. CALL 5103943562 to hear full description and submit job application.' % (job.title,)
+            location = job.location.all()[0]
+            message = u'New job! %s at %s. CALL 5103943562 to hear full description or TEXT BACK %s to submit application.' % (job.title,location.business_name,job.job_code,)
             SMS.send(applicant=applicant,
                      phone_number=applicant.mobile_number,
                      message=message,

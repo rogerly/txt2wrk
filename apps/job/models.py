@@ -130,9 +130,9 @@ class Job(Criteria):
     def save(self, *args, **kwargs):
         new_job = False
         if self.job_code is None or self.job_code == '':
-            # This assures a valid eight digit code.  
-            # Min: 10000000, Max: 99999999
-            self.job_code = str(int(random() * 89999999) + 10000000)
+            # This assures a valid five digit code.
+            # Min: 10000, Max: 99999
+            self.job_code = str(int(random() * 89999) + 10000)
             new_job = True
     
         super(Job, self).save()
