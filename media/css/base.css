@@ -69,7 +69,7 @@ label {
 }
 
 input[type=text], input[type=password] {
-	width: 220px;
+	width: 208px;
 	padding: 5px;
 	color: #aaa;
 	border: 1px solid #cccccc;
@@ -87,7 +87,6 @@ select {
 
 
 select, option {
-    display: inline;
     font-size: 18px;
     height: 36px;
     padding: 2px 5px 2px 5px;
@@ -271,7 +270,7 @@ button.dashboard {
 	display: inline-block;
 }
 
-button.job-description, button.view-applicants, button.view-profile {
+button.job-description, button.view-applicants, button.view-profile, button.view-resume {
 	background: url('/static/images/search_icon.png') no-repeat right, #0091ce !important;
 	background: url('/static/images/search_icon.png') no-repeat right, -webkit-gradient(linear, left bottom, right bottom, color-stop(0.0, #0091ce), color-stop(0.7, #0091ce), color-stop(0.7, #ffffff)) !important;
 	background: url('/static/images/search_icon.png') no-repeat right, -moz-linear-gradient(left, #0091ce 70%, #ffffff 30%) !important;
@@ -283,7 +282,7 @@ button.job-remove, button.delete-posting, button.remove-applicant {
 	background: url('/static/images/close_icon.png') no-repeat right, -moz-linear-gradient(left, #a6a8ab 70%, #ffffff 30%) !important;
 }
 
-button.view-profile, button.remove-applicant {
+button.view-profile, button.remove-applicant, button.view-resume {
     width: 130px;
 }
 
@@ -305,3 +304,22 @@ button.create-job {
 .help-text {
     font-size: 14px;
 }
+
+.two-columns {
+    -moz-column-count: 2;
+    -moz-column-gap: 10px;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 10px;
+    column-count: 2;
+    column-gap: 10px;
+}
+
+.three-columns {
+    -moz-column-count: 3;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 20px;
+    column-count: 3;
+    column-gap: 20px;
+}
+

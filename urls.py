@@ -34,7 +34,10 @@ urlpatterns = patterns('',
         {
          'document_root': settings.STATIC_MEDIA_PATH,
         }),
-
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', 
+        {
+         'document_root': settings.STATIC_MEDIA_PATH,
+        }),
     url(r'^receive_sms/', 'sms.views.receive_sms',
         {
          'template': 'sms/sms_response.html',
