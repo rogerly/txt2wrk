@@ -2,28 +2,31 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.localflavor.us.forms import USZipCodeField
 
 from job import models
 from models import ApplicantProfile
 from job.models import Industry, Workday
 
-from common.helpers import createUniqueDjangoUsername, USPhoneNumberField, PhonePINField
+from common.helpers import createUniqueDjangoUsername, USPhoneNumberField, PhonePINField, CheckboxSelectMultipleDiv
 from registration.forms import RegistrationForm
 
 class ApplicantProfileForm(forms.ModelForm):
     
     workday = forms.ModelMultipleChoiceField(
-                    widget = forms.CheckboxSelectMultiple,
+                    widget = CheckboxSelectMultipleDiv,
                     label = 'Days available to work',
                     queryset = Workday.objects.all()
     )
     
     industry = forms.ModelMultipleChoiceField(
-                    widget = forms.CheckboxSelectMultiple,
+                    widget = CheckboxSelectMultipleDiv,
                     label = 'Please select areas with the most experience',
                     queryset = Industry.objects.all().order_by('name')
     )
-    
+
+    zip_code = USZipCodeField(label = 'Zip Code')
+
     class Meta:
         model = ApplicantProfile
         exclude = ('user', 'mobile_number', 'confirmed_phone', 'jobs', 'latitude', 'longitude', 'availability')

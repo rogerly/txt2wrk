@@ -4,14 +4,14 @@
 {% block page_css %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/applicant.css" />
 <style type="text/css">
-	#industryWrapper {
-		-moz-column-count: 2;
-		-moz-column-gap: 20px;
-		-webkit-column-count: 2;
-		-webkit-column-gap: 20px;
-		column-count: 2;
-		column-gap: 20px;
-	}
+    div#workdayWrapper div label, div#industryWrapper div label {
+        line-height: 18px;
+        width: 250px;
+    }
+
+    label[for=id_distance] {
+        line-height: 18px;
+    }
 </style>
 {% endblock %}
 
@@ -42,16 +42,17 @@
 		    	{{ form.zip_code.label_tag }} {{ form.zip_code }} {{ form.zip_code.errors }}
 		    </div>
 		    <div class="fieldWrapper">
-		    	{{ form.location_range.label_tag }} {{ form.location_range }} {{ form.location_range.errors }}
+		    	{{ form.distance.label_tag }} {{ form.distance }} {{ form.distance.errors }}
 		    </div>
     	</fieldset>
     </div>
-    <div class="right-column" style="width: 47%;">
+    <div class="right-column" style="width: 52%;">
     	<fieldset>
 			<legend>I Have Experience in the Following Areas <span class="required-fields">Required field</span></legend>
 			<p>(Available jobs will be matched against these categories.)</p>
 		    <div class="fieldWrapper" id="industryWrapper">
-		    	{{ form.industry }} {{ form.industry.errors }}
+                <div class="two-columns">{{ form.industry }}</div>
+		    	 {{ form.industry.errors }}
 		    </div>
     	</fieldset>
 	    <div class="right"><button>Create Profile</button></div>
