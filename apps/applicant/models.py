@@ -18,6 +18,19 @@ class ApplicantProfile(Profile, Criteria):
 
     confirmed_phone = models.BooleanField(default=False)
 
+    zip_code = models.CharField('Zip Code', null=True, blank=False, max_length=10)
+
+    DISTANCE_OPTIONS = ((5, 'Less than 5 miles'),
+                        (10, 'Less than 10 miles'),
+                        (15, 'Less than 15 miles'),
+                        (20, 'Less than 20 miles'),
+                        (30, 'Less than 30 miles'),
+                        (100, 'Less than 100 miles'))
+
+    distance = models.IntegerField('Distance Willing to Travel for Work',
+                                   choices=DISTANCE_OPTIONS,
+                                   default=5)
+
     def __unicode__(self):
         return u'%s' % (self.mobile_number,)
 
