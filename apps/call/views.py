@@ -188,8 +188,10 @@ def new_listings(request, job_recommendation_id=None, job_index=1, job_total=1, 
     jobs = call.applicant.recommendations.filter(state__lte=JobRecommendation.KEPT_NEW_REC).filter(job__state=Job.JOB_OPEN)
     if job_recommendation_id is not None:
         jobs = jobs.filter(id__gt=job_recommendation_id)
+    jobs = jobs.order_by('id')
     context['jobs'] = jobs
     saved_jobs = call.applicant.recommendations.filter(state=JobRecommendation.SAVED_REC).filter(job__state=Job.JOB_OPEN)
+    saved_jobs.order_by('id')
     context['saved_jobs'] = saved_jobs
 
     if form.is_valid():
@@ -220,6 +222,7 @@ def handle_listing(request, listing_type=None, job_recommendation_id=None, job_i
     jobs = call.applicant.recommendations.filter(state__lte=JobRecommendation.KEPT_NEW_REC)
     if job_recommendation_id is not None:
         jobs = jobs.filter(id__gte=job_recommendation_id)
+    jobs = jobs.order_by('id')
     context['jobs'] = jobs
 
     if form.is_valid():
@@ -254,6 +257,7 @@ def saved_listings(request, job_recommendation_id=None, job_index=1, job_total=1
     jobs = call.applicant.recommendations.filter(state=JobRecommendation.SAVED_REC).filter(job__state=Job.JOB_OPEN)
     if job_recommendation_id is not None:
         jobs = jobs.filter(id__gt=job_recommendation_id)
+    jobs = jobs.order_by('id')
     context['jobs'] = jobs
 
     if form.is_valid():
