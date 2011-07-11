@@ -1,0 +1,40 @@
+{% extends "applicant/applicant_base.html" %}
+
+{% block head_title %} Applicant Profile {% endblock %}
+{% block page_css %}
+	<style type="text/css">
+	.left-column {
+    	margin-top: 15px;
+	}
+	
+	legend {
+		margin-top: 12px;
+	}
+</style>
+
+{% endblock %}
+
+{% block body_content %}
+
+	<div class='left-column'>
+		<legend> Phone Number </legend>
+		{{ profile.mobile_number }} 
+
+		<legend> Resume Available (PDF)</legend>
+		<a href="{{ profile.resume.url }}"> <button> View Resume </button></a>
+		
+	</div>
+	
+	<div class='right-column'>
+		
+		<legend>Job Seeker Details </legend>
+		Availability: {{ profile.availability }} <br/>
+		Location: Near {{ .location }} <br/>
+		Experience: {{ profile.education }}, {{ profile.experience }} <br/>
+		Workdays: {% for workday in profile.workday.all %} {{ workday }}{% if not forloop.last %}, {% endif %} {% endfor %}  <br/>
+		Skills: {% for industry in profile.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %} <br/>
+	</div>
+
+
+
+{% endblock %}
