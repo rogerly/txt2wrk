@@ -30,8 +30,8 @@ def employer_profile(request, first_time_setup=False, template='employer/account
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/employer/login')
 def employer_dashboard(request, template='employer/account/dashboard.html'):
     profile = EmployerProfile.objects.get(user=request.user)
-    jobs = profile.jobs.all()
-    
+    jobs = profile.jobs.all().extra(select={'active_applicants':'SELECT COUNT(*) FROM applicant_applicantjob WHERE state=1 AND applicant_applicantjob.job_id=job_job.id',},)
+
     return render_to_response(template, 
                               {'profile' : profile,
                                'jobs' :jobs },
