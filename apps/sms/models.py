@@ -12,6 +12,7 @@ from job_recommendation.models import JobRecommendation
 
 job_posting_id_re = re.compile(r'^[^0-9]*(\d{8})[^0-9]*$')
 unsubscribe_re = re.compile(r'[Uu][Nn][Ss][Uu][Bb][Ss][Cc][Rr][Ii][Bb][Ee]')
+stop_re = re.compile(r'[Ss][Tt][Oo][Pp]')
 
 REQ_NUMBER_CONFIRMATION=0
 RES_NUMBER_CONFIRMATION=1
@@ -109,7 +110,7 @@ class SMS(models.Model):
         if recommendation is not None and recommendation.state == JobRecommendation.NEW_REC:
             applicant = recommendation.applicant
             job = recommendation.job
-            message = u'New job posted! %s. CALL 5103943562 to hear full description or TEXT BACK with %s to send your resume and apply.' % (job.title, job.job_code,)
+            message = u'New job posted! %s. CALL 5103943562 to hear full description and submit job application.' % (job.title,)
             SMS.send(applicant=applicant,
                      phone_number=applicant.mobile_number,
                      message=message,
@@ -181,6 +182,10 @@ class SMS(models.Model):
         # non-case-sensitive string comparison?
         match_unsub = unsubscribe_re.search(message)
         if match_unsub is not None:
+            return 'unsubscribe', RES_UNSUBSCRIBE
+
+        match_stop = stop_re.search(message)
+        if match_stop is not None:
             return 'unsubscribe', RES_UNSUBSCRIBE
 
         # If the applicant hasn't confirmed their number
