@@ -18,7 +18,7 @@
 		<Say>You have pressed an invalid key.</Say>
 		<Redirect>{% url call_main_menu %}</Redirect>
 	{% else %}
-		<Gather action="{% url call_main_menu %}" numDigits="1">
+		<Gather method="GET" action="{% url call_main_menu %}" numDigits="1">
 			{% if jobs.count != 0 %}
 				<Say>Press 1 to hear your new job listings.</Say>
 			{% endif %}

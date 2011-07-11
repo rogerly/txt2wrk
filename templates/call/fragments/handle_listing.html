@@ -18,7 +18,7 @@
         {% endwith %}
     {% else %}
         {% with recommendation=jobs|first %}
-            <Gather action="{% url handle_listing listing_type recommendation.id job_index job_total %}" numDigits="1">
+            <Gather method="GET" action="{% url handle_listing listing_type recommendation.id job_index job_total %}" numDigits="1">
                 {% if not detail %}
                     <Say>For more details, press 1.</Say>
                 {% endif %}

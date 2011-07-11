@@ -8,7 +8,7 @@
 			<Redirect>{% url call_listing_info recommendation.id %}</Redirect>
 		{% endif %}
 	{% else %}
-		<Gather action="{% url call_job_code %}" numDigits="8">
+		<Gather method="GET" action="{% url call_job_code %}" numDigits="8">
 			<Say>Enter your eight digit job code.</Say>
 		</Gather>
 		<Redirect>{% url call_job_code %}</Redirect>
