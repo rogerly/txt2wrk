@@ -1,3 +1,9 @@
+import urllib
+try:
+    import json as simplejson
+except ImportError:
+    import simplejson
+
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
@@ -9,7 +15,11 @@ from datetime import date
 from signals import job_applied
     
 class ApplicantProfile(Profile, Criteria):
-    
+
+    def __init__(self, *args, **kwargs):
+        super(ApplicantProfile, self).__init__(*args, **kwargs)
+        self.zip_code_old = self.zip_code
+
     mobile_number = models.CharField('Mobile Phone Number', 
                                      blank=False, 
                                      max_length=20, 
@@ -41,6 +51,18 @@ class ApplicantProfile(Profile, Criteria):
                 profile.resume.delete(save=False)
         except ApplicantProfile.DoesNotExist:
             pass
+
+        if self.zip_code != self.zip_code_old:
+            try:
+                request = "http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=%s" % (self.zip_code,)
+                result = simplejson.load(urllib.urlopen(request))
+
+                if result['status'] == 'OK':
+                    self.latitude = result['results'][0]['geometry']['location']['lat']
+                    self.longitude = result['results'][0]['geometry']['location']['lng']
+            except:
+                pass
+
         super(ApplicantProfile, self).save(*args, **kwargs)
 
 
