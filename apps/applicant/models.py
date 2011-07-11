@@ -41,6 +41,40 @@ class ApplicantProfile(Profile, Criteria):
         else:
             return reverse('applicant_profile')
 
+    def overtime_display(self):
+        if self.overtime:
+            return 'Yes'
+        else:
+            return 'No'
+
+    def distance_display(self):
+        for distance_option in self.DISTANCE_OPTIONS:
+            if distance_option[0] == self.distance:
+                return distance_option[1]
+
+        return ''
+
+    def employment_type_display(self):
+        for employment_type_option in Criteria.EMPLOYMENT_TYPE_CHOICES:
+            if employment_type_option[0] == self.employment_type:
+                return employment_type_option[1]
+
+        return ''
+
+    def education_display(self):
+        for education_option in Criteria.EDUCATION_CHOICES:
+            if education_option[0] == self.education:
+                return education_option[1]
+
+        return ''
+
+    def experience_display(self):
+        for experience_option in Criteria.EXPERIENCE_CHOICES:
+            if experience_option[0] == self.experience:
+                return experience_option[1]
+
+        return ''
+
 class ApplicantJob(models.Model):
     date_submitted = models.DateField(default=date.today())
     job = models.ForeignKey(Job, related_name='applicant_job')

@@ -69,7 +69,7 @@ label {
 }
 
 input[type=text], input[type=password] {
-	width: 220px;
+	width: 208px;
 	padding: 5px;
 	color: #aaa;
 	border: 1px solid #cccccc;
@@ -87,7 +87,6 @@ select {
 
 
 select, option {
-    display: inline;
     font-size: 18px;
     height: 36px;
     padding: 2px 5px 2px 5px;

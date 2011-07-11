@@ -52,7 +52,7 @@ class Criteria(models.Model):
 
     def is_complete(self):
         return self.availability or self.education or self.experience 
-    
+
     class Meta:
         abstract = True
 
