@@ -33,7 +33,7 @@ def applicant_profile(request, first_time_setup=False, template='applicant/accou
 
                 user.save()
 
-            return redirect(applicant_dashboard)
+            return redirect(reverse('applicant_dashboard'))
     else:
         form = ApplicantProfileForm(instance=profile, first_time_setup=first_time_setup, user=request.user)
 
