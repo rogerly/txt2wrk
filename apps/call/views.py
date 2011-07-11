@@ -219,8 +219,12 @@ def handle_listing(request, listing_type=None, job_recommendation_id=None, job_i
     context['job_index'] = int(job_index)
     context['job_total'] = int(job_total)
     context['detail'] = detail
+
     call = Call.objects.get(call_sid=fields['CallSid'])
-    jobs = call.applicant.recommendations.filter(state__lte=JobRecommendation.KEPT_NEW_REC)
+    if int(listing_type) == 1:
+        jobs = call.applicant.recommendations.filter(state__lte=JobRecommendation.KEPT_NEW_REC).filter(job__state=Job.JOB_OPEN)
+    else:
+        jobs = call.applicant.recommendations.filter(state__lte=JobRecommendation.SAVED_REC).filter(job__state=Job.JOB_OPEN)
     if job_recommendation_id is not None:
         jobs = jobs.filter(id__gte=job_recommendation_id)
     jobs = jobs.order_by('id')
