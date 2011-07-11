@@ -98,6 +98,9 @@ def enter_password(request, template=None):
     call = Call.objects.get(call_sid=fields['CallSid'])
 
     if form.is_valid():
+        profile = ApplicantProfile.objects.get(mobile_number=form.cleaned_data['From'])
+        user = profile.user
+        context['user'] = user
         fragment = CallFragment(call=call, outbound=True, fragment_type=CallFragment.OUTBOUND_ENTER_PASSWORD)
         fragment.save()
 
@@ -121,6 +124,8 @@ def verify_password(request, template=None):
     fragment.save()
 
     if form.is_valid():
+        if len(form.cleaned_data['Digits']) == 0:
+            context['new_number'] = True
         fragment_type=CallFragment.OUTBOUND_UNKNOWN_FRAGMENT
         context['jobs'] = call.applicant.recommendations.filter(state__lte=JobRecommendation.KEPT_NEW_REC)
     else:
