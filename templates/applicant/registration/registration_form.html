@@ -20,7 +20,7 @@
 
 {% block nav_content %}
 	<ul>
-		<li>Have an Account? <a href="{% url applicant_login %}"><button>Login</button></a></li>
+		<li>Have an Account? <a href="{{ settings.APPLICANT_HOST }}{% url applicant_login %}"><button>Login</button></a></li>
 	</ul>
 {% endblock %}
 

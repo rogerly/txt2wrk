@@ -18,6 +18,11 @@
 </style>
 {% endblock %}
 
+{% block nav_content %}
+	<ul>
+		<li>Have an Account? <a href="{{ settings.EMPLOYER_HOST }}{% url employer_login %}"><button>Login</button></a></li>
+	</ul>
+{% endblock %}
 
 {% block body_content %}
 <h1>Create an Account</h1>

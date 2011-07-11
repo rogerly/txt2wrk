@@ -1,3 +1,4 @@
+import settings
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 
@@ -25,7 +26,8 @@ urlpatterns = patterns('',
         register, 
         { 
          'backend': 'employer.backends.EmployerBackend',
-         'template_name': 'employer/registration/registration_form.html', 
+         'template_name': 'employer/registration/registration_form.html',
+         'extra_context': {'settings':settings,},
         },
         name='employer_register'),
                        

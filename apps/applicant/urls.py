@@ -1,3 +1,4 @@
+import settings
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 
@@ -26,7 +27,8 @@ urlpatterns = patterns('',
         { 
          'backend': 'applicant.backends.ApplicantBackend',
          'template_name': 'applicant/registration/registration_form.html', 
-        },
+         'extra_context': {'settings':settings,},
+         },
         name='applicant_register'),
                        
     url(r'^register_complete/',
