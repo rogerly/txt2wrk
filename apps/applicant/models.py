@@ -18,8 +18,16 @@ class ApplicantProfile(Profile, Criteria):
 
     confirmed_phone = models.BooleanField(default=False)
 
+    resume = models.FileField(upload_to='resumes', null=True)
+
     def __unicode__(self):
         return u'%s' % (self.mobile_number,)
+    
+    def save(self, *args, **kwargs):
+        profile = ApplicantProfile.objects.get(id=self.id)
+        if profile.resume and  profile.resume != self.resume:
+            profile.resume.delete(save=False)
+        super(ApplicantProfile, self).save(*args, **kwargs)
 
 
     def get_login_destination(self):
