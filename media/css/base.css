@@ -164,8 +164,21 @@ div.fieldWrapper {
 
 body > header {
 	background-color: black;
-	height: 30px;
+	height: 42px;
 	width: 100%;
+    padding-top: 15px;
+}
+
+body > header > div {
+    width: 820px;
+    height: 40px;
+    margin: auto;
+    background-image: url('/static/images/logo.png');
+    background-repeat: no-repeat;
+    padding-left: 130px;
+    font-size: 30px;
+    line-height: 25px;
+    color: #fff;
 }
 
 .page-nav {

@@ -18,6 +18,8 @@
 </style>
 {% endblock %}
 
+{% block header_text %}job seekers{% endblock %}
+
 {% block nav_content %}
 	<ul>
 		<li>Have an Account? <a href="{{ settings.APPLICANT_HOST }}{% url applicant_login %}"><button>Login</button></a></li>
