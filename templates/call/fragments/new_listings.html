@@ -19,12 +19,13 @@
 	{% else %}
 		{% if jobs.count > 0 %}
 			{% with recommendation=jobs|first %}
-				<Say>{{ recommendation.job.title }}</Say>
+				<Say>Job {{ job_index }} of {{ job_total }}: {{ recommendation.job.title }} at {% for location in recommendation.job.location.all %}{{ location.business_name }}.{% endfor %}</Say>
 				<Gather numDigits="1">
-					<Say>Press 1 for more information about this job.</Say>
-					<Say>Press 2 to apply for this job.</Say>
-					<Say>Press 3 to delete this job.</Say>
-					<Say>Press 4 to skip to the next job.</Say>
+					<Say>For more details, press 1.</Say>
+					<Say>To apply for this job, press 2.</Say>
+					<Say>To save this job and review the next job, press 3.</Say>
+					<Say>To erase this job, press 4.</Say>
+                    <Say>To listen to these options again, press 9.</Say>
 				</Gather>
 			{% endwith %}
 		{% else %}

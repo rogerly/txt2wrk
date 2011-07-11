@@ -73,6 +73,7 @@ def wrong_user(request, template=None):
             phone = form.cleaned_data['Digits']
             if len(phone) == 12:
                 profile = ApplicantProfile.objects.get(mobile_number=phone)
+                call.phone_number=phone
                 call.applicant=profile
                 call.save()
                 
@@ -127,7 +128,7 @@ def verify_password(request, template=None):
         if len(form.cleaned_data['Digits']) == 0:
             context['new_number'] = True
         fragment_type=CallFragment.OUTBOUND_UNKNOWN_FRAGMENT
-        context['jobs'] = call.applicant.recommendations.filter(state__lte=JobRecommendation.KEPT_NEW_REC)
+        context['jobs'] = call.applicant.recommendations.filter(state__lte=JobRecommendation.KEPT_NEW_REC).filter(job__state=Job.JOB_OPEN)
     else:
         fragment_type=CallFragment.OUTBOUND_WRONG_PASSWORD
 
@@ -166,7 +167,7 @@ def main_menu(request, template=None):
                               context_instance=RequestContext(request))
 
 @csrf_exempt
-def new_listings(request, job_recommendation_id=None, template=None):
+def new_listings(request, job_recommendation_id=None, job_index=1, job_total=1, template=None):
     if request.method == 'POST':
         fields = request.POST
     else:
@@ -175,6 +176,8 @@ def new_listings(request, job_recommendation_id=None, template=None):
     form = HandleFragmentForm(fields)
     context = {}
     context['form'] = form
+    context['job_index'] = job_index
+    context['job_total'] = job_total
     
     call = Call.objects.get(call_sid=fields['CallSid'])
     jobs = call.applicant.recommendations.filter(state__lte=JobRecommendation.KEPT_NEW_REC)
