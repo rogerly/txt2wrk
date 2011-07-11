@@ -12,9 +12,12 @@
             </ul>
         {% endfor %}
     </section>
-    <section>
-        <header>Distance From You</header>
-    </section>
+    {% if distance %}
+        <section>
+            <header>Distance From You</header>
+            {{ distance|floatformat }} miles
+        </section>
+    {% endif %}
 </div>
 <div class="right-column" style="width: 70%;">
     <section>
