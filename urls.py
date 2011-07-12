@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     # Example:
     # (r'^txt2wrk/', include('txt2wrk.foo.urls')),
     url(r'^$', 'prelaunch.views.splash', { 'template': 'about/splash.html', }, name='splash'),
+    url(r'^contact/$', 'prelaunch.views.contact', { 'template': 'about/contact.html', }, name='contact'),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
