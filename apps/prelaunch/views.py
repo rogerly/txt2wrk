@@ -11,19 +11,22 @@ from applicant.forms import ApplicantLoginForm
 from employer.forms import EmployerLoginForm
 from django.template import RequestContext
 
-def contact(request):
-    newform = PotentialUsersForm()
+def contact(request, template=None):
+    ctxt = {}
+    ctxt['applicant_login_form'] = ApplicantLoginForm()
+    ctxt['employer_login_form'] = EmployerLoginForm()
+    ctxt['settings'] = settings
     if request.POST:
         form = PotentialUsersForm(request.POST)
-        if form.is_valid() and form.is_email_default():
+        if form.is_valid():
             form.save()
-            return render_to_response('about/prerelease.html', {'form' : newform, 'success_message' : 'Submission successful!' },
-                context_instance = RequestContext(request))
+            ctxt['form'] = PotentialUsersForm()
+            ctxt['success'] = True
         else:
-            return render_to_response('about/prerelease.html', {'form' : form, 'error_message' : "There was a problem with your submission.  Please make sure you've entered an email address. " },
-                context_instance = RequestContext(request))
-        
-    return render_to_response('about/prerelease.html', {'form' : newform },
+            ctxt['form'] = form
+    else:
+        ctxt['form'] = PotentialUsersForm()
+    return render_to_response(template, ctxt,
                 context_instance = RequestContext(request))
 
 def splash(request, template=None):
