@@ -2,12 +2,14 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth import login
 
 from applicant.models import ApplicantProfile
 from employer.models import EmployerProfile
 
+@csrf_exempt
 def do_login(request, template='account/login.html', form_class=None):
     
     next = request.GET.get('next')

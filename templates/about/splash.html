@@ -6,6 +6,10 @@
         <!--[if lte IE 9]>
             <script type="text/javascript" src="{{ STATIC_URL }}/js/iehtml5.js"></script>
         <![endif]-->
+
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/base.css" />
         <style type="text/css">
             body {
@@ -194,6 +198,12 @@
                 font-weight: bold;
             }
         </style>
+
+        <script type="text/javascript">
+            $(function() {
+                $('#login-forms').tabs();
+            });
+        </script>
     </head>
     <body>
         <div>
@@ -202,7 +212,7 @@
                     <ul>
                         <li><a href="">contact us</a></li> |
                         <li><a href="#about">about txt2wrk</a></li> |
-                        <li><a href="">sign-in</a></li>
+                        <li><a href="#" id="sign-in">sign-in</a></li>
                     </ul>
                 </nav>
             </header>
@@ -294,6 +304,164 @@
                 <p>For parolees in particular, <strong>txt2wrk</strong> provides a receipt that can serve as required proof they are applying for jobs.</p>
                 <p>Beyond serving parolees, <strong>txt2wrk</strong> empowers a wide range of populations, including immigrants, people without permanent addresses, and women escaping domestic violence.</p>
             </section>
+        </div>
+        <style type="text/css">
+            #login-forms {
+                display: none;
+            }
+
+            #login-forms ul {
+                margin-bottom: 0px;
+            }
+            #login-forms ul li {
+                width: 224px;
+                height: 70px;
+                display: inline-block;
+                margin: 0px;
+                padding: 0px;
+                text-align: center;
+                line-height: 72px;
+                font-size: 30px;
+                border-top-color: #d2d3d5;
+                border-top-style: solid;
+                border-top-width: 1px;
+            }
+
+            li#tab-applicant {
+                border-top-left-radius: 15px;
+                background-color: #b2def0;
+                border-left-color: #d2d3d5;
+                border-left-style: solid;
+                border-left-width: 1px;
+            }
+
+            li#tab-employer {
+                border-top-right-radius: 15px;
+                background-color: #dddee0;
+                border-right-color: #d2d3d5;
+                border-right-style: solid;
+                border-right-width: 1px;
+            }
+
+            li#tab-employer a, li#tab-employer a:hover, li#tab-employer a:visited, li#tab-employer a:active {
+                color: #58595b;
+            }
+
+            div.login {
+                padding: 20px;
+                width: 408px;
+                height: 200px;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                border-right-color: #d2d3d5;
+                border-right-style: solid;
+                border-right-width: 1px;
+                border-left-color: #d2d3d5;
+                border-left-style: solid;
+                border-left-width: 1px;
+                border-bottom-color: #d2d3d5;
+                border-bottom-style: solid;
+                border-bottom-width: 1px;
+            }
+
+            div.fieldWrapper {
+                padding:  10px 15px 0px 15px;
+                width: 360px;
+                margin: auto;
+            }
+
+            div.login form div label {
+                width: 150px;
+            }
+
+            div.login button {
+                padding: 5px;
+                font-size: 14px;
+                width: 120px;
+                float: right;
+                margin-top: 20px;
+                margin-right: 80px;
+            }
+
+            input {
+                width: 150px !important;
+            }
+
+            #applicant-login {
+                background-color: #b2def0;
+            }
+
+            #employer-login {
+                background-color: #dddee0;
+                display: none;
+            }
+
+            #overlay {
+                position: absolute;
+                left: -100px;
+                top: -100px;
+                background-color: rgba(0,0,0,.5);
+                width: 10000px;
+                height: 10000px;
+                display: none;
+            }
+        </style>
+        <script type="text/javascript">
+            jQuery.fn.center = function () {
+                this.css("position","absolute");
+                this.css("top", (($(window).height() - this.outerHeight()) / 2) + $(window).scrollTop() + "px");
+                this.css("left", (($(window).width() - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
+                return this;
+            }
+
+            $(document).ready(function() {
+                $('a#sign-in').click(function() {
+                    $('#overlay').toggle()
+                    $('#login-forms').toggle()
+                    $('#login-forms').center();
+                    return false;
+                });
+                $('#login-forms ul li a').click(function() {
+                    $('div'+$(this).attr('href')).show();
+                    $('div'+$(this).attr('href')).siblings('.login').hide();
+                    return false;
+                });
+
+                $('#overlay').click(function() {
+                    $('#overlay').hide();
+                    $('#login-forms').hide();
+                })
+            });
+        </script>
+        <div id="overlay"></div>
+        <div id="login-forms">
+            <ul class="no-bullets"><li id="tab-applicant"><a href="#applicant-login">Job Seekers</a></li><li id="tab-employer"><a href="#employer-login">Employers</a></li></ul>
+            <div id="applicant-login" class="login">
+                <form method="post" action="{{ settings.APPLICANT_HOST }}{% url applicant_login %}">
+                    {% csrf_token %}
+                    {{ applicant_login_form.non_field_errors }}
+                    <div class="fieldWrapper">
+                        <label for="id_username">Phone Number</label> {{ applicant_login_form.username }}
+                    </div>
+                    <div class="fieldWrapper">
+                        <label for="id_password">PIN Code</label> {{ applicant_login_form.password }}
+                    </div>
+                    <button>Login</button>
+                </form>
+            </div>
+            <div id="employer-login" class="login">
+                <form method="post" action="{{ settings.EMPLOYER_HOST }}{% url employer_login %}">
+                    {% csrf_token %}
+                    {{ employer_login_form.non_field_errors }}
+                    <div class="fieldWrapper">
+                        <label for="id_username">Username</label> {{ employer_login_form.username }}
+                    </div>
+                    <div class="fieldWrapper">
+                        <label for="id_password">Password</label> {{ employer_login_form.password }}
+                    </div>
+                    <button>Login</button>
+                </form>
+            </div>
         </div>
     </body>
 </html>
