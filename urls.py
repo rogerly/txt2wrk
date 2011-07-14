@@ -43,4 +43,8 @@ urlpatterns = patterns('',
          'template': 'sms/sms_response.html',
          },
         name='receive_sms'),
+
+    url (r'^assign_job/', 'job_recommendation.views.assign_job',
+        { 'template': 'job/assign_job.html',},
+        name='assign_job'),
 )
