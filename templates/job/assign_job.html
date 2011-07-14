@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+<h1>Recommend job</h1>
+{% if success %}
+<h2>Job Sent!</h2>
+{% endif %}
+<form action="{% url assign_job %}" method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+    <div class="fieldwrapper" style="margin-bottom: 10px;">
+        {% if not field.is_hidden %}
+            {{ field.label_tag }}
+        {% endif %}
+        {{ field }}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    <button>Create job recommendation</button>
+</form>
+{% endblock %}
