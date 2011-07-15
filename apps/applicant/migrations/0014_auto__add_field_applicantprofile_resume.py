@@ -31,16 +31,20 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'ApplicantProfile'},
             'availability': ('django.db.models.fields.IntegerField', [], {'default': '1', 'null': 'True'}),
             'confirmed_phone': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'distance': ('django.db.models.fields.IntegerField', [], {'default': '5'}),
             'education': ('django.db.models.fields.IntegerField', [], {'default': '1', 'null': 'True'}),
+            'employment_type': ('django.db.models.fields.IntegerField', [], {'default': '1', 'null': 'True'}),
             'experience': ('django.db.models.fields.IntegerField', [], {'default': '1', 'null': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'industry': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['job.Industry']", 'symmetrical': 'False'}),
             'latitude': ('django.db.models.fields.CharField', [], {'max_length': '15', 'null': 'True'}),
             'longitude': ('django.db.models.fields.CharField', [], {'max_length': '15', 'null': 'True'}),
             'mobile_number': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
+            'overtime': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'resume': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'applicantprofile'", 'unique': 'True', 'to': "orm['auth.User']"}),
-            'workday': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['job.Workday']", 'symmetrical': 'False'})
+            'workday': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['job.Workday']", 'symmetrical': 'False'}),
+            'zip_code': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True'})
         },
         'auth.group': {
             'Meta': {'object_name': 'Group'},
