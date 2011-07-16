@@ -337,3 +337,17 @@ button.create-job {
     column-gap: 20px;
 }
 
+#demo {
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    padding: 10px;
+    background-color: rgba(0,0,0,.4);
+    color: #0091ce;
+    margin: 0px;
+}
+
+#demo a, #demo a:hover, #demo a:active, #demo a:visited {
+    color: #ffffff;
+}

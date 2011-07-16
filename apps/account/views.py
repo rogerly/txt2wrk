@@ -25,6 +25,9 @@ def do_login(request, template='account/login.html', form_class=None):
                 except ApplicantProfile.DoesNotExist:
                     profile = EmployerProfile.objects.get(user=form.user)
 
+                if profile.demo:
+                    request.session['demo'] = True
+
                 return redirect(profile.get_login_destination())
     else:
         form = form_class()
