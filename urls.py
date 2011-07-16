@@ -44,7 +44,7 @@ urlpatterns = patterns('',
          },
         name='receive_sms'),
 
-    url(r'^demo/False/$', 'prelaunch.views.demo', { 'redirect_url': 'splash', 'demo_mode': False }, name='demo'),
+    url(r'^demo/False/$', 'prelaunch.views.demo', { 'redirect_url': 'splash', 'demo_mode': False }, name='demo_off'),
     url(r'^demo/$', 'prelaunch.views.demo', { 'redirect_url': 'splash' }, name='demo'),
 
     url (r'^assign_job/', 'job_recommendation.views.assign_job',

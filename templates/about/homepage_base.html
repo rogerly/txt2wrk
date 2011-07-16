@@ -255,7 +255,7 @@
             </div>
         </div>
         {% if request.session.demo %}
-            <div id="demo">You are using the demo version of Txt2Wrk.  Any accounts or jobs you create will not be publicly available to real employers and job seekers. You can <a href="{% url demo 'False' %}">go back to the normal site.</a></div>
+            <div id="demo">You are using the demo version of Txt2Wrk.  Any accounts or jobs you create will not be publicly available to real employers and job seekers. You can <a href="{% url demo_off %}">go back to the normal site.</a></div>
         {% endif %}
     </body>
 </html>
