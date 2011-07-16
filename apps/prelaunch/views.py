@@ -5,7 +5,8 @@ Created on Jun 13, 2011
 '''
 
 from django.conf import settings
-from django.shortcuts import render_to_response
+from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response, redirect
 from forms import PotentialUsersForm
 from applicant.forms import ApplicantLoginForm
 from employer.forms import EmployerLoginForm
@@ -36,3 +37,16 @@ def splash(request, template=None):
     ctxt['employer_login_form'] = EmployerLoginForm()
     ctxt['settings'] = settings
     return render_to_response(template, ctxt, context_instance = RequestContext(request))
+
+# Just sets up the account for demo purposes
+def demo(request, demo_mode=True, redirect_url=None):
+    if demo_mode and demo_mode != 'False':
+        request.session['demo'] = True
+    else:
+        del(request.session['demo'])
+
+    if 'next' in request.GET:
+        next = request.GET['next']
+    else:
+        next = reverse(redirect_url)
+    return redirect(next)

@@ -83,6 +83,10 @@ class ApplicantBackend(object):
         new_user.save()
         profile, created = ApplicantProfile.objects.get_or_create(user=new_user)
         profile.mobile_number = phone
+
+        if 'demo' in request.session:
+            profile.demo = True
+
         profile.save()
 
         auth_user = authenticate(username=username, password=password)
