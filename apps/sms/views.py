@@ -23,12 +23,16 @@ def receive_sms(request, template=None, form_class=ReceiveSMSForm):
         fields = request.POST
     else:
         fields = request.GET
+
+    demo = False
+    if 'demo' in fields:
+        demo = True
     form = form_class(fields)
     context = {}
     if form.is_valid():
         profile = None
         try:
-            profile = ApplicantProfile.objects.get(mobile_number=form.cleaned_data['From'])
+            profile = ApplicantProfile.objects.get(mobile_number=form.cleaned_data['From'], demo=demo)
             
         except ApplicantProfile.DoesNotExist:
             pass
