@@ -4,3 +4,9 @@
 <h1>Thank you for signing up</h1>
 <p><a href="{% url employer_profile %}">Update your profile</a></p>
 {% endblock %}
+
+{% block demo_overlay %}
+    {% if request.session.demo %}
+        <div id="demo">You are using the demo version of Txt2Wrk.  Any accounts or jobs you create will not be publicly available to real employers and job seekers. You can <a href="{% if user.is_authenticated %}{% url employer_logout %}?next={% endif %}{% url demo_off %}">go back to the normal site.</a></div>
+    {% endif %}
+{% endblock %}
