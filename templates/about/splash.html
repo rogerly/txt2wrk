@@ -161,7 +161,7 @@
                             <li>Listen to job descriptions over the phone.</li>
                             <li>Apply to jobs immediately with any mobile phone.</li>
                         </ul>
-                        <a href="{{ settings.APPLICANT_HOST }}{% url applicant_register %}"><button>Get Started</button></a>
+                        <a href="{{ settings.APPLICANT_HOST }}{% if request.session.demo %}{% url demo %}?next={% endif %}{% url applicant_register %}"><button>Get Started</button></a>
                     </section>
                 </li>
                 <li>
@@ -172,7 +172,7 @@
                             <li>Reach out to people instantly wherever they are.</li>
                             <li>Get responses faster and get the help you need.</li>
                         </ul>
-                        <a href="{{ settings.EMPLOYER_HOST }}{% url employer_register %}"><button>Learn More</button></a>
+                        <a href="{{ settings.EMPLOYER_HOST }}{% if request.session.demo %}{% url demo %}?next={% endif %}{% url employer_register %}"><button>Learn More</button></a>
                     </section>
                 </li>
             </ul>
