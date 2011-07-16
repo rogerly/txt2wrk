@@ -15,7 +15,7 @@ urlpatterns = patterns('',
         name='applicant_login'),
     
     url(r'^logout/',
-        'django.contrib.auth.views.logout',
+        'account.views.do_logout',
         {
          'next_page': '/',
          'redirect_field_name': 'next',
