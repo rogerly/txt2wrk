@@ -43,7 +43,7 @@ def splash(request, template=None):
 
 # Just sets up the account for demo purposes
 def demo(request, demo_mode=True, redirect_url=None):
-    if demo_mode and demo_mode != 'False':
+    if demo_mode:
         request.session['demo'] = True
     else:
         del(request.session['demo'])
