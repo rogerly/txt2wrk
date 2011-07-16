@@ -227,7 +227,7 @@
             <div id="login-forms">
                 <ul class="no-bullets"><li id="tab-applicant"><a href="#applicant-login">Job Seekers</a></li><li id="tab-employer"><a href="#employer-login">Employers</a></li></ul>
                 <div id="applicant-login" class="login">
-                    <form method="post" action="{{ settings.APPLICANT_HOST }}{% url applicant_login %}">
+                    <form method="post" action="{{ settings.APPLICANT_HOST }}{% url applicant_login %}{% if request.session.demo %}?demo=demo{% endif %}">
                         {% csrf_token %}
                         {{ applicant_login_form.non_field_errors }}
                         <div class="fieldWrapper">
@@ -240,7 +240,7 @@
                     </form>
                 </div>
                 <div id="employer-login" class="login">
-                    <form method="post" action="{{ settings.EMPLOYER_HOST }}{% url employer_login %}">
+                    <form method="post" action="{{ settings.EMPLOYER_HOST }}{% url employer_login %}{% if request.session.demo %}?demo=demo{% endif %}">
                         {% csrf_token %}
                         {{ employer_login_form.non_field_errors }}
                         <div class="fieldWrapper">

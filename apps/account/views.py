@@ -15,8 +15,15 @@ from employer.models import EmployerProfile
 def do_login(request, template='account/login.html', form_class=None):
     
     next = request.GET.get('next')
+
+    if 'demo' in request.session:
+        demo = request.session['demo']
+    else:
+        demo = request.GET.get('demo')
+        demo = True if demo is not None else False
+
     if request.method == "POST":
-        form = form_class(request.POST)
+        form = form_class(request.POST, demo=demo)
         if form.is_valid():
             login(request, form.user)
             if next:
@@ -25,14 +32,17 @@ def do_login(request, template='account/login.html', form_class=None):
                 try:
                     profile = ApplicantProfile.objects.get(user=form.user)
                 except ApplicantProfile.DoesNotExist:
-                    profile = EmployerProfile.objects.get(user=form.user)
+                    try:
+                        profile = EmployerProfile.objects.get(user=form.user)
+                    except EmployerProfile.DoesNotExist:
+                        return redirect(reverse('splash'))
 
                 if profile.demo:
                     request.session['demo'] = True
 
                 return redirect(profile.get_login_destination())
     else:
-        form = form_class()
+        form = form_class(demo=demo)
 
     return render_to_response(template,
                               {

@@ -89,7 +89,7 @@ class ApplicantBackend(object):
 
         profile.save()
 
-        auth_user = authenticate(username=username, password=password)
+        auth_user = authenticate(username=phone, password=password, demo=profile.demo)
         login(request, auth_user)
         signals.user_registered.send(sender=self.__class__,
                                      user=auth_user,

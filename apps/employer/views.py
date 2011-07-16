@@ -21,10 +21,11 @@ def employer_profile(request, first_time_setup=False, template='employer/account
 
             if 'first_name' in form.cleaned_data and form.cleaned_data['first_name'] != '':
                 user = request.user
+                profile = EmployerProfile.objects.get(user=user)
                 user.first_name = form.cleaned_data['first_name']
                 user.last_name = form.cleaned_data['last_name']
                 user.email = form.cleaned_data['email']
-                user.username = form.cleaned_data['username']
+                user.username = '%s%s' % (form.cleaned_data['username'], '_demo' if profile.demo else '')
 
                 if 'password1' in form.cleaned_data and form.cleaned_data['password1'] != '':
                     user.set_password(form.cleaned_data['password1'])
