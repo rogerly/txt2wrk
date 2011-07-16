@@ -181,8 +181,12 @@ def register(request, backend, success_url=None, form_class=None,
     if form_class is None:
         form_class = backend.get_form_class(request)
 
+    demo = False
+    if 'demo' in request.session:
+        demo = request.session['demo']
+
     if request.method == 'POST':
-        form = form_class(data=request.POST, files=request.FILES)
+        form = form_class(data=request.POST, files=request.FILES, demo=demo)
         if form.is_valid():
             new_user = backend.register(request, **form.cleaned_data)
             if success_url is None:
@@ -191,7 +195,7 @@ def register(request, backend, success_url=None, form_class=None,
             else:
                 return redirect(success_url)
     else:
-        form = form_class()
+        form = form_class(demo=demo)
     
     if extra_context is None:
         extra_context = {}

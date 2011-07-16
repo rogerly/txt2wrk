@@ -33,8 +33,11 @@ def contact(request, template=None):
 def splash(request, template=None):
 
     ctxt = {}
-    ctxt['applicant_login_form'] = ApplicantLoginForm()
-    ctxt['employer_login_form'] = EmployerLoginForm()
+    demo = False
+    if 'demo' in request.session:
+        demo = request.session['demo']
+    ctxt['applicant_login_form'] = ApplicantLoginForm(demo=demo)
+    ctxt['employer_login_form'] = EmployerLoginForm(demo=demo)
     ctxt['settings'] = settings
     return render_to_response(template, ctxt, context_instance = RequestContext(request))
 

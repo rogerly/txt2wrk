@@ -15,14 +15,14 @@ urlpatterns = patterns('',
         name='employer_login'),
     
     url(r'^logout/',
-        'django.contrib.auth.views.logout',
+        'account.views.do_logout',
         {
          'next_page': '/',
          'redirect_field_name': 'next',
          },
         name='employer_logout'),
-        
-    url(r'^register/', 
+
+    url(r'^register/',
         register, 
         { 
          'backend': 'employer.backends.EmployerBackend',

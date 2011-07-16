@@ -108,7 +108,7 @@ class ApplicantProfileForm(forms.ModelForm):
 
     class Meta:
         model = ApplicantProfile
-        exclude = ('confirmed_phone', 'jobs', 'latitude', 'longitude', 'availability')
+        exclude = ('confirmed_phone', 'jobs', 'latitude', 'longitude', 'availability', 'demo')
         
     def clean_mobile_number(self):
         if 'mobile_number' in self.cleaned_data:
@@ -142,6 +142,7 @@ class MobileNotificationForm(forms.Form):
 
 class ApplicantRegistrationForm(RegistrationForm):
     def __init__(self, *args, **kwargs):
+        self.demo = kwargs.pop('demo')
         # We dont let user enter username...we create unique guid for it
         self.base_fields['username'].widget = forms.HiddenInput()
         self.base_fields['email'].required = False
@@ -172,7 +173,7 @@ class ApplicantRegistrationForm(RegistrationForm):
     def clean_mobile_number(self):
         if 'mobile_number' in self.cleaned_data:
             try:
-                profile = ApplicantProfile.objects.get(mobile_number=self.cleaned_data['mobile_number'])
+                profile = ApplicantProfile.objects.get(mobile_number=self.cleaned_data['mobile_number'], demo=self.demo)
                 raise forms.ValidationError(_('This phone number already exists.'))
             except ApplicantProfile.DoesNotExist:
                 pass
@@ -183,6 +184,10 @@ class ApplicantRegistrationForm(RegistrationForm):
         return super(ApplicantRegistrationForm, self).clean()
 
 class ApplicantLoginForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        self.demo = kwargs.pop('demo')
+        super(ApplicantLoginForm, self).__init__(*args, **kwargs)
 
     username = USPhoneNumberField(label=_("Mobile Phone Number"),
                                   widget=forms.TextInput(attrs=attrs_dict),
@@ -198,7 +203,7 @@ class ApplicantLoginForm(forms.Form):
     
     def clean(self):
         if 'username' in self.cleaned_data and 'password' in self.cleaned_data:
-            self.user = authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password'])
+            self.user = authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password'], demo=self.demo)
             if self.user is not None:
                 return self.cleaned_data
             else:
