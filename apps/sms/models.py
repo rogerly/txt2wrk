@@ -133,7 +133,7 @@ class SMS(models.Model):
         
         # Data for the message
         sms_msg = {
-                   'From': settings.CALLER_ID,
+                   'From': settings.CALLER_ID_DEMO if applicant.demo else settings.CALLER_ID,
                    'To': phone_number,
                    'Body': message,
                    }
