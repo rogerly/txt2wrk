@@ -18,6 +18,9 @@ def receive_call(request, template=None, form_class=ReceiveCallForm):
     else:
         fields = request.GET
     form = form_class(fields)
+    demo = False
+    if 'demo' in fields:
+        demo = True
     context = {}
     user = None
 
@@ -25,7 +28,7 @@ def receive_call(request, template=None, form_class=ReceiveCallForm):
         profile = None
         try:
             fragment_type = CallFragment.OUTBOUND_WELCOME_UNKNOWN_USER
-            profile = ApplicantProfile.objects.get(mobile_number=form.cleaned_data['From'])
+            profile = ApplicantProfile.objects.get(mobile_number=form.cleaned_data['From'], demo=demo)
             user = profile.user
             
             call = Call(applicant=profile, 
@@ -62,9 +65,14 @@ def wrong_user(request, template=None):
         fields = request.POST
     else:
         fields = request.GET
+
+    demo = False
+    if 'demo' in fields:
+        demo = True
     form = HandleDifferentPhoneForm(fields)
     context = {}
     context['form'] = form
+    context['demo'] = demo
 
     call = Call.objects.get(call_sid=fields['CallSid'])
     
@@ -72,7 +80,7 @@ def wrong_user(request, template=None):
         if 'Digits' in form.cleaned_data and form.cleaned_data['Digits'] != '':
             phone = form.cleaned_data['Digits']
             if len(phone) == 12:
-                profile = ApplicantProfile.objects.get(mobile_number=phone)
+                profile = ApplicantProfile.objects.get(mobile_number=phone, demo=demo)
                 call.phone_number=phone
                 call.applicant=profile
                 call.save()
@@ -99,7 +107,7 @@ def enter_password(request, template=None):
     call = Call.objects.get(call_sid=fields['CallSid'])
 
     if form.is_valid():
-        profile = ApplicantProfile.objects.get(mobile_number=form.cleaned_data['From'])
+        profile = call.applicant
         user = profile.user
         context['user'] = user
         fragment = CallFragment(call=call, outbound=True, fragment_type=CallFragment.OUTBOUND_ENTER_PASSWORD)

@@ -115,7 +115,7 @@ class ApplicantProfileForm(forms.ModelForm):
             try:
                 current_profile = ApplicantProfile.objects.get(user=self.user)
                 if current_profile.mobile_number != self.cleaned_data['mobile_number']:
-                    profile = ApplicantProfile.objects.get(mobile_number=self.cleaned_data['mobile_number'])
+                    profile = ApplicantProfile.objects.get(mobile_number=self.cleaned_data['mobile_number'], demo=current_profile.demo)
                     raise forms.ValidationError(_('This phone number already exists.'))
             except ApplicantProfile.DoesNotExist:
                 pass
