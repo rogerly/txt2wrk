@@ -137,10 +137,6 @@ class Job(Criteria):
     
         super(Job, self).save()
 
-        if new_job:
-            signals.job_created.send(sender=self.__class__,
-                                     job=self)
-
     def __unicode__(self):
         return u'%s' % (self.title,)
 

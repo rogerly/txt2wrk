@@ -7,6 +7,7 @@ Created on Jun 18, 2011
 from math import acos, cos, radians, sin
 from models import Job, JobLocation
 from forms import JobForm
+from signals import job_created
 from applicant.models import ApplicantProfile, ApplicantJob
 from employer.models import EmployerProfile
 from django.contrib.auth.decorators import user_passes_test
@@ -101,8 +102,10 @@ def create_job(request, job_code=None, template = 'job/edit_job.html'):
             job = jobForm.save(commit=False)
             formset = JobLocationInlineFormSet(data=request.POST, instance=job)
             if formset.is_valid:
-                jobForm.save()
+                job = jobForm.save()
                 formset.save()
+
+                job_created.send(sender=job.__class__, job=job)
                 return redirect(reverse('employer_dashboard'))
         else:
             formset = JobLocationInlineFormSet(data=request.POST)
