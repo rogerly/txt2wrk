@@ -17,8 +17,10 @@
         <section>
             <header>Phone Number</header>
             <div id="phone-number">{{ applicant.mobile_number }}</div>
-            <header>Resume Available (.pdf)</header>
-            <a href="{{ applicant.resume.url}}"><button class="dashboard view-resume">View Resume</button> </a>
+            {% if applicant.resume and applicant.resume.url %}
+                <header>Resume Available (.pdf)</header>
+                <a href="{{ applicant.resume.url}}"><button class="dashboard view-resume">View Resume</button> </a>
+            {% endif %}
         </section>
     </div>
     <div class="right-column" style="width: 50%">

@@ -91,6 +91,8 @@ class ApplicantBackend(object):
 
         auth_user = authenticate(username=phone, password=password, demo=profile.demo)
         login(request, auth_user)
+        if profile.demo:
+            request.session['demo'] = True
         signals.user_registered.send(sender=self.__class__,
                                      user=auth_user,
                                      request=request)
