@@ -14,8 +14,11 @@ from django.template import RequestContext
 
 def contact(request, template=None):
     ctxt = {}
-    ctxt['applicant_login_form'] = ApplicantLoginForm()
-    ctxt['employer_login_form'] = EmployerLoginForm()
+    demo = False
+    if 'demo' in request.session:
+        demo = request.session['demo']
+    ctxt['applicant_login_form'] = ApplicantLoginForm(demo=demo)
+    ctxt['employer_login_form'] = EmployerLoginForm(demo=demo)
     ctxt['settings'] = settings
     if request.POST:
         form = PotentialUsersForm(request.POST)
