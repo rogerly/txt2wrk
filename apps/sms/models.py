@@ -107,21 +107,27 @@ class SMS(models.Model):
     @receiver(pre_save, sender=JobRecommendation)
     def send_new_recommendation(sender, **kwargs):
         recommendation = kwargs['instance']
-        if recommendation is not None and recommendation.state == JobRecommendation.NEW_REC:
+        if recommendation is not None and recommendation.state == JobRecommendation.NEW_REC_NOT_SENT:
             applicant = recommendation.applicant
-            job = recommendation.job
-            location = job.location.all()[0]
-            message = u'New job! %s at %s. CALL 5103943562 to hear full description or TEXT BACK %s to submit application.' % (job.title,location.business_name,job.job_code,)
-            SMS.send(applicant=applicant,
-                     phone_number=applicant.mobile_number,
-                     message=message,
-                     message_type=REQ_JOB_APPLY)
+            if applicant.confirmed_phone:
+                job = recommendation.job
+                location = job.location.all()[0]
+                message = u'New job! %s at %s. CALL %s to hear full description or TEXT BACK %s to submit application.' % (job.title,location.business_name,settings.CALLER_ID_DEMO if applicant.demo else settings.CALLER_ID,job.job_code,)
+                SMS.send(applicant=applicant,
+                         phone_number=applicant.mobile_number,
+                         message=message,
+                         message_type=REQ_JOB_APPLY)
+                recommendation.state = JobRecommendation.NEW_REC_SENT
+                recommendation.save()
 
     # Method used to send an SMS.  Creates a new instance of the
     # SMS model and saves it after a successful send.
     @staticmethod
     def send(applicant, phone_number, message, message_type):
-        
+
+        if not applicant.confirmed_phone and message_type != REQ_NUMBER_CONFIRMATION:
+            return None
+
         sms = SMS(applicant=applicant,
                   message=message,
                   sent_by_us=True,
