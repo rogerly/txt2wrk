@@ -153,6 +153,13 @@ CALLER_ID_DEMO = '5102965562';
 APPLICANT_HOST = 'http://www.txt2wrk.net'
 EMPLOYER_HOST = 'http://employers.txt2wrk.net'
 
+# email settings.
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'notifications@txt2wrk.net'
+EMAIL_HOST_PASSWORD ='txt4jobs'
+EMAIL_PORT = 587
+
 def local_overrides(global_dict):
     pass
 
