@@ -1,0 +1,33 @@
+From: txt2wrk Notifications <{{ settings.EMAIL_HOST_USER }}>
+To: {{ job.employer.user.first_name }} {{ job.employer.user.last_name }} <{{ job.employer.user.email }}>
+Subject: Application for {{ job.title }} at {{ job.employer.business_name }}
+
+You have received a new job application.
+
+Greetings from txt2wrk, {{ job.employer.user.first_name }}!
+
+A new job seeker just applied to the following job posting:
+
+{{ job.title }}
+{{ job.employer.business_name }}
+
+Job Seeker Contact Information:
+
+{{ applicant.user.first_name }} {{ applicant.user.last_name }}
+{{ applicant.mobile_number }}
+
+Job Seeker Details:
+
+Availability: {{ applicant.get_availability_display }}
+Type of Work: {{ applicant.get_employment_type_display }}
+Overtime: {{ applicant.get_overtime_display }}
+Education: {{ applicant.get_education_display }}
+Experience: {{ applicant.get_experience_display }}
+Skills: {% for industry in applicant.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %}
+
+Sign In to your txt2wrk account to see more details about this applicant.
+{{ settings.EMPLOYER_HOST }}{% if applicant.demo %}{% url demo %}?next={% endif %}{% url employer_login %}
+
+Thanks for using txt2wrk and have a great day!
+
+The txt2wrk team
