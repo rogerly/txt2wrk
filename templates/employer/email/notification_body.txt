@@ -1,9 +1,3 @@
-From: txt2wrk Notifications <{{ settings.EMAIL_HOST_USER }}>
-To: {{ job.employer.user.first_name }} {{ job.employer.user.last_name }} <{{ job.employer.user.email }}>
-Subject: Application for {{ job.title }} at {{ job.employer.business_name }}
-
-You have received a new job application.
-
 Greetings from txt2wrk, {{ job.employer.user.first_name }}!
 
 A new job seeker just applied to the following job posting:

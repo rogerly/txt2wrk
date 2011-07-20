@@ -1,8 +1,7 @@
 from django.conf import settings
 
-from smtplib import SMTP
-
 from django.core.urlresolvers import reverse
+from django.core.mail import EmailMultiAlternatives
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -86,18 +85,11 @@ class EmployerProfile(Profile):
                 ctxt['job'] = job
                 ctxt['applicant'] = applicant
                 body = render_to_string('employer/email/notification_body.txt', ctxt)
+                html_body = render_to_string('employer/email/notification_body.html', ctxt)
+                subject = render_to_string('employer/email/notification_subject.txt', ctxt)
 
-                return
-
-                m = SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
-                m.ehlo()
-                if settings.EMAIL_USE_TLS:
-                    m.starttls()
-                    m.ehlo()
-                m.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
-                m.sendmail(settings.EMAIL_HOST_USER,
-                           [employer.user.email],
-                           body)
-                m.close()
+                email = EmailMultiAlternatives(subject, body, 'txt2wrk Notifications <%s>' % (settings.EMAIL_HOST_USER,), [job.employer.user.email])
+                email.attach_alternative(html_body, 'text/html')
+                email.send()
             except:
                 pass
