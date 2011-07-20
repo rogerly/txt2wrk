@@ -1,4 +1,4 @@
-import settings
+from django.conf import settings
 
 from smtplib import SMTP
 
