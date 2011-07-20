@@ -86,6 +86,9 @@ class EmployerProfile(Profile):
                 ctxt['job'] = job
                 ctxt['applicant'] = applicant
                 body = render_to_string('employer/email/notification_body.txt', ctxt)
+
+                return
+
                 m = SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
                 m.ehlo()
                 if settings.EMAIL_USE_TLS:
