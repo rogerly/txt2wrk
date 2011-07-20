@@ -1,0 +1,31 @@
+<p>Greetings from txt2wrk, {{ job.employer.user.first_name }}!</p>
+
+<p>A new job seeker just applied to the following job posting:</p>
+
+<p>
+    {{ job.title }}<br />
+    {{ job.employer.business_name }}
+</p>
+
+<p>Job Seeker Contact Information:</p>
+
+<p>
+    {{ applicant.user.first_name }} {{ applicant.user.last_name }}<br />
+    {{ applicant.mobile_number }}
+</p>
+<p>Job Seeker Details:</p>
+
+<p>
+    Availability: {{ applicant.get_availability_display }}<br />
+    Type of Work: {{ applicant.get_employment_type_display }}<br />
+    Overtime: {{ applicant.get_overtime_display }}<br />
+    Education: {{ applicant.get_education_display }}<br />
+    Experience: {{ applicant.get_experience_display }}<br />
+    Skills: {% for industry in applicant.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %}
+</p>
+
+<p><a href="{{ settings.EMPLOYER_HOST }}{% if applicant.demo %}{% url demo %}?next={% endif %}{% url employer_login %}">Sign In</a> to your txt2wrk account to see more details about this applicant.</p>
+
+<p>Thanks for using txt2wrk and have a great day!</p>
+
+<p>The txt2wrk team</p>
