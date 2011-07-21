@@ -22,6 +22,7 @@ def receive_call(request, template=None, form_class=ReceiveCallForm):
     if 'demo' in fields:
         demo = True
     context = {}
+    context['demo'] = demo
     user = None
 
     if form.is_valid():
@@ -105,10 +106,11 @@ def enter_password(request, template=None):
     context['form'] = form
 
     call = Call.objects.get(call_sid=fields['CallSid'])
+    applicant = call.applicant
+    context['applicant'] = applicant
 
     if form.is_valid():
-        profile = call.applicant
-        user = profile.user
+        user = applicant.user
         context['user'] = user
         fragment = CallFragment(call=call, outbound=True, fragment_type=CallFragment.OUTBOUND_ENTER_PASSWORD)
         fragment.save()
@@ -128,6 +130,7 @@ def verify_password(request, template=None):
     context['form'] = form
 
     call = Call.objects.get(call_sid=fields['CallSid'])
+    context['applicant'] = call.applicant
 
     fragment = CallFragment(call=call, outbound=False, fragment_type=CallFragment.INBOUND_ENTER_PASSWORD)
     fragment.save()
