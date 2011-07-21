@@ -56,7 +56,7 @@ class HandleDifferentPhoneForm(forms.Form):
                 
                 try:
                     demo = False
-                    if 'demo' in self.cleaned_data:
+                    if 'demo' in self.cleaned_data and self.cleaned_data['demo'] != '':
                         demo = True
                     profile = ApplicantProfile.objects.get(mobile_number=phone, demo=demo)
                 except ApplicantProfile.DoesNotExist:

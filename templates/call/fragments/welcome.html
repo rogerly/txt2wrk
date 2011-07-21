@@ -4,7 +4,7 @@
 		<Say>Welcome to Text 2 Work, {{ user.first_name }}.</Say>
 	{% else %}
 		<Say>Welcome to Text 2 Work.</Say>
-		<Redirect method="GET">{% url call_wrong_user %}</Redirect>
+		<Redirect method="GET">{% url call_wrong_user %}{% if demo %}?demo=demo{% endif %}</Redirect>
 	{% endif %}
 	<Redirect method="GET">{% url call_enter_password %}</Redirect>
 </Response>
