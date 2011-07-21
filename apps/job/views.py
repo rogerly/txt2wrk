@@ -46,8 +46,8 @@ def view_job(request, job_code = None, is_applicant = False, template = None):
                 latitude1 = applicant.latitude
                 longitude1 = applicant.longitude
 
-                latitude2 = job.location.all()[0].latitude
-                longitude2 = job.location.all()[0].longitude
+                latitude2 = job.location.latitude
+                longitude2 = job.location.longitude
 
                 if latitude1 is not None and latitude1 != '' and latitude2 is not None and latitude2 != '' and longitude1 is not None and longitude1 != '' and longitude2 is not None and longitude2 != '':
                     # distance calculation from

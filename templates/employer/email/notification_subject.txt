@@ -1,1 +1,1 @@
-Application for {{ job.title }} at {{ job.business_name }}
+Application for {{ job.title }} at {{ job.location.business_name }}

@@ -1,16 +1,14 @@
-<h1>{{ job.title }}, {{ job.business_name }}</h1>
+<h1>{{ job.title }}, {{ job.location.business_name }}</h1>
 <div class="left-column" style="width: 25%;">
     <section>
         <header>Job Location</header>
-        {% for location in job.location.all %}
-            <ul class="no-bullets">
-                <li>{{ location.business_name }}</li>
-                <li>{{ location.business_address1 }}</li>
-                {% if location.business_address2 %}<li>{{ location.business_address2 }}</li>{% endif %}
-                <li>{{ location.city }}</li>
-                <li>{{ location.zip_code }}</li>
-            </ul>
-        {% endfor %}
+        <ul class="no-bullets">
+            <li>{{ job.location.business_name }}</li>
+            <li>{{ job.location.business_address1 }}</li>
+            {% if job.location.business_address2 %}<li>{{ job.location.business_address2 }}</li>{% endif %}
+            <li>{{ job.location.city }}</li>
+            <li>{{ job.location.zip_code }}</li>
+        </ul>
     </section>
     {% if distance %}
         <section>

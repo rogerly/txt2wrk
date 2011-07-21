@@ -3,7 +3,7 @@ Greetings from txt2wrk, {{ job.employer.user.first_name }}!
 A new job seeker just applied to the following job posting:
 
 {{ job.title }}
-{{ job.business_name }}
+{{ job.location.business_name }}
 
 Job Seeker Contact Information:
 

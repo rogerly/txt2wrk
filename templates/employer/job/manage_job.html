@@ -15,13 +15,11 @@
     <p>{{ job.description }}</p>
     <hr />
     <ul class="no-bullets">
-        {% for location in job.location.all %}
-            <li>{{ location.business_name }}</li>
-            <li>{{ location.business_address1 }}</li>
-            {% if location.business_address2 %}<li>{{ profile.business_address12 }}</li>{% endif %}
-            <li>{{ location.city }}</li>
-            <li>{{ location.zip_code}}</li>
-        {% endfor %}
+        <li>{{ job.location.business_name }}</li>
+        <li>{{ job.location.business_address1 }}</li>
+        {% if job.location.business_address2 %}<li>{{ job.location.business_address2 }}</li>{% endif %}
+        <li>{{ job.location.city }}</li>
+        <li>{{ job.location.zip_code}}</li>
     </ul>
     <a href="{% url edit_job job.job_code %}"><button>Update Job</button></a>
     <hr />

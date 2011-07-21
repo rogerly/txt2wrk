@@ -177,7 +177,7 @@ class JobLocation(models.Model):
     latitude = models.CharField(null=True, blank=True, max_length=15)
     longitude = models.CharField(null=True, blank=True, max_length=15)
 
-    job = models.ForeignKey(Job, null=False, related_name='location')
+    job = models.OneToOneField(Job, null=False, related_name='location')
 
     def __unicode__(self):
         return u'%s - %s, %s' % (self.business_name, self.business_address1, self.city)
