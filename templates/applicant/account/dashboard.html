@@ -35,7 +35,7 @@
 		<tbody>
 			{% for job_recommendation in job_recommendations %}
 			<tr>
-				<td>{{ job_recommendation.job.employer.business_name }}</td>
+				<td>{{ job_recommendation.job.business_name }}</td>
 				<td>{{ job_recommendation.job.title }}</td>
 				<td>{{ job_recommendation.job.date_created }}</td>
 				<td><a href="{% url applicant_view_job job_recommendation.job.job_code %}"><button class="dashboard job-description">View Job Description</button></a> <a href="{% url applicant_remove_job job_recommendation.job.job_code %}"><button class="dashboard job-remove">Remove Job</button></a></td>
@@ -59,7 +59,7 @@
 		<tbody>
 			{% for applicant_job in applicant_jobs %}
 				<tr>
-					<td>{{ applicant_job.job.employer.business_name }}</td>
+					<td>{{ applicant_job.job.business_name }}</td>
 					<td>{{ applicant_job.job.title }}</td>
 					<td>{{ applicant_job.date_submitted }}</td>
 					<td><a href="{% url applicant_view_job applicant_job.job.job_code %}"><button class="dashboard job-description">View Job Description</button></a> <a href="{% url applicant_remove_job applicant_job.job.job_code %}"><button class="dashboard job-remove">Remove Job</button></a></td>
