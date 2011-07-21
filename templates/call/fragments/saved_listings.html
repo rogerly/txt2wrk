@@ -22,7 +22,7 @@
             <Redirect method="GET">{% url call_hangup %}</Redirect>
 		{% else %}
             {% with recommendation=jobs|first %}
-                <Say>Job {{ job_index }} of {{ job_total }}: {{ recommendation.job.title }} at {% for location in recommendation.job.location.all %}{{ location.business_name }}.{% endfor %}</Say>
+                <Say>Job {{ job_index }} of {{ job_total }}: {{ recommendation.job.title }} at {{ recommendation.job.location.business_name }}.</Say>
                 <Redirect method="GET">{% url handle_listing 2 recommendation.id job_index job_total %}</Redirect>
             {% endwith %}
 		{% endif %}
