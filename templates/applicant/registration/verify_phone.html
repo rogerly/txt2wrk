@@ -1,0 +1,24 @@
+{% extends "applicant/applicant_base.html" %}
+
+{% block page_class %}verify-phone{% endblock %}
+
+{% block body_content %}
+    <section id="instructions">
+        <h2>Thanks for starting the txt2wrk demo!</h2>
+        <p>We have sent a text message to {{ mobile_number }}</p>
+        <p>When you confirm the text message, you will receive a sample job posting on your phone. This page will also advance to your profile page where you can enter your job history, education, and relevant skills.</p>
+    </section>
+    <section id="waiting">
+        <h2>Waiting for confirmation</h2>
+    </section>
+    <section id="problems" class="last">
+        <h2>Problems?</h2>
+        <p>If the page doesn't advance automatically, enter the PIN you received via text message to continue.</p>
+        <form action="{% url applicant_login %}?demo=True&next={% url applicant_profile %}" method="post">
+            {% csrf_token %}
+            {{ login_form.username }}
+            {{ login_form.password }}
+            <button>Sign In</button>
+        </form>
+    </section>
+{% endblock %}

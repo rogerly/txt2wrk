@@ -1,5 +1,14 @@
 {% extends 'about/homepage_base.html' %}
 
+{% block page_js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.splitphone.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('input#id_mobile_number').splitPhone();
+        });
+    </script>
+{% endblock %}
+
 {% block page_css %}
     <style type="text/css">
         ul.box {
@@ -149,93 +158,92 @@
 {% endblock %}
 
 {% block page_content %}
-        <section id="intro">
-            <p><strong>Txt2wrk</strong> is an easier way to connect job seekers to employers.</p>
-            <p>Job seekers can listen to job postings and submit their resume to employers using any mobile phone.</p>
-            <ul class="box">
-                <li>
-                    <section class="box job-seeker">
-                        <header>I'm looking for work</header>
-                        <ul>
-                            <li>Find out about new jobs as soon as they are posted, even without a computer.</li>
-                            <li>Listen to job descriptions over the phone.</li>
-                            <li>Apply to jobs immediately with any mobile phone.</li>
-                        </ul>
-                        <a href="{{ settings.APPLICANT_HOST }}{% if request.session.demo %}{% url demo %}?next={% endif %}{% url applicant_register %}"><button>Get Started</button></a>
-                    </section>
-                </li>
-                <li>
-                    <section class="box employer">
-                        <header>I'm looking to hire</header>
-                        <ul>
-                            <li>Get access to more applicants.</li>
-                            <li>Reach out to people instantly wherever they are.</li>
-                            <li>Get responses faster and get the help you need.</li>
-                        </ul>
-                        <a href="{{ settings.EMPLOYER_HOST }}{% if request.session.demo %}{% url demo %}?next={% endif %}{% url employer_register %}"><button>Learn More</button></a>
-                    </section>
-                </li>
-            </ul>
-        </section>
-        <div style="clear: both;"></div>
-        <section id="how-it-works">
-            <header>How it Works</header>
-            <ul class="box">
-                <li>
-                    <section class="box job-seeker step-1">
-                        <header>Create a Profile</header>
-                        <p>Sign up with txt2wrk, register your phone, create a Job Seeker profile describing the kinds of work you are looking for, and optionally upload a resume.</p>
-                    </section>
-                </li>
-                <li>
-                    <section class="box employer step-2" style="margin-top: 100px;">
-                        <header>Post Jobs</header>
-                        <p>Sign up with txt2wrk and post job openings for free.</p>
-                    </section>
-                </li>
-                <li>
-                    <section class="box job-seeker step-3" style="margin-top: -30px;">
-                        <header>Receive a TXT</header>
-                        <p>When employers post jobs matching your qualifications, you are immediately notified of the job via text message.</p>
-                    </section>
-                    <div style="clear: both; height: 30px;"></div>
-                </li>
-                <li>
-                    <section class="box job-seeker step-4">
-                        <header>Listen & Apply to Jobs</header>
-                        <p>Call txt2wrk and listen to the job description.</p>
-                        <p>If you like what you hear, apply for the job right over the phone. Your contact information and Job Seeker profile are immediately sent directly to the employer.</p>
-                    </section>
-                </li>
-                <li>
-                    <section class="box employer step-5" style="margin-top: 100px;">
-                        <header>Review Applications</header>
-                        <p>Job Seeker profiles are collected for each job posting as job seekers respond to your posting. Review individual profiles and contact prospective hires directly.</p>
-                    </section>
-                </li>
-                <li>
-                    <section class="box job-seeker step-6" style="margin-top: -30px;">
-                        <header>Receive Call Backs</header>
-                        <p>Employers who are interested in your profile will contact you directly on the phone you registered with txt2wrk.</p>
-                    </section>
-                </li>
-            </ul>
-        </section>
-        <div style="clear: both;"></div>
-        <section id="about">
-            <header>About txt2wrk</header>
-            <p><strong>Txt2wrk</strong> was awarded the Ramsell Prize for the best app at the Code for Oakland hackathon on June 4, 2011.</p>
-            <p><strong>Txt2wrk</strong> was founded in Oakland, CA to improve access to employment information for people with low literacy and limited access to broadband. Specifically, we wanted to help parolees, who make up a disproportionate percentage of Oakland’s population, find jobs. In addition to low literacy, parolees seeking work are challenged by infrequent Internet connectivity. Typically, their only access is one hour per day at a career center or public library.</p>
-            <p><strong>Txt2wrk</strong> helps parolees and other job seekers compete on a more level playing field by providing</p>
+    <section id="user-types">
+        <div class="job-seeker user-type">
+            <h3>I'm seeking work</h3>
+            <ol>
+                <li><span>Learn about new jobs when they appear, without a computer</span></li>
+                <li><span>Listen to job descriptions over the phone</span></li>
+                <li><span>Apply to jobs immediately from your mobile phone</span></li>
+            </ol>
+        </div>
+        <div class="employer user-type">
+            <h3>I'm hiring</h3>
+            <ol>
+                <li><span>Get access to a larger pool of applicants</span></li>
+                <li><span>Reach out to job-seekers anywhere, instantly</span></li>
+                <li><span>Get responses faster, and find the help you need</span></li>
+            </ol>
+        </div>
+        <div class="social-worker user-type last">
+            <h3>I'm a social worker</h3>
+            <ol>
+                <li><span>Get access to a larger pool of applicants</span></li>
+                <li><span>Reach out to job-seekers anywhere, instantly</span></li>
+                <li><span>Get responses faster, and find the help you need</span></li>
+            </ol>
+        </div>
+        <div class="clearing"></div>
+    </section>
+    <section id="demo">
+        <div class="instructions">
+            <h3>Try the demo!</h3>
+            <p>Experience the full range of txt2wrk services for<br /><strong>job seekers</strong>, <strong>employers</strong>, and <strong>placement agencies</strong></p>
+            <p>Enter your mobile number to sign up as a job seeker</p>
+            <form action="{% url demo_applicant_register %}" method="post">
+                {% csrf_token %}
+                {{ demo_form.mobile_number }}
+                <button>begin</button>
+            </form>
+            <p class="confirmation-instructions">
+                After submitting your mobile number, you will receive a confirmation<br />
+                txt message. Upon confirmation, you will receive a default password<br />
+                for logging into the txt2wrk network on future visits.
+            </p>
+        </div>
+        <div class="expectations">
+            <h3>In our demo you will...</h3>
             <ul>
-                <li>text-to-speech delivery of job postings on any mobile phone, including inexpensive models</li>
-                <li>real-time alerts of job postings even when a job seeker is not near a computer</li>
-                <li>the ability to apply for a job and submit a resume using any mobile phone</li>
-                <li>24-hour access to job postings using any mobile phone</li>
-                <li>access to public and private job information through partnerships with organizations dedicated to helping former felons find jobs</li>
+                <li>Create a job seeker profile</li>
+                <li>Create an employer profile</li>
+                <li>Create a sample job listing</li>
+                <li>Receive your sample job as a txt message on your mobile phone</li>
+                <li>Apply to the job from your phone</li>
+                <li>Receive job applications on the dashboard of your employer page</li>
+                <li>Learn how to run a custom version of txt2wrk in your own organization</li>
             </ul>
-            <p>For parolees in particular, <strong>txt2wrk</strong> provides a receipt that can serve as required proof they are applying for jobs.</p>
-            <p>Beyond serving parolees, <strong>txt2wrk</strong> empowers a wide range of populations, including immigrants, people without permanent addresses, and women escaping domestic violence.</p>
-        </section>
-    </div>
+        </div>
+        <div class="clearing"></div>
+    </section>
+    <section id="how-it-works">
+        <h3>How it wrks</h3>
+        <p>txt2wrk is an easier way to connect job seekers and employers. Applicants can receive job posts through text messages, listen to descriptions, and apply to jobs all from their mobile phone.</p>
+        <dl>
+            <dt class="job-seeker">job seeker</dt>
+            <dd class="job-seeker">
+                <ul>
+                    <li>submit resume</li>
+                    <li>receive job</li>
+                    <li>apply to job</li>
+                </ul>
+            </dd>
+            <dt class="social-worker">txt2wrk</dt>
+            <dd class="social-worker">
+                <ul>
+                    <li>receive resumes</li>
+                    <li>receive jobs</li>
+                    <li>place job seekers</li>
+                </ul>
+            </dd>
+            <dt class="employer">employer</dt>
+            <dd class="employer last">
+                <ul>
+                    <li>receive resumes</li>
+                    <li>receive jobs</li>
+                    <li>place job seekers</li>
+                </ul>
+            </dd>
+        </dl>
+        <img src="{{ STATIC_URL }}images/logged_out/how-it-works.png" />
+    </section>
 {% endblock %}

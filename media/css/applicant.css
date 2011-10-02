@@ -1,3 +1,91 @@
+body {
+    color: #294c66;
+}
+
+body > div > header > h1 {
+    background-image: url('../images/logged_in/logo-applicant.png');
+}
+
+body > div > header > h1 > span#header-type {
+    color: #85c5f2;
+}
+
+body > div > header > span#header-icon {
+    background-image: url('../images/logged_in/header-applicant-icon.png');
+}
+
+h2 {
+    color: #0d4e90;
+}
+
+legend {
+    font-size: 24px;
+    color: #0d4e90;
+    font-weight: normal;
+}
+
+.verify-phone section {
+    padding: 30px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.verify-phone section.last {
+    border-bottom: none;
+}
+
+.verify-phone section#waiting h2 {
+    margin-bottom: 0px;
+}
+
+.verify-phone p {
+    font-size: 18px;
+    width: 434px;
+}
+
+.verify-phone input#id_password {
+    width: 50px;
+}
+
+.profile div#contact-information {
+    float: left;
+    width: 250px;
+    margin-right: 20px;
+}
+
+.profile div#contact-information div#city {
+    float: left;
+    width: 180px;
+}
+
+.profile div#contact-information input#id_city {
+    width: 160px;
+}
+
+.profile div#contact-information div#zip_code {
+    float: left;
+    width: 70px;
+}
+
+.profile div#contact-information input#id_zip_code {
+    width: 60px;
+}
+
+.profile div.main-column input[type=text] {
+    width: 240px;
+}
+
+.profile div.main-column select {
+    width: 250px;
+    height: 33px;
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+
+.profile div#additional-details {
+    float: left;
+    width: 250px;
+}
+
 div.fieldWrapper  ul
 {
 	display: inline-block;
@@ -8,6 +96,44 @@ div.fieldWrapper  ul
 
 div.fieldWrapper label
 {
-	vertical-align: top;	
+	vertical-align: top;
 }
 
+.profile label
+{
+    display: block;
+    margin-bottom: 2px;
+    font-size: 13px;
+    line-height: 13px;
+}
+
+.profile fieldset {
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile fieldset.last {
+    border-bottom: none;
+}
+
+.profile fieldset.actions {
+    text-align: right;
+}
+
+.profile div#industryWrapper div label {
+    line-height: 18px;
+    width: 180px;
+}
+
+.profile div#industryWrapper label {
+    text-transform: capitalize;
+}
+
+span#tab-profile {
+
+}
+
+span#tab-dashboard {
+
+}

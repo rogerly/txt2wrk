@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
-<Response> 
-	<Sms>Congratulations, your phone is now registered with txt2wrk! You will now receive txt msg updates when employers post jobs that match your search criteria.</Sms>
+<Response>
+    {% if pin %}
+        <Sms>Congratulations, your phone is now registered with txt2wrk! Your PIN number is {{ pin }}. Use this PIN number to log into txt2wrk.net</Sms>
+    {% else %}
+    	<Sms>Congratulations, your phone is now registered with txt2wrk! You will now receive txt msg updates when employers post jobs that match your search criteria.</Sms>
+    {% endif %}
 </Response>

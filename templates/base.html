@@ -10,18 +10,41 @@
 		<script type="text/javascript" src="{{ STATIC_URL }}js/base.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/base.css" />
-		{% block page_css %} {% endblock %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/loggedin.css" />
+        {% block base_css %}{% endblock %}
+		{% block page_css %}{% endblock %}
 		{% block extra_css %}{% endblock %}
 	</head>
-	<body>
-		<header><div> | {% block header_text %}{% endblock %}</div></header>
-		<nav class="page-nav">
-			{% block nav_content %} {% endblock %}		
-		</nav>
-	
-		<div class="page-content">
-			{% block body_content %}{% endblock %}
-		</div>
-        {% block demo_overlay %}{% endblock %}
+	<body class="{% block page_class %}{% endblock %}">
+        <div>
+            <header>
+                <h1><span id="txt2wrk">txt2wrk</span> | <span id="header-type">{% block header_text %}{% endblock %}</span></h1>
+                <nav>
+                    <ul>
+                        <li><a href="">about txt2wrk</a></li> |
+                        <li><a href="{% url contact %}">contact us</a></li> |
+                        <li><a href="" id="sign-in">login</a></li>
+                    </ul>
+                </nav>
+                <span id="header-icon"></span>
+            </header>
+
+            <div class="page-content">
+                {% block body_content %}{% endblock %}
+            </div>
+            <footer>
+                <h5>Thanks for visiting!</h5>
+                <p>txt2wrk was founded in Oakland, CA to improve access to employment information for people with low literacy and limited access to broadband.</p>
+                <p>txt2wrk was awarded the Ramsell Prize for the best app at the Code for Oakland hackathon on June 4, 2011</p>
+                <p>&copy; 2011 txt2wrk all rights reserved</p>
+                <nav>
+                    <ul>
+                        <li><a href="">about txt2wrk</a></li> |
+                        <li><a href="{% url contact %}">contact us</a></li> |
+                        <li><a href="" id="sign-in">login</a></li>
+                    </ul>
+                </nav>
+            </footer>
+        </div>
 	</body>
 </html>
