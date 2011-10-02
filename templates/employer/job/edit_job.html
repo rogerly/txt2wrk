@@ -1,8 +1,12 @@
 {% extends "employer/employer_base.html" %}
 
-{% block head_title %} Applicant Profile {% endblock %}
-{% block page_css %} 		
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/applicant.css" />
+{% block head_title %}Create or Update Job Postings{% endblock %}
+
+{% block tabbed_navigation %}{% endblock %}
+
+{% block page_class %}edit-job with-sidebar{% endblock %}
+
+{% block page_css %}
 <style type="text/css">
     {% if form.edit_location.value == '1' %}
         #fieldset-location legend span {
@@ -30,24 +34,6 @@
         width: 100%;
     }
 
-    #workdayWrapper > label, #industryWrapper > label {
-        display: block;
-        width: 100%;
-    }
-
-    #workdayWrapper div label, #industryWrapper div label {
-        line-height: 18px;
-        width: 100%;
-    }
-
-    #workdayWrapper div.three-columns div:nth-child(5) {
-        margin-bottom: 10px;
-    }
-
-    #id_overtime {
-        margin-left: 15px;
-    }
-
 </style>
 
 <script type="text/javascript">
@@ -62,86 +48,88 @@
 {% endblock %}
 
 {% block body_content %}
-
-
-
-<h1>Update Your Job Posting</h1>
-<p>
-Bacon bacon bacon ipsum dolor sit amet nisi proident cow adipisicing pastrami, sirloin pig dolore officia aliqua ut tempor brisket 
-pariatur. Andouille brisket aliqua culpa, cupidatat chicken et short ribs bresaola.
-</p>
 <form action="./{{job_code}}" method="post">
-    {{ formset.management_form }}
-	{% csrf_token %}
-    {{ form.non_field_errors }}
-    <fieldset class="left-column" style="width: 25%;" id="fieldset-location">
-        <legend>Job Location <span class="required-fields">All Fields Required</span></legend>
-        {% for locationform in formset %}
-            <div id="location">
-                {{ locationform.business_name.value }}<br />
-                {{ locationform.business_address1.value }}<br />
-                {% if locationform.business_address2.value %}{{ locationform.business_address2.value }}<br />{% endif %}
-                {{ locationform.city.value }} {{ locationform.zip_code.value }}<br />
-                <button type="button">Edit Location</button>
+    <div class="main-column">
+        {{ formset.management_form }}
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <fieldset>
+            <legend>Create or Update Job Postings</legend>
+            <div class="fieldWrapper">
+                {{ form.title.label_tag }} {{ form.title }} {{ form.title.errors }}
             </div>
-            <div id="location-form">
-                {{ locationform.id }} {{ locationform.id.errors }}
-                {{ locationform.business_name.label_tag }} {{ locationform.business_name }} {{ locationform.business_name.errors }}
-                {{ locationform.business_address1.label_tag }} {{ locationform.business_address1 }} {{ locationform.business_address1.errors }}
-                {{ locationform.business_address2.label_tag }} {{ locationform.business_address2 }} {{ locationform.business_address2.errors }}
-                {{ locationform.city.label_tag }} {{ locationform.city }} {{ locationform.city.errors }}
-                {{ locationform.zip_code.label_tag }} {{ locationform.zip_code }} {{ locationform.zip_code.errors }}
+            <div class="fieldWrapper">
+                {{ form.description.label_tag }} {{ form.description }} {{ form.description.errors }}
             </div>
-        {% endfor %}
-        {{ form.edit_location }}
-    </fieldset>
-    <fieldset class="right-column" style="width: 70%;">
-    	<legend>Job Details <span class="required-fields">All Fields Required</span></legend>
-	    <div class="fieldWrapper">
-            {{ form.title.label_tag }} {{ form.title }} {{ form.title.errors }}
-	    </div>
-	    <div class="fieldWrapper">
-	    	{{ form.description.label_tag }} {{ form.description }} {{ form.description.errors }}
-	    </div>
-        <div class="fieldWrapper">
-            {{ form.employment_type.label_tag }} {{ form.employment_type }}
-            {{ form.overtime }} {{ form.overtime.label_tag }}
-        </div>
-	
-	    <div class="fieldWrapper">
-	    	{{ form.availability.label_tag }} {{ form.availability }} {{ form.availability.errors }}
-	    </div>
-	    <div class="fieldWrapper">
-	    	{{ form.zip_code.label_tag }} {{ form.zip_code }} {{ form.zip_code.errors }}
-	    </div>
-	    <div class="fieldWrapper">
-	    	{{ form.location_range.label_tag }} {{ form.location_range }} {{ form.location_range.errors }}
-	    </div>
-	    <div class="fieldWrapper">
-	    	</label>
-            {{ form.education.label_tag }} {{ form.education }} {{ form.education.errors }}
-	    </div>
-	    <div class="fieldWrapper">
-	    	{{ form.experience.label_tag }} {{ form.experience }} {{ form.experience.errors }}
-	    </div>
-        <div class="fieldWrapper" id="workdayWrapper">
-            {{ form.workday.label_tag }}
-            <div class="three-columns">{{ form.workday }}</div>
-            {{ form.workday.errors }}
-        </div>
-	    <div class="fieldWrapper" id="industryWrapper">
-	    	{{ form.industry.label_tag }}
-            <p class="help-text" style="padding-left: 0px;">(Job seekers will be matched against these categories.)</p>
-            <div class="two-columns">{{ form.industry }}</div>
-            {{ form.industry.errors }}
-	    </div>
-	    
-	    {{ form.employer }}
+        </fieldset>
+        <fieldset>
+            <legend>Availability and Experience</legend>
+            <div id="job-info-one">
+                <div class="fieldWrapper">
+                    {{ form.employment_type.label_tag }} {{ form.employment_type }}
+                </div>
+
+                <div class="fieldWrapper">
+                    {{ form.availability.label_tag }} {{ form.availability }} {{ form.availability.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.education.label_tag }} {{ form.education }} {{ form.education.errors }}
+                </div>
+            </div>
+            <div id="job-info-two">
+                <label>{{ form.workday.label_tag }}</label>
+                <div class="fieldWrapper two-columns" id="workdayWrapper">
+                    {{ form.workday }} {{ form.workday.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.overtime }} {{ form.overtime.label_tag }}
+                </div>
+            </div>
+            <div class="fieldWrapper">
+                {{ form.zip_code.label_tag }} {{ form.zip_code }} {{ form.zip_code.errors }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.location_range.label_tag }} {{ form.location_range }} {{ form.location_range.errors }}
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Areas of Expertise</legend>
+            <div class="fieldWrapper" id="industryWrapper">
+                <div class="three-columns">{{ form.industry }}</div>
+                 {{ form.industry.errors }}
+            </div>
+        </fieldset>
+
+        {{ form.employer }}
 
         <div class="right">
             <a href="{% url employer_dashboard %}"><button type="button">Cancel</button></a>
             <button type="submit">Post Job</button>
         </div>
-	</fieldset>
+    </div>
+    <div class="sidebar">
+        <fieldset id="fieldset-location">
+            <legend>Job Location <span class="required-fields">All Fields Required</span></legend>
+            {% for locationform in formset %}
+                <div id="location">
+                    {{ locationform.business_name.value }}<br />
+                    {{ locationform.business_address1.value }}<br />
+                    {% if locationform.business_address2.value %}{{ locationform.business_address2.value }}<br />{% endif %}
+                    {{ locationform.city.value }} {{ locationform.zip_code.value }}<br />
+                    <button type="button">Edit Location</button>
+                </div>
+                <div id="location-form">
+                    {{ locationform.id }} {{ locationform.id.errors }}
+                    {{ locationform.business_name.label_tag }} {{ locationform.business_name }} {{ locationform.business_name.errors }}
+                    {{ locationform.business_address1.label_tag }} {{ locationform.business_address1 }} {{ locationform.business_address1.errors }}
+                    {{ locationform.business_address2.label_tag }} {{ locationform.business_address2 }} {{ locationform.business_address2.errors }}
+                    {{ locationform.city.label_tag }} {{ locationform.city }} {{ locationform.city.errors }}
+                    {{ locationform.zip_code.label_tag }} {{ locationform.zip_code }} {{ locationform.zip_code.errors }}
+                </div>
+            {% endfor %}
+            {{ form.edit_location }}
+        </fieldset>
+    </div>
+    <div class="clearing"></div>
 </form>
 {% endblock %}

@@ -36,6 +36,105 @@ table thead tr th {
     color: #558017;
 }
 
+button {
+    background: #93c02e; /* Old browsers */
+    background: -moz-linear-gradient(top, #bed94c 0%, #93c02e 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bed94c), color-stop(100%,#93c02e)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #bed94c 0%,#93c02e 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #bed94c 0%,#93c02e 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #bed94c 0%,#93c02e 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bed94c', endColorstr='#93c02e',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, #bed94c 0%,#93c02e 100%); /* W3C */
+}
+
+.profile div#contact-information {
+    float: left;
+    width: 250px;
+    margin-right: 20px;
+}
+
+.profile div#location-information div#city {
+    float: left;
+    width: 180px;
+}
+
+.profile div#location-information input#id_city {
+    width: 160px;
+}
+
+.profile div#location-information div#zip_code {
+    float: left;
+    width: 70px;
+}
+
+.profile div#location-information input#id_zip_code {
+    width: 60px;
+}
+
+.profile div.main-column input[type=text] {
+    width: 240px;
+}
+
+.profile div.main-column select {
+    width: 250px;
+    height: 33px;
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+
+.profile div#location-information {
+    float: left;
+    width: 250px;
+}
+
+.profile label
+{
+    display: block;
+    margin-bottom: 2px;
+    font-size: 13px;
+    line-height: 13px;
+}
+
+.profile fieldset {
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile fieldset.last {
+    border-bottom: none;
+}
+
+.profile fieldset.actions {
+    text-align: right;
+}
+
+.profile div.main-column fieldset div.examples {
+    width: 195px;
+    float: left;
+}
+
+.profile div.main-column fieldset p.examples {
+    font-weight: bold;
+    width: 195px;
+}
+
+.profile div.main-column fieldset ul.examples {
+    width: 195px;
+}
+
+.profile div.main-column fieldset ul.examples li {
+    margin-bottom: 10px;
+}
+
+.profile div.main-column fieldset div#business_description {
+    float: right;
+}
+
+.profile div.main-column fieldset div#business_description textarea {
+    width: 311px;
+}
+
 .dashboard section#matches a {
     text-decoration: underline;
     color: #a8cc3d;
@@ -44,3 +143,42 @@ table thead tr th {
 .dashboard .header {
     width: 400px;
 }
+
+.edit-job label
+{
+    display: block;
+    margin-bottom: 2px;
+    font-size: 13px;
+    line-height: 13px;
+}
+
+.edit-job div.main-column input[type=text] {
+    width: 240px;
+}
+
+.edit-job div.main-column select {
+    width: 250px;
+    height: 33px;
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+
+.edit-job textarea {
+    height: 75px;
+}
+
+.edit-job div#job-info-one {
+    float: left;
+    width: 250px;
+    margin-right: 20px;
+}
+
+.edit-job div#job-info-two {
+    float: left;
+    width: 250px;
+}
+
+.edit-job div#industryWrapper label {
+    text-transform: capitalize;
+}
+

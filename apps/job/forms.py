@@ -13,13 +13,13 @@ from common.helpers import CheckboxSelectMultipleDiv
 class JobForm(forms.ModelForm):
     workday = forms.ModelMultipleChoiceField(
                     widget = CheckboxSelectMultipleDiv,
-                    label = 'Days available to work',
+                    label = 'Days Available',
                     queryset = models.Workday.objects.all()
     )
     
     industry = forms.ModelMultipleChoiceField(
                     widget = CheckboxSelectMultipleDiv,
-                    label = 'Please select areas with the most experience',
+                    label = 'Expertise Required',
                     queryset = models.Industry.objects.all().order_by('name')
     )
 
@@ -43,7 +43,10 @@ class JobForm(forms.ModelForm):
         self.fields['employer'].widget = forms.HiddenInput()
         self.fields['employer'].initial = models.EmployerProfile.objects.get(user=self.user)
         self.fields['employer'].required = False
-        
+        self.fields['employment_type'].label='Commitment'
+        self.fields['availability'].label='Begins'
+        self.fields['experience'].required = False
+
     class Meta:
         model = models.Job
         fields = ('title', 

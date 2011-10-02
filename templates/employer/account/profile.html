@@ -1,117 +1,97 @@
 {% extends "employer/employer_base.html" %}
 
-{% block head_title %} Applicant Profile {% endblock %}
-{% block extra_css %} 		
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/applicant.css" />
-<style type="text/css">
-	.examples {
-		font-size: 14px;
-	}
-	
-	ul.examples li {
-		font-size: 14px;
-	}
-	
-	div.left-column fieldset#business-description legend {
-		border-top: 0px;
-	}
-</style>
+{% load tabs %}
+
+{% block tabbed_navigation %}
+    {% activetab 'tabbed_navigation' 'profile' %}
+    {{ block.super }}
 {% endblock %}
 
-{% block body_content %}
+{% block page_class %}profile with-sidebar{% endblock %}
 
-{% if first_time_setup %}
-	<h1>Welcome to txt2wrk, {{ user.first_name }}</h1>
-	<p>Before you begin posting jobs, we need to collect some information about your business.<br />
-	This information will be used to provide job seekers with location information for the jobs you post, and provide a brief description about your business.</p>
-{% else %}
-	<h1>Hi, {{ user.first_name }}!</h1>
-	<p>Update account and profile information below.</p>
-	<p>Your account details and contact information will be used to alert you to new applications.</p>
-	<p>The business information and description will be used to provide job seekers with location information for the jobs you post, and provide a brief description about your business.</p>
-{% endif %}
-<form action="{% if first_time_setup %}{% url employer_profile_setup %}{% else %}{% url employer_profile %}{% endif %}" method="post">
-	{% csrf_token %}
-    {{ form.non_field_errors }}
-    {{ form.user }}
-    <div class="left-column" style="width: 45%;">
-		<fieldset id="business-information">
-			<legend>Business Information <span class="required-fields">* Required field</span></legend>
-			<div class="fieldWrapper">
-				{{ form.business_name.label_tag }} {{ form.business_name }} {{ form.business_name.errors }}
-			</div>
-			<div class="fieldWrapper">
-				{{ form.business_address1.label_tag }} {{ form.business_address1 }} {{ form.business_address1.errors }}
-			</div>
-			<div class="fieldWrapper">
-				{{ form.business_address2.label_tag }} {{ form.business_address2 }} {{ form.business_address2.errors }}
-			</div>
-			<div class="fieldWrapper">
-				{{ form.city.label_tag }} {{ form.city }} {{ form.city.errors }}
-			</div>
-			<div class="fieldWrapper">
-				{{ form.zip_code.label_tag }} {{ form.zip_code }} {{ form.zip_code.errors }}
-			</div>
-			<div class="fieldWrapper">
-				{{ form.business_phone_number.label_tag }} {{ form.business_phone_number }} {{ form.business_phone_number.errors }}
-			</div>
-			<div class="fieldWrapper">
-				{{ form.business_website_url.label_tag }} {{ form.business_website_url }} {{ form.business_website_url.errors }}
-			</div>
+{% block head_title %} Applicant Profile {% endblock %}
+
+{% block body_content %}
+<div class="main-column">
+    <form action="{% url employer_profile %}" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.user }}
+		<fieldset>
+			<legend>Company Information</legend>
+            <div id="contact-information">
+                <div class="fieldWrapper">
+                    {{ form.business_name.label_tag }} {{ form.business_name }} {{ form.business_name.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.business_phone_number.label_tag }} {{ form.business_phone_number }} {{ form.business_phone_number.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.business_website_url.label_tag }} {{ form.business_website_url }} {{ form.business_website_url.errors }}
+                </div>
+            </div>
+            <div id="location-information">
+                <div class="fieldWrapper">
+                    {{ form.business_address1.label_tag }} {{ form.business_address1 }} {{ form.business_address1.errors }}<br />
+                    {{ form.business_address2 }} {{ form.business_address2.errors }}
+                </div>
+                <div class="fieldWrapper" id="city">
+                    {{ form.city.label_tag }} {{ form.city }} {{ form.city.errors }}
+                </div>
+                <div class="fieldWrapper" id="zip_code">
+                    {{ form.zip_code.label_tag }} {{ form.zip_code }} {{ form.zip_code.errors }}
+                </div>
+            </div>
 		</fieldset>
-	{% if first_time_setup %}
-		</div>
-		<div class="right-column" style="width: 45%;">
-	{% endif %}
-		<fieldset id="business-description">
-			<legend>Business Description <span class="required-fields">Required field</span></legend>
-			<p class="examples">Examples of things to write about:</p>
-			<ul class="no-bullets examples">
-				<li>What kinds of work does your business engage in?</li>
-				<li>What is important for job seekers to know about your business?</li>
-				<li>What qualities are you looking in potential employees?</li>
-				<li>How would you describe the work environment?</li>
-			</ul>
-			<div class="fieldWrapper">
+		<fieldset>
+			<legend>Business Description</legend>
+            <div class="examples">
+                <p class="examples">Content Suggestions</p>
+                <ul class="no-bullets examples">
+                    <li>What kinds of work does your business engage in?</li>
+                    <li>What is important for job seekers to know about your business?</li>
+                    <li>What qualities are you looking in potential employees?</li>
+                    <li>How would you describe the work environment?</li>
+                </ul>
+            </div>
+			<div class="fieldWrapper" id="business_description">
 				{{ form.business_description }} {{ form.business_description.errors }}
 			</div>
-		</fieldset>    
-	</div>
-	{% if not first_time_setup %}
-		<div class="right-column" style="width: 45%;">
-            <fieldset>
-                <legend>Account Details</legend>
-                <div class="fieldWrapper">
-                    {{ form.username.label_tag }} {{ form.username }} {{ form.username.errors }}
-                </div>
-                <div class="fieldWrapper">
-                    {{ form.password1.label_tag }} {{ form.password1 }} {{ form.password1.errors }}
-                </div>
-                <div class="fieldWrapper">
-                    {{ form.password2.label_tag }} {{ form.password2 }} {{ form.password2.errors }}
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>Contact Information</legend>
-                <div class="fieldWrapper">
-                    {{ form.first_name.label_tag }} {{ form.first_name }} {{ form.first_name.errors }}
-                </div>
-                <div class="fieldWrapper">
-                    {{ form.last_name.label_tag }} {{ form.last_name }} {{ form.last_name.errors }}
-                </div>
-                <div class="fieldWrapper">
-                    {{ form.email.label_tag }} {{ form.email }} {{ form.email.errors }}
-                </div>
-                <div class="fieldWrapper">
-                    {{ form.phone_number.label_tag }} {{ form.phone_number }} {{ form.phone_number.errors }}
-                </div>
-            </fieldset>
-		</div>
-	{% else %}
-		{{ form.phone_number }}
-	{% endif %}
-	<div class="right">
-		<button>{% if first_time_setup %}Create Profile{% else %}Update Profile{% endif %}</button>
-	</div>
-</form>
+		</fieldset>
+        <fieldset class="actions last">
+            <button>Save Profile</button>
+        </fieldset>
+    </form>
+</div>
+<div class="sidebar">
+    <fieldset>
+        <legend>Account Details</legend>
+        <div class="fieldWrapper">
+            {{ form.username.label_tag }} {{ form.username }} {{ form.username.errors }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.password1.label_tag }} {{ form.password1 }} {{ form.password1.errors }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.password2.label_tag }} {{ form.password2 }} {{ form.password2.errors }}
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Contact Information</legend>
+        <div class="fieldWrapper">
+            {{ form.first_name.label_tag }} {{ form.first_name }} {{ form.first_name.errors }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.last_name.label_tag }} {{ form.last_name }} {{ form.last_name.errors }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.email.label_tag }} {{ form.email }} {{ form.email.errors }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.phone_number.label_tag }} {{ form.phone_number }} {{ form.phone_number.errors }}
+        </div>
+    </fieldset>
+    <div class="right"><button>Save</button></div>
+</div>
+<div class="clearing"></div>
 {% endblock %}
