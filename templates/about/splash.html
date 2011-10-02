@@ -9,178 +9,30 @@
     </script>
 {% endblock %}
 
-{% block page_css %}
-    <style type="text/css">
-        ul.box {
-            list-style-type: none;
-            padding: 0px;
-        }
-
-        ul.box > li {
-            display: inline;
-            margin: 0px;
-        }
-
-        section.box {
-            display: block;
-            float: left;
-            border-radius: 10px;
-            -webkit-border-radius: 10px;
-            -moz-border-radius: 10px;
-            border: 1px solid #d2d3d5;
-            width: 410px;
-            padding: 20px;
-            margin: 0px;
-            font-size: 16px;
-        }
-
-        section.box header {
-            position: relative;
-            top: 0px;
-            height: 85px;
-            margin: 0px;
-            padding: 10px 0px 10px 80px;
-        }
-
-        section.job-seeker {
-            background: #b2def0;
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.3, #ffffff), color-stop(0.3, #b2def0));
-            background: -moz-linear-gradient(top, #ffffff 30%, #b2def0 30%);
-        }
-
-        section.employer {
-            margin-left: 50px;
-            background-color: #dddee0;
-            background: #dddee0;
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.3, #ffffff), color-stop(0.3, #dddee0));
-            background: -moz-linear-gradient(top, #ffffff 30%, #dddee0 30%);
-        }
-
-        section#intro * section.box {
-            height: 325px;
-        }
-
-        section#intro * section.box button {
-            float: right;
-        }
-
-        section.box header {
-            background-position: 10px 10px;
-            background-repeat: no-repeat;
-            font-size: 30px;
-            font-weight: bold;
-            line-height: 50px;
-        }
-
-        section#intro * section.employer header {
-            background-image: url('{{ STATIC_URL }}images/employer_icon.png');
-            color: #58595b;
-        }
-
-        section#intro * section.job-seeker button {
-            margin-top: 30px;
-        }
-
-        section#intro * section.employer button {
-            margin-top: 48px;
-        }
-
-        section#intro * section.job-seeker header {
-            background-image: url('{{ STATIC_URL }}images/job_seeker_icon.png');
-        }
-
-        section#how-it-works * section.employer header {
-            color: #58595b;
-        }
-
-        section.step-1 {
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.5, #ffffff), color-stop(0.5, #b2def0)) !important;
-            background: -moz-linear-gradient(top, #ffffff 50%, #b2def0 50%) !important;
-        }
-
-        section.step-1 header {
-            background-image: url('{{ STATIC_URL }}images/1_icon.png');
-        }
-
-        section.step-2 {
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.6, #ffffff), color-stop(0.6, #dddee0)) !important;
-            background: -moz-linear-gradient(top, #ffffff 60%, #dddee0 60%) !important;
-        }
-
-        section.step-2 header {
-            background-image: url('{{ STATIC_URL }}images/2_icon.png');
-        }
-
-        section.step-3 {
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.55, #ffffff), color-stop(0.55, #b2def0)) !important;
-            background: -moz-linear-gradient(top, #ffffff 60%, #b2def0 60%) !important;
-        }
-
-        section.step-3 header {
-            background-image: url('{{ STATIC_URL }}images/3_icon.png');
-        }
-
-        section.step-4 {
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.4, #ffffff), color-stop(0.4, #b2def0)) !important;
-            background: -moz-linear-gradient(top, #ffffff 40%, #b2def0 40%) !important;
-        }
-
-        section.step-4 header {
-            background-image: url('{{ STATIC_URL }}images/4_icon.png');
-        }
-
-        section.step-5 {
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.5, #ffffff), color-stop(0.5, #dddee0)) !important;
-            background: -moz-linear-gradient(top, #ffffff 50%, #dddee0 50%) !important;
-        }
-
-        section.step-5 header {
-            background-image: url('{{ STATIC_URL }}images/5_icon.png');
-        }
-
-        section.step-6 {
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(0.5, #ffffff), color-stop(0.5, #b2def0)) !important;
-            background: -moz-linear-gradient(top, #ffffff 50%, #b2def0 50%) !important;
-        }
-
-        section.step-6 header {
-            background-image: url('{{ STATIC_URL }}images/6_icon.png');
-        }
-
-        section.box ul li {
-            margin-bottom: 20px;
-        }
-
-        strong {
-            font-weight: bold;
-        }
-    </style>
-{% endblock %}
-
 {% block page_content %}
     <section id="user-types">
         <div class="job-seeker user-type">
             <h3>I'm seeking work</h3>
             <ol>
-                <li><span>Learn about new jobs when they appear, without a computer</span></li>
+                <li><span>Receive text message alerts when new jobs are posted</span></li>
                 <li><span>Listen to job descriptions over the phone</span></li>
-                <li><span>Apply to jobs immediately from your mobile phone</span></li>
+                <li><span>Apply for jobs immediately, wherever you are</span></li>
             </ol>
         </div>
         <div class="employer user-type">
             <h3>I'm hiring</h3>
             <ol>
+                <li><span>Reach out to job seekers anywhere, anytime, instantly</span></li>
                 <li><span>Get access to a larger pool of applicants</span></li>
-                <li><span>Reach out to job-seekers anywhere, instantly</span></li>
-                <li><span>Get responses faster, and find the help you need</span></li>
+                <li><span>Receive responses faster and find the help you need right away</span></li>
             </ol>
         </div>
         <div class="social-worker user-type last">
             <h3>I'm a social worker</h3>
             <ol>
-                <li><span>Get access to a larger pool of applicants</span></li>
-                <li><span>Reach out to job-seekers anywhere, instantly</span></li>
-                <li><span>Get responses faster, and find the help you need</span></li>
+                <li><span>Monitor employment statistics for individuals and in aggregate</span></li>
+                <li><span>Customize the app to meet your organization's unique needs</span></li>
+                <li><span>Integrate with your existing job notification workflow</span></li>
             </ol>
         </div>
         <div class="clearing"></div>
@@ -188,36 +40,39 @@
     <section id="demo">
         <div class="instructions">
             <h3>Try the demo!</h3>
-            <p>Experience the full range of txt2wrk services for<br /><strong>job seekers</strong>, <strong>employers</strong>, and <strong>placement agencies</strong></p>
-            <p>Enter your mobile number to sign up as a job seeker</p>
+            <p>Experience the range of txt2wrk services as a <strong>job seeker</strong>, <strong>employer</strong>, and <strong>workforce development agency</strong></p>
+            <p>Enter your mobile number to begin the txt2wrk demo</p>
             <form action="{% url demo_applicant_register %}" method="post">
                 {% csrf_token %}
                 {{ demo_form.mobile_number }}
                 <button>begin</button>
             </form>
             <p class="confirmation-instructions">
-                After submitting your mobile number, you will receive a confirmation<br />
-                txt message. Upon confirmation, you will receive a default password<br />
-                for logging into the txt2wrk network on future visits.
+                After submitting your mobile number, you will receive a text message<br />
+                from txt2wrk. When you confirm the text message, you will receive a<br/>
+                sample job posting and a PIN for logging into txt2wrk.net.
             </p>
         </div>
         <div class="expectations">
             <h3>In our demo you will...</h3>
             <ul>
                 <li>Create a job seeker profile</li>
+                <li>Receive a sample job as a txt message on your mobile phone</li>
                 <li>Create an employer profile</li>
                 <li>Create a sample job listing</li>
-                <li>Receive your sample job as a txt message on your mobile phone</li>
                 <li>Apply to the job from your phone</li>
                 <li>Receive job applications on the dashboard of your employer page</li>
-                <li>Learn how to run a custom version of txt2wrk in your own organization</li>
+                <li>Have the option to download the txt2wrk source code and run a custom version of txt2wrk in your own organization</li>
             </ul>
         </div>
         <div class="clearing"></div>
     </section>
     <section id="how-it-works">
-        <h3>How it wrks</h3>
-        <p>txt2wrk is an easier way to connect job seekers and employers. Applicants can receive job posts through text messages, listen to descriptions, and apply to jobs all from their mobile phone.</p>
+        <h3>How it works</h3>
+        <p>
+            txt2wrk matches job seekers with employment opportunities. Job seekers receive job posts through text messages, listen to descriptions, and submit applications using their mobile phone, 24 hours a day, all without access to the internet.<br />
+            <a href="{% url about %}">Read more...</a>
+        </p>
         <dl>
             <dt class="job-seeker">job seeker</dt>
             <dd class="job-seeker">
@@ -230,17 +85,17 @@
             <dt class="social-worker">txt2wrk</dt>
             <dd class="social-worker">
                 <ul>
-                    <li>receive resumes</li>
-                    <li>receive jobs</li>
-                    <li>place job seekers</li>
+                    <li>store and display resumes</li>
+                    <li>store and display jobs</li>
+                    <li>facilitate connections</li>
                 </ul>
             </dd>
             <dt class="employer">employer</dt>
             <dd class="employer last">
                 <ul>
+                    <li>submit job</li>
                     <li>receive resumes</li>
-                    <li>receive jobs</li>
-                    <li>place job seekers</li>
+                    <li>connect to job seekers</li>
                 </ul>
             </dd>
         </dl>

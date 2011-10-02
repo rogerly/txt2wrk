@@ -144,10 +144,6 @@ button {
     cursor: pointer;
 }
 
-strong {
-	font-weight: inherit;
-}
-
 p {
 	margin-top: 0px;
 }

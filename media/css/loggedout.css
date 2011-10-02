@@ -2,6 +2,11 @@ body {
     color: #4d4d4d;
 }
 
+a, a:hover, a:visited {
+    text-decoration: underline;
+    color: #45a3e5;
+}
+
 body > div > header {
     height: 110px;
     background: url('../images/logged_out/header.png') top no-repeat;
@@ -43,6 +48,7 @@ body > div > footer nav ul li a:visited {
     display: inline;
     font-weight: bold;
     color: #fff;
+    text-decoration: none;
 }
 
 .job-seeker {
