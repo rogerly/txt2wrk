@@ -1,0 +1,639 @@
+[
+    {
+        "pk": 25, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "e44b885d77cd47e5a79ad06e01b2d7", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-10-02 16:27:03", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$80f1d$6b11322d02b25ccb03eeb413dcdd7cdf9abc4a89", 
+            "email": "rogerly+martha@gmail.com", 
+            "date_joined": "2011-10-02 16:27:03"
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "1a6554efb0464ec987fade5b9d519f", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-10-02 16:30:04", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$a76af$b16f9ce0d050d5a08aac27849c3319d42810ea17", 
+            "email": "rogerly+stauder@gmail.com", 
+            "date_joined": "2011-10-02 16:30:04"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "d151682ae02547ee8db6b6d1384379", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-10-02 16:32:18", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$f643d$29b9d39d686bb1410974351aed05257178f1d348", 
+            "email": "rogerly+fremont@gmail.com", 
+            "date_joined": "2011-10-02 16:32:18"
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "b5b4027bddd94004b1c4a85f74ad26", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-10-02 16:33:54", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$94bbb$afb20def327f3b76b297e3c7843a26f84c8888d9", 
+            "email": "rogerly+renaissance@gmail.com", 
+            "date_joined": "2011-10-02 16:33:54"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "e335fbae5a594885a03b3bfc3c31e0", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-10-02 16:35:53", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$18a17$330716b15ce9b97594e8b4272e30eeb89258e7fd", 
+            "email": "rogerly+mikhail@gmail.com", 
+            "date_joined": "2011-10-02 16:35:53"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "6756b7f2d60d42418c38100097bf4b", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-10-02 16:37:26", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$b3ad3$faf371ae66fda9c685c0d61a1d7936eded7d4f1d", 
+            "email": "rogerly+wright@gmail.com", 
+            "date_joined": "2011-10-02 16:37:26"
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "53744adac4704412a5323a913c2c29", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-10-02 16:38:53", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$95d33$77739219657c4de70802115c93dff721cd7f6d7b", 
+            "email": "rogerly+pinser@gmail.com", 
+            "date_joined": "2011-10-02 16:38:53"
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "946378ad3d044eadb153621eac4e99", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-10-02 16:40:20", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$2f39d$2e8e723ea5ee49163e670080ca67e2b75cd10636", 
+            "email": "rogerly+southwood@gmail.com", 
+            "date_joined": "2011-10-02 16:40:20"
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "d5be7ded599947a6a7a4086543ff89", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-10-02 16:41:33", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$cd205$2527ae6047b79a5e4f837722c893e0a31f24be2f", 
+            "email": "rogerly+earlywood@gmail.com", 
+            "date_joined": "2011-10-02 16:41:33"
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "aa344179b5384ba78c9fbc28b67587", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-10-02 16:42:43", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$72203$84811c25ee5187d866542222fdbf46c4f6323127", 
+            "email": "rogerly+exact@gmail.com", 
+            "date_joined": "2011-10-02 16:42:43"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "employer.employerprofile",
+        "fields": {
+            "phone_number": "",
+            "city": "Castro Valley",
+            "business_phone_number": "",
+            "business_description": "Catering company that services large functions and event. Menus are always freshly prepared with fresh ingredients.",
+            "business_website_url": "",
+            "user": 25,
+            "business_name": "Martha's Catering",
+            "business_address1": "20126 Wisteria Street",
+            "business_address2": "",
+            "zip_code": "94546"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "employer.employerprofile",
+        "fields": {
+            "phone_number": "",
+            "city": "San Leandro",
+            "business_phone_number": "",
+            "business_description": "Chevy dealership that sells and services new and used Chevy automobiles",
+            "business_website_url": "",
+            "user": 26,
+            "business_name": "Stauder Automotive",
+            "business_address1": "800 Davis Street",
+            "business_address2": "",
+            "zip_code": "94577"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "employer.employerprofile",
+        "fields": {
+            "phone_number": "",
+            "city": "Fremont",
+            "business_phone_number": "",
+            "business_description": "Contemporary furniture manufacturer. Manufacture quality build to order furniture.",
+            "business_website_url": "",
+            "user": 27,
+            "business_name": "Fremont Furniture Gallery",
+            "business_address1": "4396 Mowry Avenue",
+            "business_address2": "",
+            "zip_code": "94538"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "employer.employerprofile",
+        "fields": {
+            "phone_number": "",
+            "city": "Pleasanton",
+            "business_phone_number": "",
+            "business_description": "We are a small finish company with 7 long term full time employees, we take great pride in our work, and are all committed to high quality and happy clients. ",
+            "business_website_url": "",
+            "user": 28,
+            "business_name": "Renaissance Carpentry",
+            "business_address1": "1677 Santa Rita Rd",
+            "business_address2": "",
+            "zip_code": "94566"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "employer.employerprofile",
+        "fields": {
+            "phone_number": "",
+            "city": "Oakland",
+            "business_phone_number": "",
+            "business_description": "Family owned and operated construction contractors specializing in commercial properties.",
+            "business_website_url": "",
+            "user": 29,
+            "business_name": "Mikhail Brothers Construction",
+            "business_address1": "739 International Boulevard",
+            "business_address2": "",
+            "zip_code": "94606"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "employer.employerprofile",
+        "fields": {
+            "phone_number": "",
+            "city": "Walnut Creek",
+            "business_phone_number": "",
+            "business_description": "Well established plumbers in Walnut Creek area.",
+            "business_website_url": "",
+            "user": 30,
+            "business_name": "Wright Plumbing",
+            "business_address1": "156 Foxglove Lane",
+            "business_address2": "",
+            "zip_code": "94598"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "employer.employerprofile",
+        "fields": {
+            "phone_number": "",
+            "city": "San Mateo",
+            "business_phone_number": "",
+            "business_description": "Commercial property management organization managing properties in Silicon Valley.",
+            "business_website_url": "",
+            "user": 31,
+            "business_name": "Pinser Building Management",
+            "business_address1": "234 Seville Way",
+            "business_address2": "",
+            "zip_code": "94402"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "employer.employerprofile",
+        "fields": {
+            "phone_number": "",
+            "city": "South San Francisco",
+            "business_phone_number": "",
+            "business_description": "Furniture restoration and upholstery",
+            "business_website_url": "",
+            "user": 32,
+            "business_name": "Southwood Upholstery",
+            "business_address1": "411 Beech Ave",
+            "business_address2": "",
+            "zip_code": "94080"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "employer.employerprofile",
+        "fields": {
+            "phone_number": "",
+            "city": "San Francisco",
+            "business_phone_number": "",
+            "business_description": "Carpentry services from expert craftsmen with 15 years of experience",
+            "business_website_url": "",
+            "user": 33,
+            "business_name": "Earlywood Carpentry",
+            "business_address1": "241 19th Avenue",
+            "business_address2": "",
+            "zip_code": "94121"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "employer.employerprofile",
+        "fields": {
+            "phone_number": "",
+            "city": "Fremont",
+            "business_phone_number": "",
+            "business_description": "Quality installation of flooring carpet, vinyl, and laminates",
+            "business_website_url": "",
+            "user": 34,
+            "business_name": "Exact Floor Covering",
+            "business_address1": "35500 Dante Place",
+            "business_address2": "",
+            "zip_code": "94536"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "job.job",
+        "fields": {
+            "description": "I'm looking for a line cook who can work occasional events on the weekends and sometimes during the week. Pay will be hourly and based on experience but mainly on the proper execution of the cooking techniques and the quickness in which you can adapt to an ever changing environment. 1-2 years kitchen/catering experience, kitchen attire, reliable transportation and a great attitude.",
+            "title": "Line cook / Kitchen prep staff",
+            "industry": [
+                3
+            ],
+            "employment_type": 2,
+            "experience": null,
+            "employer": 1,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+            ],
+            "overtime": true,
+            "state": 1,
+            "job_code": "86676",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "job.job",
+        "fields": {
+            "description": "Large Chevy dealership looking for experienced technicians. Applicant should be able to perform all aspects of vehicle mechanics and diagnostics. Previous dealership experience preferred. Applicant should have clean DMV printout and copies of all ASE certificates. ",
+            "title": "Automotive Technician",
+            "industry": [
+                12
+            ],
+            "employment_type": 1,
+            "experience": null,
+            "employer": 2,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "overtime": false,
+            "state": 1,
+            "job_code": "79777",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    },
+    {
+        "pk": 3,
+        "model": "job.job",
+        "fields": {
+            "description": "Fremont based contemporary furniture manufacturer and retailer seeking a full or part-time production assistant. This position also requires delivery and installation of the furniture . The individual will be working directly with the production manager. Perfect for someone who is interested in furniture production and custom manufacturing. Need prior wood-shop production experience, mechanically inclined, with problem solving and communications skills. Must be strong enough to lift 70 pounce and knowledge of operating a forklift is a bonus. Valid CA driver's license and clean DMV record. Salary based on experience. ",
+            "title": "Wood shop production assistant",
+            "industry": [
+                6,
+                12,
+                15
+            ],
+            "employment_type": 1,
+            "experience": null,
+            "employer": 3,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "overtime": false,
+            "state": 1,
+            "job_code": "65766",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    },
+    {
+        "pk": 4,
+        "model": "job.job",
+        "fields": {
+            "description": "Skilled Finish Carpenters needed with at least 3 years of experience in the field of finish work. We specialize in the installation of interior and exterior doors, all types of mouldings, paneling, box beams, high end cabinetry, hardware, and fine exterior trimwork. We work on Custom homes and light commercial. We do not do any plumbing, electrical, HVAC, framing, tile, painting etc. This is full time work. This is a long term position. You need a complete set of finish related power and hand tools. Reliable transportation, and a valid drivers license. Non smokers preferred as most of our clients wont allow it on the job sites. ",
+            "title": "Finish Carpenter",
+            "industry": [
+                6,
+                12
+            ],
+            "employment_type": 1,
+            "experience": null,
+            "employer": 4,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "overtime": true,
+            "state": 1,
+            "job_code": "16505",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    },
+    {
+        "pk": 5,
+        "model": "job.job",
+        "fields": {
+            "description": "Driver for construction company, must have Class A license, clean driving record and 5 years experience driving trucks and moving equipment from job site to job site. Must be willing to help labor when truck is sitting. Non Smoker Wages $30.00+/hr plus H & W and Pension. ",
+            "title": "Driver for Construction Company",
+            "industry": [
+                23
+            ],
+            "employment_type": 1,
+            "experience": null,
+            "employer": 5,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "overtime": false,
+            "state": 1,
+            "job_code": "45639",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    },
+    {
+        "pk": 6,
+        "model": "job.job",
+        "fields": {
+            "description": "We are a group of experience plumbers looking to hire and train apprentices. We invite qualified candidates to apply. Should show interest in a long-term plumbing career. Strong mechanical aptitude; familiar/skilled with basic had and power tools. Problem solver; able to think ahead. Courteous to both customers and fellow employees. Neat and well-organized. Reliable and honest. Good references. Willingness to learn and be a part of a team",
+            "title": "Plumbers apprentice",
+            "industry": [
+                17
+            ],
+            "employment_type": 1,
+            "experience": null,
+            "employer": 6,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "overtime": true,
+            "state": 1,
+            "job_code": "24661",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    },
+    {
+        "pk": 7,
+        "model": "job.job",
+        "fields": {
+            "description": "We are looking for an commercial roofer to help us maintain and repair the roofs for our clients that have a large commercial real estate portfolios in Silicon Valley. We want to build a relationship with a new roofer and have several jobs backed up currently waiting for a roofer. We prefer a, licensed roofer that is responsive and cost effective.",
+            "title": "Commercial Roofer",
+            "industry": [
+                2
+            ],
+            "employment_type": 1,
+            "experience": null,
+            "employer": 7,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "overtime": false,
+            "state": 1,
+            "job_code": "29433",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    },
+    {
+        "pk": 8,
+        "model": "job.job",
+        "fields": {
+            "description": "Local furniture restoration and upholstery shop in need of experienced upholsterer on temporary basis with potential for long term work. Duties include: padding, webbing, covering, estimating yardage, cutting, sewing by machine and by hand, custom cushions, finishing edges, etc. Must have at least 5 years worth of experience doing custom residential upholstery. Must be able to meet deadlines and complete work in a timely and efficient manner. Must be able to immediately assess projects, get instructions, and be able to proceed in a confident and capable manner. Being comfortable with the applicable power tools is also a must. Pay to be discussed in an interview, and start date would be as soon as possible.",
+            "title": "Experienced Upholsterer",
+            "industry": [
+                6
+            ],
+            "employment_type": 1,
+            "experience": null,
+            "employer": 8,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "overtime": false,
+            "state": 1,
+            "job_code": "66034",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    },
+    {
+        "pk": 9,
+        "model": "job.job",
+        "fields": {
+            "description": "Carpenter apprentice position- Candidate must be Honest, clean cut in appearance, speak fluent English, Drug free, reliable, must be willing to travel around the greater bay area and beyond. Must have basic tools and reliable truck.",
+            "title": "Apprentice Carpenter",
+            "industry": [
+                6
+            ],
+            "employment_type": 1,
+            "experience": null,
+            "employer": 9,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "overtime": false,
+            "state": 1,
+            "job_code": "71258",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    },
+    {
+        "pk": 10,
+        "model": "job.job",
+        "fields": {
+            "description": "We are looking for reliable installers that are good, that can do consistent work at a high volume. Experienced Carpet and, Vinyl, laminates Installers \r\nYou must have your own tools and vehicle. No Contractor's License required. Installers need to have a professional attitudes and who have good customer service. Must be capable of working independently and manage time efficiently. Must have clean work habits and friendliness towards others. Must be on time and focused during work. This is good pay and consistent work.",
+            "title": "Journeyman Vinyl and Carpet Installer",
+            "industry": [
+                2
+            ],
+            "employment_type": 1,
+            "experience": null,
+            "employer": 10,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+            ],
+            "overtime": false,
+            "state": 1,
+            "job_code": "62443",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    }
+]

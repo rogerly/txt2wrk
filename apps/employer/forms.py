@@ -28,12 +28,12 @@ class EmployerProfileForm(forms.ModelForm):
         self.fields['city'].required=True
         self.fields['zip_code'].required=True
         self.fields['business_description'].required=True
-        self.fields['business_phone_number'].required=True
-        self.fields['business_website_url'].required=True
+        self.fields['business_phone_number'].required=False
+        self.fields['business_website_url'].required=False
 
     business_phone_number = USPhoneNumberField(label = _('Business Phone'),
                                                 widget=forms.TextInput(attrs=attrs_dict),
-                                                required = True)
+                                                required = False)
     
     password1 = forms.CharField(label=_("Password"),
                                 widget = forms.PasswordInput(attrs=attrs_dict, render_value=False),
