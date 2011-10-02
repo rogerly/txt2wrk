@@ -57,6 +57,8 @@ button {
 }
 
 .verify-phone section#waiting h2 {
+    background: url('../images/logged_out/processing.gif') no-repeat;
+    padding-left: 50px;
     margin-bottom: 0px;
 }
 
