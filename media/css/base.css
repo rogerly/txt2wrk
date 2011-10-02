@@ -271,10 +271,17 @@ section > header * button {
 
 table {
 	border-collapse: collapse;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 thead {
-	background-color: #d2d3d5;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 5px;
+}
+
+thead tr th {
+    font-size: 16px;
 }
 
 th, td {
@@ -282,18 +289,21 @@ th, td {
 	padding: 5px 15px 5px 15px;
 }
 
+tbody tr td {
+    padding: 5px 20px;
+}
+
+tbody tr:first-child td {
+    padding-top: 20px;
+}
+
+tbody tr:last-child td {
+    padding-bottom: 20px;
+}
+
 th {
 	font-weight: normal;
 	font-size: 14px;
-}
-
-td {
-	font-weight: bold;
-	font-size: 18px;
-}
-
-tbody > tr {
-	border-bottom: 1px solid #a6a8ab;
 }
 
 button.dashboard {
@@ -365,6 +375,10 @@ button.create-job {
 
 div.clearing {
     clear: both;
+}
+
+div.main-column {
+    padding: 30px;
 }
 
 .with-sidebar .page-content {

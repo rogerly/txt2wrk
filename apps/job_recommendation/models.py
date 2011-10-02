@@ -26,6 +26,16 @@ class JobRecommendation(models.Model):
                                  INVALID_REC: 'Invalid (closed?) recommendation'
                                  }
 
+    RECOMMENDATION_STATE_TEXT_DISPLAY = {
+                                        NEW_REC_NOT_SENT: 'NEW',
+                                        NEW_REC_SENT: 'NEW',
+                                        KEPT_NEW_REC: 'NEW',
+                                        SAVED_REC: 'Read',
+                                        APPLIED_REC: 'Applied',
+                                        DELETED_REC: 'Declined',
+                                        INVALID_REC: 'Invalid'
+                                        }
+
     job = models.ForeignKey(Job,
                             related_name='recommendations')
     
@@ -44,7 +54,11 @@ class JobRecommendation(models.Model):
                                            (INVALID_REC, RECOMMENDATION_STATE_TEXT[INVALID_REC]),
                                            )
                                 )
-    
+
+    @property
+    def state_text(self):
+        return self.RECOMMENDATION_STATE_TEXT_DISPLAY[self.state]
+
     recommendation_date = models.DateTimeField(auto_now_add=True)
     
     def __unicode__(self):

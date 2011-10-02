@@ -1,72 +1,44 @@
 {% extends "applicant/applicant_base.html" %}
 
+{% load tabs %}
+
+{% block page_class %}dashboard{% endblock %}
+
+{% block tabbed_navigation %}
+    {% activetab 'tabbed_navigation' 'dashboard' %}
+    {{ block.super }}
+{% endblock %}
+
 {% block body_content %}
-<h1>Hi, {{ user.first_name }}!</h1>
+    <div class="main-column">
+        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+        <p>View and apply to available jobs from the list below</p>
 
-<section id="phone-number" class="left-column" style="width: 400px;">
-	<header>Phone number <a href="{% url applicant_profile %}"><button>Edit</button></a></header>
-	{{ profile.mobile_number }}
-</section>
-
-<section id="search" class="right-column" style="width: 460px;">
-	<header>Job Search Criteria <a href="{% url applicant_profile %}"><button>Edit</button></a></header> 
-    Availability: {{ profile.get_workday_display }}<br/>
-    Type of Work: {{ profile.get_employment_type_display }}<br />
-    Overtime: {{ profile.get_overtime_display }}<br />
-	Location: {{ profile.get_distance_display }} <br/>
-    Education: {{ profile.get_education_display }}<br />
-	Experience: {{ profile.get_experience_display }} work experience <br/>
-	Skills: {% for industry in profile.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %}
-</section>
-
-<div style="clear: both;"></div>
-
-<section id="matches">
-	<header>Recent Matching Jobs</header>
-	<table style="width: 100%;">
-		<thead>
-			<tr> 
-				<th style="width: 20%;">Employer</th>
-				<th style="width: 20%;">Job Title</th>
-				<th style="width: 20%;">Dated Posted</th>
-				<th style="width: 40%;"></th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for job_recommendation in job_recommendations %}
-			<tr>
-				<td>{{ job_recommendation.job.location.business_name }}</td>
-				<td>{{ job_recommendation.job.title }}</td>
-				<td>{{ job_recommendation.job.date_created }}</td>
-				<td><a href="{% url applicant_view_job job_recommendation.job.job_code %}"><button class="dashboard job-description">View Job Description</button></a> <a href="{% url applicant_remove_job job_recommendation.job.job_code %}"><button class="dashboard job-remove">Remove Job</button></a></td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-</section>
-
-<section id="applied">
-	<header>Jobs You Applied For</header>
-	<table style="width: 100%;">
-		<thead>
-			<tr> 
-				<th style="width: 20%;">Employer</th>
-				<th style="width: 20%;">Job Title</th>
-				<th style="width: 20%;">Dated Applied</th>			
-				<th style="width: 40%;"></th>			
-			</tr>
-		</thead>
-		<tbody>
-			{% for applicant_job in applicant_jobs %}
-				<tr>
-					<td>{{ applicant_job.job.location.business_name }}</td>
-					<td>{{ applicant_job.job.title }}</td>
-					<td>{{ applicant_job.date_submitted }}</td>
-					<td><a href="{% url applicant_view_job applicant_job.job.job_code %}"><button class="dashboard job-description">View Job Description</button></a> <a href="{% url applicant_remove_job applicant_job.job.job_code %}"><button class="dashboard job-remove">Remove Job</button></a></td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-</section>
-
+        <section id="matches">
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="width: 35%;">Job Title</th>
+                        <th style="width: 20%;">Dated Received</th>
+                        <th style="width: 20%;">Status</th>
+                        <th style="width: 25%;"></th>
+                    </tr>
+                </thead>
+                <tbody style="padding-top: 20px;">
+                    {% if job_recommendations.count == 0 %}
+                        <tr><td colspan="4"><em>You have not been matched to any jobs yet</em></td></tr>
+                    {% else %}
+                        {% for job_recommendation in job_recommendations %}
+                        <tr>
+                            <td><a href="{% url applicant_view_job job_recommendation.job.job_code %}">{{ job_recommendation.job.title }}</a></td>
+                            <td>{{ job_recommendation.job.date_created|date:"m / d / Y" }}</td>
+                            <td>{{ job_recommendation.state_text }}</td>
+                            <td><a href="{% url applicant_view_job job_recommendation.job.job_code %}"><button>View Position</button></a></td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </section>
+    </div>
 {% endblock %}

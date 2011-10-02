@@ -24,6 +24,10 @@ legend {
     font-weight: normal;
 }
 
+table thead tr th {
+    color: #0d4e90;
+}
+
 .verify-phone section {
     padding: 30px;
     border-bottom: 1px solid #f2f2f2;
@@ -136,4 +140,15 @@ span#tab-profile {
 
 span#tab-dashboard {
 
+}
+
+.dashboard section#matches a {
+    text-decoration: underline;
+    color: #45a3e5;
+}
+
+.dashboard section#matches button {
+    font-size: 13px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
