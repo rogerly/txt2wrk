@@ -205,7 +205,7 @@ class DemoApplicantBackend(object):
 
     def setup_default_data(self, user, profile):
         user.first_name = 'John'
-        user.first_name = 'Smith'
+        user.last_name = 'Smith'
         user.save()
 
         profile.address1 = '2865 Sand Hill Road'
