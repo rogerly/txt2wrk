@@ -54,25 +54,21 @@ class FileUploader(FileInput):
 class ApplicantProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        self.first_time_setup = kwargs.pop('first_time_setup')
         self.user = kwargs.pop('user')
         super(ApplicantProfileForm, self).__init__(*args, **kwargs)
         self.fields['employment_type'].label = 'Employment Preference'
         self.fields['overtime'].label = 'Can Work Overtime?'
-
-        if self.first_time_setup:
-            # Hide the phone number field if this is a first time
-            # profile setup
-            self.fields['mobile_number'].widget = forms.HiddenInput()
-            self.fields['mobile_number'].required = False
-            self.fields['first_name'].required = False
-            self.fields['last_name'].required = False
-        else:
-            self.fields['first_name'].initial = self.user.first_name
-            self.fields['last_name'].initial = self.user.last_name
-            self.fields['email'].initial = self.user.email
-
+        self.fields['name'].initial = '%s %s' % (self.user.first_name, self.user.last_name,)
+        self.fields['email'].initial = self.user.email
         self.fields['user'].widget = forms.HiddenInput()
+        self.fields['experience'].required = False
+        self.fields['distance'].required = False
+        self.fields['distance'].widget = forms.HiddenInput()
+        try:
+            profile = ApplicantProfile.objects.get(user=self.user)
+            self.fields['mobile_number'].initial = profile.mobile_number
+        except ApplicantProfile.DoesNotExist:
+            pass
 
     mobile_number = USPhoneNumberField(label = _("Phone Number"),
                                        widget=forms.TextInput(attrs=attrs_dict),
@@ -94,9 +90,7 @@ class ApplicantProfileForm(forms.ModelForm):
     resume = ExtensionFileField(label='Upload a New Resume', widget=FileUploader, required=False)
     zip_code = USZipCodeField(label = 'Zip Code')
 
-    first_name = forms.CharField(label = _('First Name'), required = True)
-
-    last_name = forms.CharField(label = _('Last Name'), required = True)
+    name = forms.CharField(label = _('Name'), required = True)
 
     password1 = PhonePINField(widget = forms.PasswordInput(attrs=attrs_dict, render_value=False),
                               label = _('PIN (4 numbers)'), required=False)
@@ -126,6 +120,7 @@ class ApplicantProfileForm(forms.ModelForm):
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password1'] != self.cleaned_data['password2']:
                 raise forms.ValidationError(_("The two password fields didn't match."))
+
         return self.cleaned_data
 
 class MobileNotificationForm(forms.Form):
@@ -142,7 +137,11 @@ class MobileNotificationForm(forms.Form):
 
 class ApplicantRegistrationForm(RegistrationForm):
     def __init__(self, *args, **kwargs):
-        self.demo = kwargs.pop('demo')
+        try:
+            self.demo = kwargs.pop('demo')
+        except KeyError:
+            self.demo = False
+
         # We dont let user enter username...we create unique guid for it
         self.base_fields['username'].widget = forms.HiddenInput()
         self.base_fields['email'].required = False
@@ -183,10 +182,29 @@ class ApplicantRegistrationForm(RegistrationForm):
     def clean(self):
         return super(ApplicantRegistrationForm, self).clean()
 
+class DemoApplicantRegistrationForm(ApplicantRegistrationForm):
+    def __init__(self, *args, **kwargs):
+        super(DemoApplicantRegistrationForm, self).__init__(*args, **kwargs)
+        self.demo = True
+
+    username = forms.CharField(widget=forms.HiddenInput(), required=False)
+    first_name = forms.CharField(widget=forms.HiddenInput(), required=False)
+    last_name = forms.CharField(widget=forms.HiddenInput(), required=False)
+    password1 = forms.CharField(widget=forms.HiddenInput(), required=False)
+    password2 = forms.CharField(widget=forms.HiddenInput(), required=False)
+    email = forms.CharField(widget=forms.HiddenInput(), required=False)
+
+    def clean(self):
+        self.cleaned_data['username'] = createUniqueDjangoUsername()
+        return super(DemoApplicantRegistrationForm, self).clean()
+
 class ApplicantLoginForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.demo = kwargs.pop('demo')
+        if 'verify_phone' in kwargs:
+            if kwargs.pop('verify_phone'):
+                self.base_fields['username'].widget = forms.HiddenInput()
         super(ApplicantLoginForm, self).__init__(*args, **kwargs)
 
     username = USPhoneNumberField(label=_("Mobile Phone Number"),

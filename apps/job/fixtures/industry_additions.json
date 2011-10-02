@@ -20,7 +20,7 @@
 		"model": "job.industry", 
 		"fields": 
 			{
-				"name": "food/beverage/hospitality"
+				"name": "food / bev. / hospitality"
 			}
 	},
 	{
@@ -28,7 +28,7 @@
 		"model": "job.industry", 
 		"fields": 
 			{
-				"name": "admin/clerical/office"
+				"name": "administrative / clerical"
 			}
 	},
 	{
@@ -36,7 +36,7 @@
 		"model": "job.industry", 
 		"fields": 
 			{
-				"name": "art/media/design"
+				"name": "art / media / design"
 			}
 	},
 	{
@@ -76,7 +76,7 @@
 		"model": "job.industry", 
 		"fields": 
 			{
-				"name": "electrical work"
+				"name": "electrical"
 			}
 	},
 	{
@@ -84,7 +84,7 @@
 		"model": "job.industry", 
 		"fields": 
 			{
-				"name": "gardening/groundskeeping"
+				"name": "garden / grounds work"
 			}
 	},
 	{
@@ -108,7 +108,7 @@
 		"model": "job.industry", 
 		"fields": 
 			{
-				"name": "legal/paralegal"
+				"name": "legal / paralegal"
 			}
 	},
 	{
@@ -156,7 +156,7 @@
 		"model": "job.industry", 
 		"fields": 
 			{
-				"name": "salon/spa/fitness"
+				"name": "salon / spa / fitness"
 			}
 	},
 	{
@@ -196,7 +196,7 @@
 		"model": "job.industry", 
 		"fields": 
 			{
-				"name": "writing/editing"
+				"name": "writing / editing"
 			}
 	}
 ]

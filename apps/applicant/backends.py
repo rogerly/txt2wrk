@@ -7,7 +7,7 @@ from django.contrib.sites.models import Site
 from registration import signals
 from registration.models import RegistrationProfile
 
-from applicant.forms import ApplicantRegistrationForm
+from applicant.forms import ApplicantRegistrationForm, DemoApplicantRegistrationForm
 from applicant.models import ApplicantProfile
 
 from sms.models import SMS, REQ_NUMBER_CONFIRMATION
@@ -141,7 +141,66 @@ class ApplicantBackend(object):
         user registration.
         
         """
-        return ('applicant_profile_setup', (), {})
+        return ('applicant_profile', (), {})
 
     def post_activation_redirect(self, request, user):
         raise NotImplementedError
+
+class DemoApplicantBackend(object):
+    def register(self, request, **kwargs):
+        username, password, phone = kwargs['username'], kwargs['password1'], kwargs['mobile_number']
+        if Site._meta.installed:
+            site = Site.objects.get_current()
+        else:
+            site = RequestSite(request)
+
+        new_user = RegistrationProfile.objects.create_inactive_user(username=username,
+                                                                    email='',
+                                                                    password=password,
+                                                                    site=site,
+                                                                    send_email=False)
+
+        profile, created = ApplicantProfile.objects.get_or_create(user=new_user)
+        profile.mobile_number = phone
+        profile.demo = True
+        profile.save()
+
+        signals.user_registered.send(sender=self.__class__,
+                                     user=new_user,
+                                     request=request)
+
+        # Send a confirmation text to the applicant's phone
+        # so we can confirm that it is a real phone number
+        # TODO: Move this to somewhere else so it can be
+        # triggered by the user_registered signal above
+        # (Otherwise, we block until the SMS request is
+        # send to Twilio.)
+        sms = SMS.send(applicant=profile,
+                       phone_number=profile.mobile_number,
+                       message='Welcome to txt2wrk! To verify your phone number, reply with "OK". If you did not sign up with txt2wrk, reply with "STOP" to be removed from our system.',
+                       message_type=REQ_NUMBER_CONFIRMATION)
+
+        return new_user
+
+    def activate(self, request, activation_key):
+        activated = RegistrationProfile.objects.activate_user(activation_key)
+
+        if activated:
+            signals.user_activated.send(sender=self.__class__,
+                                        user=activated,
+                                        request=request)
+
+        return activated
+
+    def registration_allowed(self, request):
+        return getattr(settings, 'DEMO_ENABLED', False)
+
+    def get_form_class(self, request):
+        return DemoApplicantRegistrationForm
+
+    def post_registration_redirect(self, request, user):
+        profile = ApplicantProfile.objects.get(user=user)
+        return ('verify_phone', (profile.mobile_number,), {})
+
+    def post_activation_redirect(self, request, user):
+        return ('applicant_profile', (), {})

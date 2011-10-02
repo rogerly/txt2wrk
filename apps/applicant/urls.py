@@ -3,7 +3,7 @@ from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 
 from registration.views import register
-from applicant.forms import ApplicantLoginForm
+from applicant.forms import ApplicantLoginForm, DemoApplicantRegistrationForm
 
 urlpatterns = patterns('',
     url(r'^login/',
@@ -31,6 +31,22 @@ urlpatterns = patterns('',
          },
         name='applicant_register'),
                        
+    url(r'^demo_register/',
+        register,
+        {
+         'backend': 'applicant.backends.DemoApplicantBackend',
+         'template_name': 'applicant/registration/registration_form.html',
+         'extra_context': {'settings':settings,},
+         },
+        name='demo_applicant_register'),
+
+    url(r'^verify_phone/(?P<mobile_number>[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9])/',
+        'applicant.views.verify_phone',
+        {
+            'template': 'applicant/registration/verify_phone.html',
+        },
+        name='verify_phone'),
+
     url(r'^register_complete/',
         direct_to_template,
         {
@@ -44,14 +60,6 @@ urlpatterns = patterns('',
          'template': 'applicant/account/profile.html'
         },
         name='applicant_profile'),
-
-    url(r'^setup_profile/',
-        'applicant.views.applicant_profile',
-        {
-         'template': 'applicant/account/profile.html',
-         'first_time_setup': True,
-        },
-        name='applicant_profile_setup'),
 
     url(r'^dashboard/',
         'applicant.views.applicant_dashboard',

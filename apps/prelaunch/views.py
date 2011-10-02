@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, redirect
 from forms import PotentialUsersForm
-from applicant.forms import ApplicantLoginForm
+from applicant.forms import ApplicantLoginForm, DemoApplicantRegistrationForm
 from employer.forms import EmployerLoginForm
 from django.template import RequestContext
 
@@ -41,6 +41,7 @@ def splash(request, template=None):
         demo = request.session['demo']
     ctxt['applicant_login_form'] = ApplicantLoginForm(demo=demo)
     ctxt['employer_login_form'] = EmployerLoginForm(demo=demo)
+    ctxt['demo_form'] = DemoApplicantRegistrationForm()
     ctxt['settings'] = settings
     return render_to_response(template, ctxt, context_instance = RequestContext(request))
 

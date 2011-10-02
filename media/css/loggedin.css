@@ -1,0 +1,66 @@
+body > div > header {
+    position: relative;
+    height: 55px;
+    background: url('../images/logged_in/header-dot-matrix.png') top repeat-x;
+    border-radius: 5px;
+}
+
+body > div > header > h1 {
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    font-size: 24px;
+    font-weight: normal;
+    color: #fff;
+    background-repeat: no-repeat;
+    background-position: 0px 4px;
+}
+
+body > div > header > h1 > span#txt2wrk {
+    color: transparent;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+body > div > footer {
+    background: url('../images/logged_in/footer-dot-matrix.png');
+}
+
+body > div > header nav ul,
+body > div > footer nav ul {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    list-style-type: none;
+    margin: 5px 10px 0px 0px;
+}
+
+body > div > header nav ul li,
+body > div > footer nav ul li {
+    display: inline;
+}
+
+body > div > header nav ul li a,
+body > div > header nav ul li a:hover,
+body > div > header nav ul li a:visited,
+body > div > footer nav ul li a,
+body > div > footer nav ul li a:hover,
+body > div > footer nav ul li a:visited {
+    display: inline;
+    color: #fff;
+}
+
+body > div > header > span#header-icon {
+    display: block;
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    width: 51px;
+    height: 18px;
+}
+
+h2 {
+    font-weight: normal;
+    font-size: 24px;
+}
+

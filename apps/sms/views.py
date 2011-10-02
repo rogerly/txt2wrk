@@ -1,3 +1,5 @@
+import random
+
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.shortcuts import render_to_response
@@ -76,11 +78,17 @@ def handle_ack(response, message_type, profile):
 
 # Send acknowledgment about phone number confirmation
 def do_number_confirm(response, profile):
+    pin = None
     if profile is not None:
         profile.confirmed_phone = True
         profile.save()
-
-    return {}
+        if profile.demo:
+            user = profile.user
+            pin = '%d' % (random.randint(0, 8999) + 1000)
+            user.set_password(pin)
+            user.is_active = True
+            user.save()
+    return { 'pin': pin }
 
 # Send acknowledgment about unsubscribe
 def do_unsubscribe(response, profile):

@@ -1,17 +1,8 @@
 {% extends "base.html" %}
 
+{% block base_css %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/applicant.css" />
+{% endblock %}
+
 {% block header_text %}job seekers{% endblock %}
 
-{% block nav_content %}
-<ul>
-	<li><a href="{% url applicant_logout %}"><button>Logout</button></a></li>
-	<li><a href="{% url applicant_dashboard %}">Dashboard</a></li>
-	<li><a href="{% url applicant_profile %}">Profile</a></li>
-</ul>
-{% endblock %}
-
-{% block demo_overlay %}
-    {% if request.session.demo %}
-        <div id="demo">You are using the demo version of Txt2Wrk.  Any accounts or jobs you create will not be publicly available to real employers and job seekers. You can <a href="{% if user.is_authenticated %}{% url applicant_logout %}?next={% endif %}{% url demo_off %}">go back to the normal site.</a></div>
-    {% endif %}
-{% endblock %}
