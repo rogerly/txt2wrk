@@ -100,6 +100,10 @@ class ApplicantProfileForm(forms.ModelForm):
 
     email = forms.CharField(label = _('Email'), required = False)
 
+    edit_account_details = forms.CharField(widget = forms.HiddenInput(),
+                                           label = '',
+                                           required = False)
+
     class Meta:
         model = ApplicantProfile
         exclude = ('confirmed_phone', 'jobs', 'latitude', 'longitude', 'availability')

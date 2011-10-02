@@ -10,19 +10,34 @@
 {% block page_class %}profile with-sidebar{% endblock %}
 
 {% block head_title %} Applicant Profile {% endblock %}
-{% block page_css %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/applicant.css" />
-<style type="text/css">
-    label[for=id_distance] {
-        line-height: 18px;
-    }
 
+{% block page_css %}
+<style type="text/css">
+    {% if form.edit_account_details.value == '1' %}
+        #account-details {
+            display: none;
+        }
+    {% else %}
+        #account-details-form {
+            display: none;
+        }
+    {% endif %}
 </style>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+       $('#account-details button').click(function() {
+           $('#account-details').hide()
+           $('#account-details-form').show();
+           $('#id_edit_account_details').val('1');
+       });
+    });
+</script>
 {% endblock %}
 
 {% block body_content %}
-<div class="main-column">
-    <form action="{% url applicant_profile %}" method="post">
+<form action="{% url applicant_profile %}" method="post">
+    <div class="main-column">
         {% csrf_token %}
         {{ form.non_field_errors }}
         {{ form.user }}
@@ -67,22 +82,34 @@
         <fieldset class="actions last">
             <button>Save Profile</button>
         </fieldset>
-    </form>
-</div>
-<div class="sidebar">
-    <fieldset>
-        <legend>Account Details</legend>
-        <div class="fieldWrapper">
-            {{ form.mobile_number.label_tag }} {{ form.mobile_number }} {{ form.mobile_number.errors }}
-        </div>
-        <div class="fieldWrapper">
-            {{ form.password1.label_tag }} {{ form.password1 }} {{ form.password1.errors }}
-        </div>
-        <div class="fieldWrapper">
-            {{ form.password2.label_tag }} {{ form.password2 }} {{ form.password2.errors }}
-        </div>
-    </fieldset>
-    <div class="right"><button>Save</button></div>
-</div>
+    </div>
+    <div class="sidebar">
+        <fieldset>
+            {{ form.edit_account_details }}
+            <legend>Account Details</legend>
+            <div id="account-details">
+                <div class="fieldWrapper">
+                    {{ form.mobile_number.label_tag }} {{ form.mobile_number.value }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.password1.label_tag }} &bull;&bull;&bull;&bull;
+                </div>
+                <div class="right"><button type="button">Edit</button></div>
+                <div class="clearing"></div>
+            </div>
+            <div id="account-details-form">
+                <div class="fieldWrapper">
+                    {{ form.mobile_number.label_tag }} {{ form.mobile_number }} {{ form.mobile_number.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.password1.label_tag }} {{ form.password1 }} {{ form.password1.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.password2.label_tag }} {{ form.password2 }} {{ form.password2.errors }}
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</form>
 <div class="clearing"></div>
 {% endblock %}
