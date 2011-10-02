@@ -152,3 +152,46 @@ span#tab-dashboard {
     padding-left: 20px;
     padding-right: 20px;
 }
+
+.job-details section#details {
+    border-top: 1px solid #e5e5e5;
+}
+
+.job-details dl dt {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.job-details dl dd {
+    margin-left: 0px;
+    margin-bottom: 20px;
+    line-height: 20px;
+}
+
+.job-details dl dd#expertise {
+    text-transform: capitalize;
+}
+
+.job-details dl#requirements {
+    float: left;
+    width: 250px;
+    margin-right: 20px;
+}
+
+.job-details section {
+    border-top: 1px solid #e5e5e5;
+    padding-top: 10px;
+}
+
+.job-details section#location h3 {
+    font-size: 16px;
+}
+
+.job-details section#location p {
+    line-height: 20px;
+}
+
+.job-details section.actions {
+    text-align: right;
+}

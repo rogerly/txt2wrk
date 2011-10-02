@@ -23,7 +23,7 @@
                     <ul>
                         <li><a href="">about txt2wrk</a></li> |
                         <li><a href="{% url contact %}">contact us</a></li> |
-                        <li><a href="" id="sign-in">login</a></li>
+                        <li><a href="">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
                     </ul>
                 </nav>
                 <span id="header-icon"></span>
@@ -41,7 +41,7 @@
                     <ul>
                         <li><a href="">about txt2wrk</a></li> |
                         <li><a href="{% url contact %}">contact us</a></li> |
-                        <li><a href="" id="sign-in">login</a></li>
+                        <li><a href="">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
                     </ul>
                 </nav>
             </footer>

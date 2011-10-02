@@ -1,51 +1,52 @@
-<h1>{{ job.title }}, {{ job.location.business_name }}</h1>
-<div class="left-column" style="width: 25%;">
-    <section>
-        <header>Job Location</header>
-        <ul class="no-bullets">
-            <li>{{ job.location.business_name }}</li>
-            <li>{{ job.location.business_address1 }}</li>
-            {% if job.location.business_address2 %}<li>{{ job.location.business_address2 }}</li>{% endif %}
-            <li>{{ job.location.city }}</li>
-            <li>{{ job.location.zip_code }}</li>
-        </ul>
+<div class="main-column">
+    <h2>{{ job.title }}</h2>
+    <p>{{ job.description }}</p>
+    <section id="details">
+        <dl id="requirements">
+            <dt>Commitment</dt>
+            <dd>{{ job.get_employment_type_display }}</dd>
+            <dt>Begins</dt>
+            <dd>{{ job.get_availability_display }}</dd>
+            <dt>Education</dt>
+            <dd>{{ job.get_education_display }}</dd>
+            <dt>Expertise Required</dt>
+            <dd id="expertise">
+                {% for industry in job.industry.all %}
+                    {{ industry }}<br />
+                {% endfor %}
+            </dd>
+        </dl>
+        <dl id="timing">
+            <dt>Days Available</dt>
+            <dd>
+                {% for day in job.workday.all %}
+                    {{ day }}<br />
+                {% endfor %}
+            </dd>
+            <dt>Overtime Available?</dt>
+            <dd>{{ job.get_overtime_display }}</dd>
+        </dl>
     </section>
-    {% if distance %}
-        <section>
-            <header>Distance From You</header>
-            {{ distance|floatformat }} miles
-        </section>
-    {% endif %}
+    <div class="clearing"></div>
+    <section class="actions">
+        <a href="{% url applicant_dashboard %}"><button>{% if already_applied %}Back{% else %}Cancel{% endif %}</button></a>
+        {% if not already_applied %}
+            <a href="{% url applicant_apply job.job_code %}"><button>Apply</button></a>
+        {% endif %}
+    </section>
 </div>
-<div class="right-column" style="width: 70%;">
-    <section>
-        <header>Job Details</header>
-        <div>
-            <span class="label">Job Title</span>
-            <span class="value">{{ job.title }}</span>
-        </div>
-        <div>
-            <span class="label">Job Description</span>
-            <span class="value">{{ job.description }}</span>
-        </div>
-        <div>
-            <span class="label">Education Level</span>
-            <span class="value">{{ job.get_education_display }}</span>
-        </div>
-        <div>
-            <span class="label"> Years of Work Experience</span>
-            <span class="value"> {{ job.get_experience_display }} </span>
-        </div>
-        <div>
-            <span class="label">Required Availability</span>
-            <span class="value">{{ job.get_workday_display }}</span>
-        </div>
-        <div>
-            <span class="label">Type of Work</span> 
-            <span class="value">
-                {% for industry in job.industry.all %} {{ industry }} {% if not forloop.last %}, {% endif %} {% endfor %}
-            </span>
-        </div>
+<div class="sidebar">
+    <h2>Location</h2>
+    <section id="location">
+        <h3>{{ job.location.business_name }}</h3>
+        <p>
+            {{ job.location.business_address1 }}<br />
+            {% if job.location.business_address2 %}{{ job.location.business_address2 }}<br />{% endif %}
+            {{ job.location.city }}, {{ job.location.zip_code }}
+        </p>
+    </section>
+    <section id="business-description">
+        <p>{{ job.employer.business_description }}</p>
     </section>
 </div>
 <div style="clear: both;"></div>
