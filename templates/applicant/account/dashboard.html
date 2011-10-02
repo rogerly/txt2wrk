@@ -9,6 +9,8 @@
     {{ block.super }}
 {% endblock %}
 
+{% block head_title %}Dashboard{% endblock %}
+
 {% block body_content %}
     <div class="main-column">
         <h2>{{ user.first_name }} {{ user.last_name }}</h2>

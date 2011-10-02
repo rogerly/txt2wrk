@@ -1,41 +1,41 @@
 {% extends "employer/employer_base.html" %}
 
-{% block page_css %}
-<style type="text/css">
-    h2 {
-        color: #0091ce;
-    }
-</style>
+{% load tabs %}
+
+{% block page_class %}dashboard{% endblock %}
+
+{% block tabbed_navigation %}
+    {% activetab 'tabbed_navigation' 'dashboard' %}
+    {{ block.super }}
 {% endblock %}
 
-{% block body_content %}
 
-<h1>{{ profile.business_name }}</h1>
-<div class="left-column">
-    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
-    <p>Create a new job posting, review applicants for existing job postings, or delete filled job postings.</p>
+{% block body_content %}
+<div class="main-column">
+    <div class="header">
+        <h2>{{ profile.business_name }}</h2>
+        <p>Create a new job posting, review applicants for existing job postings or delete job postings that have been filled or canceled.</p>
+    </div>
+    <section id="matches">
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="width: 35%;">Job Title</th>
+                    <th style="width: 20%;">Date Created</th>
+                    <th style="width: 20%;">Applicants</th>
+                    <th style="width: 25%;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for job in jobs %}
+                    <tr>
+                        <td><a href="{% url manage_job job.job_code %}">{{ job.title }}</a></td>
+                        <td>{{ job.date_created }}</td>
+                        <td>{{ job.active_applicants }}</td>
+                        <td>Status</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 </div>
-<div id="create-job" class="right-column">
-	<a class="right" href="{% url create_job %}"><button type="button" class="create-job">Create New Job Posting</button></a>
-</div>
-<div style="clear: both;"></div>
-<table style="width: 100%;">
-    <thead>
-        <tr>
-            <th style="width: 20%;">Job Title</th>
-            <th style="width: 20%;">Date Created</th>
-            <th style="width: 20%;">Applicants</th>
-            <th style="width: 40%;"></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for job in jobs %}
-            <tr>
-                <td>{{ job.title }}</td>
-                <td>{{ job.date_created }}</td>
-                <td>{{ job.active_applicants }}</a></td>
-                <td style="padding-right: 0px;"><a href="{% url manage_job job.job_code %}"><button class="dashboard view-applicants">View Applicants</button></a> <a href="{% url close_job job.job_code %}"><button class="dashboard delete-posting">Delete Posting</button></a></td>
-            </tr>
-        {% endfor %}
-    </tbody>
 {% endblock %}

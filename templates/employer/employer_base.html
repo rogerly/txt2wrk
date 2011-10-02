@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
+{% load tabs %}
+
+{% block base_css %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/employer.css" />
+{% endblock %}
+
 {% block header_text %}employers{% endblock %}
 
-{% block nav_content %}
-<ul>
-	<li><a href="{% url employer_logout %}"><button>Logout</button></a></li>
-	<li><a href="{% url employer_dashboard %}">Dashboard</a></li>
-	<li><a href="{% url employer_profile %}">Profile</a></li>
-</ul>
+{% block tabbed_navigation %}
+    <div id="tabs">
+        <a href="{% url employer_profile %}"><span id="tab-profile" class="{% ifactivetab 'tabbed_navigation' 'profile' %}selected{% endifactivetab %}">Profile</span></a>
+        <a href="{% url employer_dashboard %}"><span id="tab-dashboard" class="{% ifactivetab 'tabbed_navigation' 'dashboard' %}selected{% endifactivetab %}">Dashboard</span></a>
+    </div>
 {% endblock %}
