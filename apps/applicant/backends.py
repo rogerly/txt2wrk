@@ -10,6 +10,8 @@ from registration.models import RegistrationProfile
 from applicant.forms import ApplicantRegistrationForm, DemoApplicantRegistrationForm
 from applicant.models import ApplicantProfile
 
+from job.models import Workday, Industry
+
 from sms.models import SMS, REQ_NUMBER_CONFIRMATION
 
 class ApplicantBackend(object):
@@ -159,6 +161,8 @@ class DemoApplicantBackend(object):
         profile.mobile_number = phone
         profile.save()
 
+        self.setup_default_data(new_user, profile)
+
         signals.user_registered.send(sender=self.__class__,
                                      user=new_user,
                                      request=request)
@@ -198,3 +202,27 @@ class DemoApplicantBackend(object):
 
     def post_activation_redirect(self, request, user):
         return ('applicant_profile', (), {})
+
+    def setup_default_data(self, user, profile):
+        user.first_name = 'John'
+        user.first_name = 'Smith'
+        user.save()
+
+        profile.address1 = '2865 Sand Hill Road'
+        profile.address2 = 'Suite 101'
+
+        profile.city = 'Menlo Park'
+        profile.zip_code = '94025'
+
+        profile.distance = 100
+        profile.education = 4
+        profile.employment_type = 1
+        profile.overtime = True
+
+        days = Workday.objects.all().exclude(name='Saturday').exclude(name='Sunday')
+        profile.workday = days
+
+        industry = [Industry.objects.all()[0]]
+        profile.industry = industry
+
+        profile.save()
