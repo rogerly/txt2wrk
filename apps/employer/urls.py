@@ -42,7 +42,6 @@ urlpatterns = patterns('',
         'employer.views.employer_profile',
         {
          'template': 'employer/account/profile.html',
-         'first_time_setup': True,
         },
         name='employer_profile_setup'),
 

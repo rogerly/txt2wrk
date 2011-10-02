@@ -10,30 +10,27 @@ from applicant.models import ApplicantJob
 from job.models import Job
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/employer/login')
-def employer_profile(request, first_time_setup=False, template='employer/account/profile.html'):
+def employer_profile(request, template='employer/account/profile.html'):
     form = None 
     ctxt = {}
-    ctxt['first_time_setup'] = first_time_setup
     if request.method == 'POST':
-        form = EmployerProfileForm(data=request.POST, instance=EmployerProfile.objects.get(user=request.user), first_time_setup=first_time_setup, user=request.user)
+        form = EmployerProfileForm(data=request.POST, instance=EmployerProfile.objects.get(user=request.user), user=request.user)
+        print form.errors
         if form.is_valid():
+            print form.cleaned_data
             form.save()
 
-            if 'first_name' in form.cleaned_data and form.cleaned_data['first_name'] != '':
-                user = request.user
-                profile = EmployerProfile.objects.get(user=user)
-                user.first_name = form.cleaned_data['first_name']
-                user.last_name = form.cleaned_data['last_name']
-                user.email = form.cleaned_data['email']
-                user.username = form.cleaned_data['username']
+            user = request.user
+            profile = EmployerProfile.objects.get(user=user)
+            user.email = form.cleaned_data['email']
 
-                if 'password1' in form.cleaned_data and form.cleaned_data['password1'] != '':
-                    user.set_password(form.cleaned_data['password1'])
+            if 'password1' in form.cleaned_data and form.cleaned_data['password1'] != '':
+                user.set_password(form.cleaned_data['password1'])
 
-                user.save()
+            user.save()
             return redirect(reverse('employer_dashboard'))
     else:
-        form = EmployerProfileForm(instance=EmployerProfile.objects.get(user=request.user), first_time_setup=first_time_setup, user=request.user)
+        form = EmployerProfileForm(instance=EmployerProfile.objects.get(user=request.user), user=request.user)
     
     ctxt['form'] = form
     ctxt['request'] = request

@@ -55,15 +55,11 @@ class EmployerBackend(object):
         class of this backend as the sender.
 
         """
-        username, email, password, phone = kwargs['username'], kwargs['email'], kwargs['password1'], kwargs['phone_number']
-        first_name, last_name = kwargs['first_name'], kwargs['last_name']
+        username, email, password = kwargs['username'], kwargs['email'], kwargs['password1']
 
         new_user = User.objects.create_user(username, email, password)
-        new_user.first_name = first_name
-        new_user.last_name = last_name
         new_user.save()
         profile, created = EmployerProfile.objects.get_or_create(user=new_user)
-        profile.phone_number = phone
 
         profile.save()
 

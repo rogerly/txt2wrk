@@ -47,6 +47,14 @@ button {
     background: linear-gradient(top, #bed94c 0%,#93c02e 100%); /* W3C */
 }
 
+input[type=text],
+input[type=password],
+textarea,
+select
+{
+    color: #5c6647;
+}
+
 .profile div#contact-information {
     float: left;
     width: 250px;
@@ -133,6 +141,10 @@ button {
 
 .profile div.main-column fieldset div#business_description textarea {
     width: 311px;
+}
+
+.profile #account-details {
+    font-size: 16px;
 }
 
 .dashboard section#matches a {

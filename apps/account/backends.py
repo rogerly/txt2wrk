@@ -7,7 +7,11 @@ class ApplicantModelBackend(object):
     def authenticate(self, username=None, password=None):
         try:
             if '@' in username:
-                user = User.objects.get(email__iexact=username)
+                try:
+                    profile = EmployerProfile.objects.get(user__email__iexact=username)
+                    user = profile.user
+                except EmployerProfile.DoesNotExist:
+                    return None
             elif '-' in username:
                 try:
                     profile = ApplicantProfile.objects.get(mobile_number=username)
