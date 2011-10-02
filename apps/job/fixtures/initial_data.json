@@ -178,7 +178,7 @@
             "email": "rogerly+exact@gmail.com", 
             "date_joined": "2011-10-02 16:42:43"
         }
-    },
+    }, 
     {
         "pk": 1,
         "model": "employer.employerprofile",
