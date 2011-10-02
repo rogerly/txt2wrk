@@ -5,3 +5,15 @@ local_settings.py
 .pydevproject
 .DS_Store
 
+
+/.idea/vcs.xml
+/.idea/.name
+/.idea/dataSources.xml
+/.idea/encodings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/txt2wrk.iml
+/public/
+/.idea/dataSources.ids
+/.idea/
+/txt2wrk.ids
