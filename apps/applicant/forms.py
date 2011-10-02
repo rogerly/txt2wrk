@@ -102,14 +102,14 @@ class ApplicantProfileForm(forms.ModelForm):
 
     class Meta:
         model = ApplicantProfile
-        exclude = ('confirmed_phone', 'jobs', 'latitude', 'longitude', 'availability', 'demo')
+        exclude = ('confirmed_phone', 'jobs', 'latitude', 'longitude', 'availability')
         
     def clean_mobile_number(self):
         if 'mobile_number' in self.cleaned_data:
             try:
                 current_profile = ApplicantProfile.objects.get(user=self.user)
                 if current_profile.mobile_number != self.cleaned_data['mobile_number']:
-                    profile = ApplicantProfile.objects.get(mobile_number=self.cleaned_data['mobile_number'], demo=current_profile.demo)
+                    profile = ApplicantProfile.objects.get(mobile_number=self.cleaned_data['mobile_number'])
                     raise forms.ValidationError(_('This phone number already exists.'))
             except ApplicantProfile.DoesNotExist:
                 pass
@@ -137,10 +137,6 @@ class MobileNotificationForm(forms.Form):
 
 class ApplicantRegistrationForm(RegistrationForm):
     def __init__(self, *args, **kwargs):
-        try:
-            self.demo = kwargs.pop('demo')
-        except KeyError:
-            self.demo = False
 
         # We dont let user enter username...we create unique guid for it
         self.base_fields['username'].widget = forms.HiddenInput()
@@ -172,7 +168,7 @@ class ApplicantRegistrationForm(RegistrationForm):
     def clean_mobile_number(self):
         if 'mobile_number' in self.cleaned_data:
             try:
-                profile = ApplicantProfile.objects.get(mobile_number=self.cleaned_data['mobile_number'], demo=self.demo)
+                profile = ApplicantProfile.objects.get(mobile_number=self.cleaned_data['mobile_number'])
                 raise forms.ValidationError(_('This phone number already exists.'))
             except ApplicantProfile.DoesNotExist:
                 pass
@@ -185,7 +181,6 @@ class ApplicantRegistrationForm(RegistrationForm):
 class DemoApplicantRegistrationForm(ApplicantRegistrationForm):
     def __init__(self, *args, **kwargs):
         super(DemoApplicantRegistrationForm, self).__init__(*args, **kwargs)
-        self.demo = True
 
     username = forms.CharField(widget=forms.HiddenInput(), required=False)
     first_name = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -201,7 +196,6 @@ class DemoApplicantRegistrationForm(ApplicantRegistrationForm):
 class ApplicantLoginForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
-        self.demo = kwargs.pop('demo')
         if 'verify_phone' in kwargs:
             if kwargs.pop('verify_phone'):
                 self.base_fields['username'].widget = forms.HiddenInput()
@@ -221,7 +215,7 @@ class ApplicantLoginForm(forms.Form):
     
     def clean(self):
         if 'username' in self.cleaned_data and 'password' in self.cleaned_data:
-            self.user = authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password'], demo=self.demo)
+            self.user = authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password'])
             if self.user is not None:
                 return self.cleaned_data
             else:

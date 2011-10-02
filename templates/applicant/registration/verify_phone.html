@@ -16,7 +16,7 @@
     <section id="problems" class="last">
         <h2>Problems?</h2>
         <p>If the page doesn't advance automatically, enter the PIN you received via text message to continue.</p>
-        <form action="{% url applicant_login %}?demo=True&next={% url applicant_profile %}" method="post">
+        <form action="{% url applicant_login %}?next={% url applicant_profile %}" method="post">
             {% csrf_token %}
             {{ login_form.username }}
             {{ login_form.password }}

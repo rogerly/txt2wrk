@@ -29,10 +29,7 @@ class EmployerProfileForm(forms.ModelForm):
             self.fields['last_name'].initial = self.user.last_name
             self.fields['email'].initial = self.user.email
             profile = EmployerProfile.objects.get(user=self.user)
-            if profile.demo:
-                self.fields['username'].initial = self.user.username[:-5]
-            else:
-                self.fields['username'].initial = self.user.username
+            self.fields['username'].initial = self.user.username
 
         self.fields['user'].widget = forms.HiddenInput()
 
@@ -76,14 +73,13 @@ class EmployerProfileForm(forms.ModelForm):
 
     class Meta:
         model = EmployerProfile
-        exclude = ('demo',)
 
     def clean_username(self):
         try:
             if 'username' in self.cleaned_data:
                 profile = EmployerProfile.objects.get(user=self.user)
-                if '%s%s' % (self.cleaned_data['username'], '_demo' if profile.demo else '') != self.user.username:
-                    user = User.objects.get(username__iexact='%s%s' % (self.cleaned_data['username'], '_demo' if profile.demo else ''))
+                if self.cleaned_data['username'] != self.user.username:
+                    user = User.objects.get(username__iexact=self.cleaned_data['username'])
                     raise forms.ValidationError(_("A user with that username already exists."))
         except User.DoesNotExist:
             pass
@@ -98,7 +94,6 @@ class EmployerProfileForm(forms.ModelForm):
 
 class EmployerRegistrationForm(RegistrationForm):
     def __init__(self, *args, **kwargs):
-        self.demo = kwargs.pop('demo')
         self.base_fields.keyOrder = ['username', 'password1', 'password2', 'first_name', 'last_name', 'email', 'phone_number']
         super(EmployerRegistrationForm, self).__init__(*args, **kwargs)
 
@@ -114,7 +109,7 @@ class EmployerRegistrationForm(RegistrationForm):
     def clean_username(self):
         try:
             if 'username' in self.cleaned_data:
-                user = User.objects.get(username__iexact='%s%s' % (self.cleaned_data['username'], '_demo' if self.demo else '',))
+                user = User.objects.get(username__iexact=self.cleaned_data['username'])
                 raise forms.ValidationError(_("A user with that username already exists."))
         except User.DoesNotExist:
             pass
@@ -127,7 +122,6 @@ class EmployerRegistrationForm(RegistrationForm):
 class EmployerLoginForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
-        self.demo = kwargs.pop('demo')
         super(EmployerLoginForm, self).__init__(*args, **kwargs)
 
     username = forms.CharField(label=_("Username"),
@@ -144,7 +138,7 @@ class EmployerLoginForm(forms.Form):
     
     def clean(self):
         if 'username' in self.cleaned_data and 'password' in self.cleaned_data:
-            self.user = authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password'], demo=self.demo)
+            self.user = authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password'])
             if self.user is not None:
                 return self.cleaned_data
             else:

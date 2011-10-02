@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from django.db import models
 from django.dispatch import receiver
 
@@ -84,8 +86,9 @@ class JobRecommendation(models.Model):
     @receiver(job_created, sender=Job)
     def create_recommendation(sender, **kwargs):
         job = kwargs['job']
-        if job.employer.demo:
-            applicants = ApplicantProfile.objects.all().filter(user__email__iexact=job.employer.user.email, demo=True)
+
+        if getattr(settings, 'DEMO_ENABLED', False):
+            applicants = ApplicantProfile.objects.all().filter(user__email__iexact=job.employer.user.email)
             for applicant in applicants:
                 recommendation = JobRecommendation(applicant=applicant, job=job, state=JobRecommendation.NEW_REC_NOT_SENT)
                 recommendation.save()

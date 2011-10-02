@@ -14,11 +14,8 @@ from django.template import RequestContext
 
 def contact(request, template=None):
     ctxt = {}
-    demo = False
-    if 'demo' in request.session:
-        demo = request.session['demo']
-    ctxt['applicant_login_form'] = ApplicantLoginForm(demo=demo)
-    ctxt['employer_login_form'] = EmployerLoginForm(demo=demo)
+    ctxt['applicant_login_form'] = ApplicantLoginForm()
+    ctxt['employer_login_form'] = EmployerLoginForm()
     ctxt['settings'] = settings
     if request.POST:
         form = PotentialUsersForm(request.POST)
@@ -36,24 +33,8 @@ def contact(request, template=None):
 def splash(request, template=None):
 
     ctxt = {}
-    demo = False
-    if 'demo' in request.session:
-        demo = request.session['demo']
-    ctxt['applicant_login_form'] = ApplicantLoginForm(demo=demo)
-    ctxt['employer_login_form'] = EmployerLoginForm(demo=demo)
+    ctxt['applicant_login_form'] = ApplicantLoginForm()
+    ctxt['employer_login_form'] = EmployerLoginForm()
     ctxt['demo_form'] = DemoApplicantRegistrationForm()
     ctxt['settings'] = settings
     return render_to_response(template, ctxt, context_instance = RequestContext(request))
-
-# Just sets up the account for demo purposes
-def demo(request, demo_mode=True, redirect_url=None):
-    if demo_mode:
-        request.session['demo'] = True
-    else:
-        del(request.session['demo'])
-
-    if 'next' in request.GET:
-        next = request.GET['next']
-    else:
-        next = reverse(redirect_url)
-    return redirect(next)

@@ -24,7 +24,7 @@
     Skills: {% for industry in applicant.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %}
 </p>
 
-<p><a href="{{ settings.EMPLOYER_HOST }}{% if applicant.demo %}{% url demo %}?next={% endif %}{% url employer_login %}">Sign In</a> to your txt2wrk account to see more details about this applicant.</p>
+<p><a href="{{ settings.EMPLOYER_HOST }}{% url employer_login %}">Sign In</a> to your txt2wrk account to see more details about this applicant.</p>
 
 <p>Thanks for using txt2wrk and have a great day!</p>
 

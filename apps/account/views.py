@@ -16,14 +16,8 @@ def do_login(request, template='account/login.html', form_class=None):
     
     next = request.GET.get('next')
 
-    if 'demo' in request.session:
-        demo = request.session['demo']
-    else:
-        demo = request.GET.get('demo')
-        demo = True if demo is not None else False
-
     if request.method == "POST":
-        form = form_class(request.POST, demo=demo)
+        form = form_class(request.POST)
         if form.is_valid():
             login(request, form.user)
             if next:
@@ -37,12 +31,9 @@ def do_login(request, template='account/login.html', form_class=None):
                     except EmployerProfile.DoesNotExist:
                         return redirect(reverse('splash'))
 
-                if profile.demo:
-                    request.session['demo'] = True
-
                 return redirect(profile.get_login_destination())
     else:
-        form = form_class(demo=demo)
+        form = form_class()
 
     return render_to_response(template,
                               {
@@ -55,22 +46,12 @@ def do_login(request, template='account/login.html', form_class=None):
 def do_logout(request, next_page=None, template_name='account/logout.html', redirect_field_name=REDIRECT_FIELD_NAME):
     user = request.user
     print user
-    demo = False
     if user is not None:
         try:
             profile = ApplicantProfile.objects.get(user=user)
         except ApplicantProfile.DoesNotExist:
             profile = EmployerProfile.objects.get(user=user)
 
-        print profile
-        if profile is not None:
-            demo = profile.demo
-
-    print demo
-
     return_value = logout_view(request, next_page, template_name, redirect_field_name)
-    if demo:
-        print 'demo is true'
-        request.session['demo'] = True
 
     return return_value

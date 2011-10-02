@@ -111,7 +111,7 @@ class SMS(models.Model):
             applicant = recommendation.applicant
             if applicant.confirmed_phone:
                 job = recommendation.job
-                message = u'New job! %s at %s. CALL %s to hear full description or TEXT BACK %s to submit application.' % (job.title,job.location.business_name,settings.CALLER_ID_DEMO if applicant.demo else settings.CALLER_ID,job.job_code,)
+                message = u'New job! %s at %s. CALL %s to hear full description or TEXT BACK %s to submit application.' % (job.title,job.location.business_name,settings.CALLER_ID,job.job_code,)
                 SMS.send(applicant=applicant,
                          phone_number=applicant.mobile_number,
                          message=message,
@@ -138,7 +138,7 @@ class SMS(models.Model):
         
         # Data for the message
         sms_msg = {
-                   'From': settings.CALLER_ID_DEMO if applicant.demo else settings.CALLER_ID,
+                   'From': settings.CALLER_ID,
                    'To': phone_number,
                    'Body': message,
                    }

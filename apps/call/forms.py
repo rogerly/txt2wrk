@@ -35,7 +35,7 @@ class VerifyPasswordForm(forms.Form):
             if len(self.cleaned_data['Digits']) != 0:
                 call = Call.objects.get(call_sid=self.cleaned_data['CallSid'])
                 profile = call.applicant
-                user = authenticate(username=profile.mobile_number, password=self.cleaned_data['Digits'], demo=profile.demo)
+                user = authenticate(username=profile.mobile_number, password=self.cleaned_data['Digits'])
                 if user is None:
                     raise forms.ValidationError(_('Bad password.'))
         
@@ -43,7 +43,6 @@ class VerifyPasswordForm(forms.Form):
     
 class HandleDifferentPhoneForm(forms.Form):
     
-    demo = forms.CharField(required=False)
     CallSid = forms.CharField(required=True)
     Digits = forms.CharField(required=False)
 
@@ -55,10 +54,7 @@ class HandleDifferentPhoneForm(forms.Form):
                 self.cleaned_data['Digits'] = phone
                 
                 try:
-                    demo = False
-                    if 'demo' in self.cleaned_data and self.cleaned_data['demo'] != '':
-                        demo = True
-                    profile = ApplicantProfile.objects.get(mobile_number=phone, demo=demo)
+                    profile = ApplicantProfile.objects.get(mobile_number=phone)
                 except ApplicantProfile.DoesNotExist:
                     raise forms.ValidationError(_('Number not found'))
 

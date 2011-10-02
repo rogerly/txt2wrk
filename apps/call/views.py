@@ -18,18 +18,15 @@ def receive_call(request, template=None, form_class=ReceiveCallForm):
     else:
         fields = request.GET
     form = form_class(fields)
-    demo = False
-    if 'demo' in fields:
-        demo = True
+
     context = {}
-    context['demo'] = demo
     user = None
 
     if form.is_valid():
         profile = None
         try:
             fragment_type = CallFragment.OUTBOUND_WELCOME_UNKNOWN_USER
-            profile = ApplicantProfile.objects.get(mobile_number=form.cleaned_data['From'], demo=demo)
+            profile = ApplicantProfile.objects.get(mobile_number=form.cleaned_data['From'])
             user = profile.user
             
             call = Call(applicant=profile, 
@@ -67,13 +64,9 @@ def wrong_user(request, template=None):
     else:
         fields = request.GET
 
-    demo = False
-    if 'demo' in fields:
-        demo = True
     form = HandleDifferentPhoneForm(fields)
     context = {}
     context['form'] = form
-    context['demo'] = demo
 
     call = Call.objects.get(call_sid=fields['CallSid'])
     
@@ -81,7 +74,7 @@ def wrong_user(request, template=None):
         if 'Digits' in form.cleaned_data and form.cleaned_data['Digits'] != '':
             phone = form.cleaned_data['Digits']
             if len(phone) == 12:
-                profile = ApplicantProfile.objects.get(mobile_number=phone, demo=demo)
+                profile = ApplicantProfile.objects.get(mobile_number=phone)
                 call.phone_number=phone
                 call.applicant=profile
                 call.save()

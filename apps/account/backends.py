@@ -4,18 +4,18 @@ from applicant.models import ApplicantProfile
 from employer.models import EmployerProfile
 
 class ApplicantModelBackend(object):
-    def authenticate(self, username=None, password=None, demo=False):
+    def authenticate(self, username=None, password=None):
         try:
             if '@' in username:
                 user = User.objects.get(email__iexact=username)
             elif '-' in username:
                 try:
-                    profile = ApplicantProfile.objects.get(mobile_number=username, demo=demo)
+                    profile = ApplicantProfile.objects.get(mobile_number=username)
                     user = profile.user
                 except ApplicantProfile.DoesNotExist:
                     return None
             else:
-                user = User.objects.get(username__iexact='%s%s' % (username, '_demo' if demo else ''))
+                user = User.objects.get(username__iexact=username)
 
             # Check to see if user is active (email confirmation) and if not for now return Does not exist -> FIX_ME
             if not user.is_active:

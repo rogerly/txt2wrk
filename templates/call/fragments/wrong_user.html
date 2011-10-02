@@ -6,9 +6,9 @@
 		{% if form.errors %}
 			<Say>The phone number you entered was not recognized.</Say>
 		{% endif %}
-		<Gather method="GET" action="{% url call_wrong_user %}{% if demo %}?demo=demo{% endif %}" numDigits="10">
+		<Gather method="GET" action="{% url call_wrong_user %}" numDigits="10">
 			<Say>Please enter the phone number you registered with text 2 work.</Say>
 		</Gather>
-		<Redirect method="GET">{% url call_wrong_user %}{% if demo %}?demo=demo{% endif %}</Redirect>
+		<Redirect method="GET">{% url call_wrong_user %}</Redirect>
 	{% endif %}
 </Response>

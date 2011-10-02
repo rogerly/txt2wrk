@@ -20,12 +20,12 @@ def verify_phone(request, template=None, mobile_number=None):
     except ApplicantProfile.DoesNotExist:
         return HttpResponseNotFound
 
-    login_form = ApplicantLoginForm(initial={'username':mobile_number}, demo=profile.demo, verify_phone=True)
+    login_form = ApplicantLoginForm(initial={'username':mobile_number}, verify_phone=True)
     ctxt['login_form'] = login_form
     return render_to_response(template, ctxt, context_instance=RequestContext(request))
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/applicant/login')
-def applicant_profile(request, demo=False, template='applicant/account/profile.html'):
+def applicant_profile(request, template='applicant/account/profile.html'):
     form = None 
     ctxt = {}
     profile = ApplicantProfile.objects.get(user=request.user)

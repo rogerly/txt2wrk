@@ -84,15 +84,10 @@ class ApplicantBackend(object):
         profile, created = ApplicantProfile.objects.get_or_create(user=new_user)
         profile.mobile_number = phone
 
-        if 'demo' in request.session:
-            profile.demo = True
-
         profile.save()
 
-        auth_user = authenticate(username=phone, password=password, demo=profile.demo)
+        auth_user = authenticate(username=phone, password=password)
         login(request, auth_user)
-        if profile.demo:
-            request.session['demo'] = True
         signals.user_registered.send(sender=self.__class__,
                                      user=auth_user,
                                      request=request)
@@ -162,7 +157,6 @@ class DemoApplicantBackend(object):
 
         profile, created = ApplicantProfile.objects.get_or_create(user=new_user)
         profile.mobile_number = phone
-        profile.demo = True
         profile.save()
 
         signals.user_registered.send(sender=self.__class__,

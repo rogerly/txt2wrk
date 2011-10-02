@@ -6,8 +6,6 @@ class Profile(models.Model):
                                 related_name='%(class)s'
                                 )
 
-    demo = models.BooleanField('Demo Account', default=False)
-
     class Meta:
         abstract = True
         

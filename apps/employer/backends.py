@@ -58,21 +58,16 @@ class EmployerBackend(object):
         username, email, password, phone = kwargs['username'], kwargs['email'], kwargs['password1'], kwargs['phone_number']
         first_name, last_name = kwargs['first_name'], kwargs['last_name']
 
-        demo = False
-        if 'demo' in request.session:
-            demo = True
-
-        new_user = User.objects.create_user('%s%s' % (username, '_demo' if demo else ''), email, password)
+        new_user = User.objects.create_user(username, email, password)
         new_user.first_name = first_name
         new_user.last_name = last_name
         new_user.save()
         profile, created = EmployerProfile.objects.get_or_create(user=new_user)
         profile.phone_number = phone
-        profile.demo = demo
 
         profile.save()
 
-        auth_user = authenticate(username=username, password=password, demo=profile.demo)
+        auth_user = authenticate(username=username, password=password)
         login(request, auth_user)
         signals.user_registered.send(sender=self.__class__,
                                      user=auth_user,

@@ -1,5 +1,7 @@
 import random
 
+from django.conf import settings
+
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.shortcuts import render_to_response
@@ -26,15 +28,12 @@ def receive_sms(request, template=None, form_class=ReceiveSMSForm):
     else:
         fields = request.GET
 
-    demo = False
-    if 'demo' in fields:
-        demo = True
     form = form_class(fields)
     context = {}
     if form.is_valid():
         profile = None
         try:
-            profile = ApplicantProfile.objects.get(mobile_number=form.cleaned_data['From'], demo=demo)
+            profile = ApplicantProfile.objects.get(mobile_number=form.cleaned_data['From'])
             
         except ApplicantProfile.DoesNotExist:
             pass
@@ -82,7 +81,7 @@ def do_number_confirm(response, profile):
     if profile is not None:
         profile.confirmed_phone = True
         profile.save()
-        if profile.demo:
+        if getattr(settings, 'DEMO_ENABLED', False):
             user = profile.user
             pin = '%d' % (random.randint(0, 8999) + 1000)
             user.set_password(pin)
