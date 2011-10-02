@@ -19,13 +19,7 @@
         <div>
             <header>
                 <h1><span id="txt2wrk">txt2wrk</span> | <span id="header-type">{% block header_text %}{% endblock %}</span></h1>
-                <nav>
-                    <ul>
-                        <li><a href="">about txt2wrk</a></li> |
-                        <li><a href="{% url contact %}">contact us</a></li> |
-                        <li><a href="">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
-                    </ul>
-                </nav>
+                {% block header_navigation %}{% endblock %}
                 <span id="header-icon"></span>
             </header>
             <div class="page-content">
@@ -37,13 +31,7 @@
                 <p>txt2wrk was founded in Oakland, CA to improve access to employment information for people with low literacy and limited access to broadband.</p>
                 <p>txt2wrk was awarded the Ramsell Prize for the best app at the Code for Oakland hackathon on June 4, 2011</p>
                 <p>&copy; 2011 txt2wrk all rights reserved</p>
-                <nav>
-                    <ul>
-                        <li><a href="">about txt2wrk</a></li> |
-                        <li><a href="{% url contact %}">contact us</a></li> |
-                        <li><a href="">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
-                    </ul>
-                </nav>
+                {% block footer_navigation %}{% endblock %}
             </footer>
         </div>
 	</body>
