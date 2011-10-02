@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 
+{% load tabs %}
+
 {% block base_css %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/applicant.css" />
 {% endblock %}
 
 {% block header_text %}job seekers{% endblock %}
 
+{% block tabbed_navigation %}
+    <div id="tabs">
+        <a href="{% url applicant_profile %}"><span id="tab-profile" class="{% ifactivetab 'tabbed_navigation' 'profile' %}selected{% endifactivetab %}">Profile</span></a>
+        <a href="{% url applicant_dashboard %}"><span id="tab-dashboard" class="{% ifactivetab 'tabbed_navigation' 'dashboard' %}selected{% endifactivetab %}">Dashboard</span></a>
+    </div>
+{% endblock %}

@@ -1,5 +1,12 @@
 {% extends "applicant/applicant_base.html" %}
 
+{% load tabs %}
+
+{% block tabbed_navigation %}
+    {% activetab 'tabbed_navigation' 'profile' %}
+    {{ block.super }}
+{% endblock %}
+
 {% block page_class %}profile with-sidebar{% endblock %}
 
 {% block head_title %} Applicant Profile {% endblock %}
@@ -14,10 +21,6 @@
 {% endblock %}
 
 {% block body_content %}
-<div id="tabs">
-    <span id="tab-profile" class="selected">Profile</span>
-    <span id="tab-dashboard">Dashboard</span>
-</div>
 <div class="main-column">
     <form action="{% url applicant_profile %}" method="post">
         {% csrf_token %}

@@ -103,6 +103,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     'registration',
+    'tabs',
     'prelaunch',
     'common',
     'account',
