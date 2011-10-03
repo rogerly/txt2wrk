@@ -176,6 +176,7 @@ Created on Jun 13, 2011
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, redirect
+from django.views.decorators.csrf import csrf_exempt
 from registration.views import register
 
 from forms import PotentialUsersForm
@@ -203,6 +204,7 @@ def contact(request, template=None):
     return render_to_response(template, ctxt,
                 context_instance = RequestContext(request))
 
+@csrf_exempt
 def splash(request, template=None):
 
     if request.user.is_authenticated():
@@ -222,6 +224,7 @@ def splash(request, template=None):
     ctxt['settings'] = settings
     return render_to_response(template, ctxt, context_instance = RequestContext(request))
 
+@csrf_exempt
 def about(request, template=None):
 
     if request.POST:

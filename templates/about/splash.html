@@ -44,7 +44,7 @@
             <h3>Try the demo!</h3>
             <p>Experience the range of txt2wrk services as a <strong>job seeker</strong>, <strong>employer</strong>, and <strong>workforce development agency</strong></p>
             <p>Enter your mobile number to begin the txt2wrk demo</p>
-            <form action="{% url splash %}" method="post">
+            <form action="{{ settings.APPLICANT_HOST }}{% url splash %}" method="post">
                 {% csrf_token %}
                 {% if form.mobile_number.errors %}{{ form.mobile_number.errors }}<br />{% endif %}
                 {{ form.mobile_number }}
