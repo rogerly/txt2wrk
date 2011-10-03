@@ -367,7 +367,7 @@ class DemoApplicantBackend(object):
 
     def post_registration_redirect(self, request, user):
         profile = ApplicantProfile.objects.get(user=user)
-        return ('verify_phone', (profile.mobile_number,), {})
+        return ('verify_phone', (profile.id,), {})
 
     def post_activation_redirect(self, request, user):
         return ('applicant_profile', (), {})

@@ -170,6 +170,7 @@ Library.
 from django.conf import settings
 
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 from django.contrib.auth.views import logout as logout_view
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.shortcuts import redirect
@@ -178,6 +179,8 @@ from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth import login
+
+from forms import UnsubscribeForm
 
 from applicant.models import ApplicantProfile
 from employer.models import EmployerProfile
@@ -226,3 +229,20 @@ def do_logout(request, next_page=None, template_name='account/logout.html', redi
     return_value = logout_view(request, next_page, template_name, redirect_field_name)
 
     return return_value
+
+
+def unsubscribe(request, template=None):
+    ctxt = {}
+    if request.POST:
+        form = UnsubscribeForm(request.POST)
+        if form.is_valid():
+            profile = EmployerProfile.objects.filter(user__is_active=True).get(user__email__iexact=form.cleaned_data['email'])
+            user = profile.user
+            user.is_active = False
+            user.save()
+            ctxt['removed'] = True
+    else:
+        form = UnsubscribeForm(initial = {'email': request.GET.get('email')})
+
+    ctxt['form'] = form
+    return render_to_response(template, ctxt, context_instance=RequestContext(request))

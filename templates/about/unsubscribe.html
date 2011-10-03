@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Unsubscribe</title>
+    </head>
+    <body>
+        {% if removed %}
+            <p>You have been successfully unsubscribed.  You should no longer receive notifications from txt2wrk</p>
+        {% else %}
+            <p>We're sorry you want to leave. Please enter your email address below to be unsubscribed from further txt2wrk notifications</p>
+            <form action="{% url unsubscribe %}" method="post">
+                {% csrf_token %}
+                {{ form.email.errors }}
+                {{ form.email.label }} {{ form.email }}
+                <input type="submit" value="Unsubscribe" />
+            </form>
+        {% endif %}
+    </body>
+</html>

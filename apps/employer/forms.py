@@ -225,7 +225,7 @@ class EmployerProfileForm(forms.ModelForm):
         if 'email' in self.cleaned_data:
             if self.cleaned_data['email'] != self.user.email:
                 try:
-                    existing_profile = EmployerProfile.objects.all().exclude(user=self.user).get(user__email__iexact=self.cleaned_data['email'])
+                    existing_profile = EmployerProfile.objects.all().exclude(user=self.user).filter(user__is_active=True).get(user__email__iexact=self.cleaned_data['email'])
                     raise forms.ValidationError(_("A user with that email already exists."))
                 except EmployerProfile.DoesNotExist:
                     pass
@@ -254,7 +254,7 @@ class EmployerRegistrationForm(RegistrationForm):
     def clean_email(self):
         if 'email' in self.cleaned_data:
             try:
-                profile = EmployerProfile.objects.get(user__email__iexact=self.cleaned_data['email'])
+                profile = EmployerProfile.objects.filter(user__is_active=True).get(user__email__iexact=self.cleaned_data['email'])
                 raise forms.ValidationError(_('A user with that email already exists.'))
             except EmployerProfile.DoesNotExist:
                 pass

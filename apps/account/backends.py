@@ -176,13 +176,13 @@ class ApplicantModelBackend(object):
         try:
             if '@' in username:
                 try:
-                    profile = EmployerProfile.objects.get(user__email__iexact=username)
+                    profile = EmployerProfile.objects.filter(user__is_active=True).get(user__email__iexact=username)
                     user = profile.user
                 except EmployerProfile.DoesNotExist:
                     return None
             elif '-' in username:
                 try:
-                    profile = ApplicantProfile.objects.get(mobile_number=username)
+                    profile = ApplicantProfile.objects.filter(user__is_active=True).get(mobile_number=username)
                     user = profile.user
                 except ApplicantProfile.DoesNotExist:
                     return None

@@ -167,3 +167,18 @@ Library.
 """
 
 
+from django import forms
+
+from employer.models import EmployerProfile
+
+class UnsubscribeForm(forms.Form):
+
+    email = forms.CharField('Email', required=True)
+
+    def clean_email(self):
+        try:
+            profile = EmployerProfile.objects.filter(user__is_active=True).get(user__email__iexact=self.cleaned_data['email'])
+        except EmployerProfile.DoesNotExist:
+            raise forms.ValidationError('That email address does not exist')
+
+        return self.cleaned_data['email']

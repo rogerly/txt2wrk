@@ -16,6 +16,8 @@ urlpatterns = patterns('',
     url(r'^contact/$', 'prelaunch.views.contact', { 'template': 'about/contact.html', }, name='contact'),
     url(r'^about/$', 'prelaunch.views.about', { 'template': 'about/about.html', }, name='about'),
 
+    url(r'^unsubscribe/$', 'account.views.unsubscribe', { 'template': 'about/unsubscribe.html'}, name='unsubscribe'),
+
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),

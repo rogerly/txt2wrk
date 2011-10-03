@@ -185,17 +185,17 @@ from employer.models import EmployerProfile
 
 from registration.models import RegistrationProfile
 
-def verify_phone(request, template=None, mobile_number=None):
+def verify_phone(request, template=None, profile_id=None):
     ctxt = {}
-    ctxt['mobile_number'] = mobile_number
+    ctxt['profile_id'] = profile_id
     try:
-        profile = ApplicantProfile.objects.get(mobile_number=mobile_number)
+        profile = ApplicantProfile.objects.get(pk=profile_id)
     except ApplicantProfile.DoesNotExist:
         return HttpResponseNotFound
 
-    login_form = ApplicantLoginForm(initial={'username':mobile_number}, verify_phone=True)
+    login_form = ApplicantLoginForm(initial={'username':profile.mobile_number}, verify_phone=True)
     ctxt['login_form'] = login_form
-    ctxt['mobile_number'] = mobile_number
+    ctxt['mobile_number'] = profile.mobile_number
     return render_to_response(template, ctxt, context_instance=RequestContext(request))
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/applicant/login')

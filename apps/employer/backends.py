@@ -167,14 +167,13 @@ Library.
 """
 
 
-import random
 import threading
 
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
-from django.contrib.sites.models import RequestSite
-from django.contrib.sites.models import Site
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 from registration import signals
 from registration.models import RegistrationProfile
@@ -252,6 +251,17 @@ class EmployerBackend(object):
         signals.user_registered.send(sender=self.__class__,
                                      user=auth_user,
                                      request=request)
+
+        ctxt = {}
+        ctxt['settings'] = settings
+        ctxt['user'] = auth_user
+        body = render_to_string('employer/email/signup_body.txt', ctxt)
+        html_body = render_to_string('employer/email/signup_body.html', ctxt)
+        subject = render_to_string('employer/email/signup_subject.txt', ctxt)
+
+        email = EmailMultiAlternatives(subject, body, 'txt2wrk Notifications <%s>' % (settings.EMAIL_HOST_USER,), [auth_user.email])
+        email.attach_alternative(html_body, 'text/html')
+        email.send()
 
         return auth_user
 

@@ -209,7 +209,7 @@ urlpatterns = patterns('',
          },
         name='demo_applicant_register'),
 
-    url(r'^verify_phone/(?P<mobile_number>[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9])/',
+    url(r'^verify_phone/(?P<profile_id>\d+)/',
         'applicant.views.verify_phone',
         {
             'template': 'applicant/registration/verify_phone.html',
