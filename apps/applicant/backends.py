@@ -204,8 +204,9 @@ class DemoApplicantBackend(object):
         return ('applicant_profile', (), {})
 
     def setup_default_data(self, user, profile):
-        user.first_name = 'John'
-        user.last_name = 'Smith'
+
+        user.first_name = 'Dwight'
+        user.last_name = 'Schrute'
         user.save()
 
         profile.address1 = '2865 Sand Hill Road'
@@ -222,7 +223,7 @@ class DemoApplicantBackend(object):
         days = Workday.objects.all().exclude(name='Saturday').exclude(name='Sunday')
         profile.workday = days
 
-        industry = [Industry.objects.all()[0]]
+        industry = Industry.objects.all().order_by('?')[0:5]
         profile.industry = industry
 
         profile.save()

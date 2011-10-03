@@ -10,6 +10,8 @@ from registration.models import RegistrationProfile
 from employer.forms import EmployerRegistrationForm
 from employer.models import EmployerProfile
 
+from job.models import Job, JobLocation
+
 class EmployerBackend(object):
     """
     A registration backend which follows a simple workflow:
@@ -120,7 +122,7 @@ class EmployerBackend(object):
             return
 
         try:
-            profile_to_copy = EmployerProfile.objects.get(pk=10)
+            profile_to_copy = EmployerProfile.objects.get(pk=11)
 
             user.first_name = profile_to_copy.user.first_name
             user.last_name = profile_to_copy.user.last_name
@@ -136,6 +138,31 @@ class EmployerBackend(object):
             profile.business_description = profile_to_copy.business_description
 
             profile.save()
+
+            for job in profile_to_copy.jobs.all():
+                new_job = Job(title=job.title,
+                    description=job.description,
+                    employer=profile,
+                    availability=job.availability,
+                    experience=job.experience,
+                    education=job.education,
+                    employment_type=job.employment_type,
+                    overtime=job.overtime,
+                    latitude=job.latitude,
+                    longitude=job.longitude)
+                new_job.save()
+                new_job.workday=job.workday.all()
+                new_job.industry=job.industry.all()
+                new_job.save()
+
+                new_location = JobLocation(business_name=job.location.business_name,
+                                           business_address1=job.location.business_address1,
+                                           business_address2=job.location.business_address2,
+                                           city=job.location.city,
+                                           zip_code=job.location.zip_code,
+                                           latitude=job.location.latitude,
+                                           longitude=job.location.longitude,
+                                           job=new_job)
+                new_location.save()
         except EmployerProfile.DoesNotExist:
             return
-

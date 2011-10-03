@@ -180,6 +180,24 @@
         }
     }, 
     {
+        "pk": 35,
+        "model": "auth.user",
+        "fields": {
+            "username": "aa3441797be84ba78c9fbc28b67587",
+            "first_name": "Michael",
+            "last_name": "Scott",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2011-10-02 16:42:43",
+            "groups": [],
+            "user_permissions": [],
+            "password": "sha1$72203$84811c25ee5187d866542222fdbf46c4f6323127",
+            "email": "rogerly+michaelscott@gmail.com",
+            "date_joined": "2011-10-02 16:42:43"
+        }
+    },
+    {
         "pk": 1,
         "model": "employer.employerprofile",
         "fields": {
@@ -337,6 +355,22 @@
             "business_address1": "35500 Dante Place",
             "business_address2": "",
             "zip_code": "94536"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "employer.employerprofile",
+        "fields": {
+            "phone_number": "",
+            "city": "Scranton",
+            "business_phone_number": "",
+            "business_description": "Dunder Mifflin Inc. provides its customers quality office and information technology products, furniture, printing values and the expertise required for making informed buying choices. We provide our products and services with a dedication to the highest degree of integrity and quality of customer satisfaction, developing long-term professional relationships with employees that develop pride, creating a stable working environment and company spirit.",
+            "business_website_url": "www.dundermifflin.com",
+            "user": 35,
+            "business_name": "Dunder Mifflin",
+            "business_address1": "215 Vine Street",
+            "business_address2": "",
+            "zip_code": "18503"
         }
     },
     {
@@ -637,6 +671,65 @@
         }
     },
     {
+        "pk": 11,
+        "model": "job.job",
+        "fields": {
+            "description": "We are looking for a go-getter.  Someone who is unafraid to support the decisions of the man in charge. Love of bears, beets and Battlestar Galactica is a must.",
+            "title": "Assistant to the Regional Manager",
+            "industry": [
+                4
+            ],
+            "employment_type": 1,
+            "experience": null,
+            "employer": 11,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "overtime": false,
+            "state": 1,
+            "job_code": "67232",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    },
+    {
+        "pk": 12,
+        "model": "job.job",
+        "fields": {
+            "description": "Do your best to not make the office lame. Require someone who will not be my sworn enemy. Must be a good person, as our previous employee was the worst human being ever. Name cannot be Toby.",
+            "title": "Human Resources representative",
+            "industry": [
+                4,
+                14
+            ],
+            "employment_type": 1,
+            "experience": null,
+            "employer": 11,
+            "workday": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "overtime": false,
+            "state": 1,
+            "job_code": "06660",
+            "longitude": null,
+            "latitude": null,
+            "date_created": "2011-10-02",
+            "education": 1,
+            "availability": 1
+        }
+    },
+    {
         "pk": 1,
         "model": "job.joblocation",
         "fields": {
@@ -774,6 +867,34 @@
             "business_address1": "35500 Dante Place",
             "business_address2": "",
             "zip_code": "94536"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "Scranton",
+            "longitude": "-75.662719",
+            "job": 11,
+            "latitude": "41.41351",
+            "business_name": "Dunder Mifflin",
+            "business_address1": "215 Vine Street",
+            "business_address2": "",
+            "zip_code": "18503"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "Scranton",
+            "longitude": "-75.662719",
+            "job": 12,
+            "latitude": "41.41351",
+            "business_name": "Dunder Mifflin",
+            "business_address1": "215 Vine Street",
+            "business_address2": "",
+            "zip_code": "18503"
         }
     }
 ]

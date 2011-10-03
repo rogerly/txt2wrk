@@ -47,6 +47,14 @@ button {
     background: linear-gradient(top, #56baec 0%,#348ddf 100%); /* W3C */
 }
 
+input[type=text],
+input[type=password],
+textarea,
+select
+{
+    color: #294c66;
+}
+
 .verify-phone section {
     padding: 30px;
     border-bottom: 1px solid #f2f2f2;
