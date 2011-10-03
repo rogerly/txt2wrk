@@ -41,7 +41,7 @@
     <p>The information you need. You can listen to description of the job and even apply on the spot–-without accessing a computer.</p>
 </div>
 <div class="right-column">
-	<form action="{% url applicant_register %}" method="post">
+	<form action="{{ settings.APPLICANT_HOST }}{% url applicant_register %}" method="post">
 		{% csrf_token %}
 	    {{ form.non_field_errors }}
 	    {{ form.username }}

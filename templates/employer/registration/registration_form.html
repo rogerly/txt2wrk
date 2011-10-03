@@ -10,7 +10,7 @@
 <div class="main-column">
     <h2>Create Employer Account</h2>
     <div>
-        <form action="{% if request.GET.phone_number %}{% url demo_employer_register %}?phone_number={{ request.GET.phone_number }}{% else %}{% url employer_register %}{% endif %}" method="post">
+        <form action="{{ settings.EMPLOYER_HOST }}{% if request.GET.phone_number %}{% url demo_employer_register %}?phone_number={{ request.GET.phone_number }}{% else %}{% url employer_register %}{% endif %}" method="post">
             {% csrf_token %}
             {{ form.non_field_errors }}
             {{ form.username }}

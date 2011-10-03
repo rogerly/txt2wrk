@@ -11,7 +11,7 @@
     </div>
     <div class="main-column">
         <section>
-            <form action="{% url employer_login %}{% if next %}?next={{ next }}{% endif %}" method="post">
+            <form action="{{ settings.EMPLOYER_HOST }}{% url employer_login %}{% if next %}?next={{ next }}{% endif %}" method="post">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 <fieldset>

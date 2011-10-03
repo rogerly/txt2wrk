@@ -22,7 +22,7 @@
     </div>
     <div class="main-column">
         <section>
-            <form action="{% url applicant_login %}{% if next %}?next={{ next }}{% endif %}" method="post">
+            <form action="{{ settings.APPLICANT_HOST }}{% url applicant_login %}{% if next %}?next={{ next }}{% endif %}" method="post">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 <fieldset>
