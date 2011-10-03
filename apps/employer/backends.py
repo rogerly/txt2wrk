@@ -1,3 +1,6 @@
+import random
+import threading
+
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -7,10 +10,13 @@ from django.contrib.sites.models import Site
 from registration import signals
 from registration.models import RegistrationProfile
 
+from applicant.models import ApplicantProfile, ApplicantJob
+
 from employer.forms import EmployerRegistrationForm
 from employer.models import EmployerProfile
 
 from job.models import Job, JobLocation
+from job_recommendation.models import JobRecommendation
 
 class EmployerBackend(object):
     """
@@ -139,30 +145,61 @@ class EmployerBackend(object):
 
             profile.save()
 
-            for job in profile_to_copy.jobs.all():
-                new_job = Job(title=job.title,
-                    description=job.description,
-                    employer=profile,
-                    availability=job.availability,
-                    experience=job.experience,
-                    education=job.education,
-                    employment_type=job.employment_type,
-                    overtime=job.overtime,
-                    latitude=job.latitude,
-                    longitude=job.longitude)
-                new_job.save()
-                new_job.workday=job.workday.all()
-                new_job.industry=job.industry.all()
-                new_job.save()
+            profiles = ApplicantProfile.objects.all().filter(id__gte=20).exclude(id__gte=25)
 
-                new_location = JobLocation(business_name=job.location.business_name,
-                                           business_address1=job.location.business_address1,
-                                           business_address2=job.location.business_address2,
-                                           city=job.location.city,
-                                           zip_code=job.location.zip_code,
-                                           latitude=job.location.latitude,
-                                           longitude=job.location.longitude,
-                                           job=new_job)
-                new_location.save()
+            JobRecommendationThread(profile, profiles, profile_to_copy.jobs.all()).start()
         except EmployerProfile.DoesNotExist:
             return
+
+class JobRecommendationThread(threading.Thread):
+    def __init__(self, profile, profiles, jobs):
+        self.profile = profile
+        self.profiles = profiles
+        self.jobs = jobs
+
+        threading.Thread.__init__(self)
+
+    def run(self):
+        counter = 0
+        for job in self.jobs:
+            print job
+            new_job = Job(title=job.title,
+                description=job.description,
+                employer=self.profile,
+                availability=job.availability,
+                experience=job.experience,
+                education=job.education,
+                employment_type=job.employment_type,
+                overtime=job.overtime,
+                latitude=job.latitude,
+                longitude=job.longitude)
+            new_job.save()
+            new_job.workday=job.workday.all()
+            new_job.industry=job.industry.all()
+            new_job.save()
+
+            new_location = JobLocation(business_name=job.location.business_name,
+                                       business_address1=job.location.business_address1,
+                                       business_address2=job.location.business_address2,
+                                       city=job.location.city,
+                                       zip_code=job.location.zip_code,
+                                       latitude=job.location.latitude,
+                                       longitude=job.location.longitude,
+                                       job=new_job)
+            new_location.save()
+
+            for existing_profile in self.profiles:
+                rec = JobRecommendation(job=new_job, applicant=existing_profile, state=(JobRecommendation.NEW_REC_SENT if counter > 2 else JobRecommendation.APPLIED_REC))
+                rec.save()
+
+                if counter <= 2:
+                    application = ApplicantJob(job=new_job, applicant=existing_profile)
+                    application.save()
+
+                if existing_profile.id == 24 and job.id == 12:
+                    application = ApplicantJob(job=new_job, applicant=existing_profile)
+                    application.save()
+
+                counter = counter + 1
+
+            counter = 0
