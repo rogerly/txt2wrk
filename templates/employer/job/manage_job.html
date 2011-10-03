@@ -28,7 +28,7 @@
             <tbody>
                 {% for application in applications.all %}
                     <tr>
-                        <td><a href="{% url applicant_view_profile application.applicant.id %}">{{ application.applicant.user.first_name }} {{ application.applicant.user.last_name }}</a></td>
+                        <td><a href="{% url applicant_view_profile application.applicant.id job.id %}">{{ application.applicant.user.first_name }} {{ application.applicant.user.last_name }}</a></td>
                         <td>{{ application.date_submitted|timesince }} ago</td>
                         <td>{{ application.applicant.get_employment_type_display }}</td>
                         <td>

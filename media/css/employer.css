@@ -226,3 +226,28 @@ select
 .registration-form fieldset.actions {
     text-align: right;
 }
+
+.view-profile section {
+    border-bottom: 1px solid #e2e2e2;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.view-profile div#applicant-info-one {
+    float: left;
+    width: 250px;
+    margin-right: 20px;
+}
+
+.view-profile div#applicant-info-two {
+    float: left;
+    width: 250px;
+}
+
+.view-profile .sidebar section {
+    border-top: 1px solid #e2e2e2;
+    border-bottom: 1px solid #e2e2e2;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+

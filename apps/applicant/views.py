@@ -102,9 +102,13 @@ def remove_job(request, job_code=None, redirect_url=None):
 
     return redirect(reverse(redirect_url))
 
-def view_profile(request, applicant_id=None, template='applicant/profile/profile.html'):
+def view_profile(request, applicant_id=None, job_id=None, template='applicant/profile/profile.html'):
     applicant = ApplicantProfile.objects.get(pk=applicant_id)
+    job = Job.objects.get(pk=job_id)
     return render_to_response(template,
-                              {'applicant':applicant},
+                              {
+                                  'applicant':applicant,
+                                  'job': job
+                              },
                               context_instance=RequestContext(request))
 

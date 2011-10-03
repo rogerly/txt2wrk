@@ -3,7 +3,6 @@
 {% block head_title %} Applicant Profile {% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/applicant.css" />
 <style type="text/css">
     #phone-number {
         margin-bottom: 25px;
@@ -11,45 +10,48 @@
 </style>
 {% endblock %}
 
+{% block tabbed_navigation %}{% endblock %}
+
+{% block page_class %}view-profile with-sidebar{% endblock %}
+
 {% block body_content %}
-   <h1>{{ applicant.user.first_name }} {{ applicant.user.last_name }} <span>applying for </span></h1>
-    <div class="left-column" style="width: 45%;">
+    <div class="main-column">
+        <p id="dashboard-link"><a href="{% url employer_dashboard %}">Back to Dashboard</a></p>
+        <h2>{{ applicant.user.first_name }} {{ applicant.user.last_name }}</h2>
         <section>
-            <header>Phone Number</header>
-            <div id="phone-number">{{ applicant.mobile_number }}</div>
-            {% if applicant.resume and applicant.resume.url %}
-                <header>Resume Available (.pdf)</header>
-                <a href="{{ applicant.resume.url}}"><button class="dashboard view-resume">View Resume</button> </a>
-            {% endif %}
+            <h3>Contact Information</h3>
+            <p>Mobile: {{ applicant.mobile_number }}</p>
+        </section>
+        <section>
+            <div id="applicant-info-one">
+                <h3>Availability</h3>
+                <p>{{ applicant.get_employment_type_display }}</p>
+                <h3>Education</h3>
+                <p>{{ applicant.get_education_display }}</p>
+                <h3>Areas of Expertise</h3>
+                <p>
+                    {% for industry in applicant.industry.all %}
+                        {{ industry }}<br />
+                    {% endfor %}
+                </p>
+            </div>
+            <div id="applicant-info-two">
+                <h3>Days Available</h3>
+                <p>
+                    {% for day in applicant.workday.all %}
+                        {{ day}}<br />
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="clearing"></div>
         </section>
     </div>
-    <div class="right-column" style="width: 50%">
+    <div class="sidebar">
+        <h2>Job</h2>
         <section>
-            <header>Job Seeker Details</header>
-            <div>
-                <span class="label">Availability:</span>
-                <span class="value">{{ applicant.get_workday_display }}</span>
-            </div>
-            <div>
-                <span class="label">Type of work:</span>
-                <span class="value">{{ applicant.get_employment_type_display }}</span>
-            </div>
-            <div>
-                <span class="label">Overtime:</span>
-                <span class="value">{{ applicant.get_overtime_display }}</span>
-            </div>
-            <div>
-                <span class="label">Education:</span>
-                <span class="value">{{ applicant.get_education_display }}</span>
-            </div>
-            <div>
-                <span class="label">Experience:</span>
-                <span class="value">{{ applicant.get_experience_display }} work experience</span>
-            </div>
-            <div>
-                <span class="label">Skills:</span>
-                <span class="value">{% for industry in applicant.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %}</span>
-            </div>
+            <h3>{{ job.title }}</h3>
+            <p>{{ job.description }}</p>
         </section>
     </div>
+    <div class="clearing"></div>
 {% endblock %}
