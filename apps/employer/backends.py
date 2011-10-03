@@ -341,7 +341,6 @@ class JobRecommendationThread(threading.Thread):
     def run(self):
         counter = 0
         for job in self.jobs:
-            print job
             new_job = Job(title=job.title,
                 description=job.description,
                 employer=self.profile,

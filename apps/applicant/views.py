@@ -213,7 +213,6 @@ def applicant_profile(request, template='applicant/account/profile.html'):
             # If using demo and the user changed their phone number, update the employer
             # account associated with this phone number too so we keep the them connected
             if 'mobile_number' in form.cleaned_data and settings.DEMO_ENABLED:
-                print 'changing numbers'
                 if form.cleaned_data['mobile_number'] != old_phone:
                     try:
                         employer_profile = EmployerProfile.objects.filter(user__is_active=True).get(phone_number=old_phone)
