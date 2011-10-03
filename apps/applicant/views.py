@@ -216,7 +216,7 @@ def applicant_profile(request, template='applicant/account/profile.html'):
                 print 'changing numbers'
                 if form.cleaned_data['mobile_number'] != old_phone:
                     try:
-                        employer_profile = EmployerProfile.objects.get(phone_number=old_phone)
+                        employer_profile = EmployerProfile.objects.filter(user__is_active=True).get(phone_number=old_phone)
                         employer_profile.phone_number = form.cleaned_data['mobile_number']
                         employer_profile.save()
                     except EmployerProfile.DoesNotExist:

@@ -265,8 +265,8 @@ class EmployerRegistrationForm(RegistrationForm):
     def clean(self):
         if 'phone_number' in self.cleaned_data:
             try:
-                profile = EmployerProfile.objects.get(phone_number=self.cleaned_data['phone_number'])
-                raise forms.ValidationError(_('An demo account has already been created'))
+                profile = EmployerProfile.objects.filter(user__is_active=True).get(phone_number=self.cleaned_data['phone_number'])
+                raise forms.ValidationError(_('A demo account has already been created'))
             except EmployerProfile.DoesNotExist:
                 pass
         return super(EmployerRegistrationForm, self).clean()
