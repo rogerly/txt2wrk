@@ -18,7 +18,7 @@
 {% block header_navigation %}
 <nav>
     <ul>
-        <li><a href="">about txt2wrk</a></li> |
+        <li><a href="{% url about %}">about txt2wrk</a></li> |
         <li><a href="{% url contact %}">contact us</a></li> |
         <li><a href="{% if request.user.is_authenticated %}{% url employer_logout %}{% else %}{% url employer_login %}{% endif %}">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
     </ul>
@@ -28,7 +28,7 @@
 {% block footer_navigation %}
 <nav>
     <ul>
-        <li><a href="">about txt2wrk</a></li> |
+        <li><a href="{% url about %}">about txt2wrk</a></li> |
         <li><a href="{% url contact %}">contact us</a></li> |
         <li><a href="{% if request.user.is_authenticated %}{% url employer_logout %}{% else %}{% url employer_login %}{% endif %}">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
     </ul>

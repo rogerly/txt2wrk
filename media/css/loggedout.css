@@ -13,7 +13,14 @@ body > div > header {
 }
 
 body > div > header > h1 {
-    display: none;
+    color: transparent;
+    font-size: 80px;
+}
+
+body > div > header > h1 > a,
+body > div > header > h1 > a:visited,
+body > div > header > h1 > a:hover {
+    color: transparent;
 }
 
 body > div > header > h2 {
@@ -74,23 +81,23 @@ button {
     color: #561780;
 }
 
-#demo {
+.splash #demo {
     background: url('../images/dots.png');
 }
 
-section {
+.splash section {
 	margin-bottom: 50px;
 }
 
-section#user-types {
+.splash section#user-types {
     width: 100%;
 }
 
-section#user-types {
+.splash section#user-types {
     margin-top: 50px;
 }
 
-section#user-types > div.user-type {
+.splash section#user-types > div.user-type {
     float: left;
     width: 269px;
     padding: 0px 30px 0px 0px;
@@ -101,11 +108,11 @@ section#user-types > div.user-type {
     border-width: 0px 2px 0px 0px;
 }
 
-section#user-types > div.last {
+.splash section#user-types > div.last {
     border-right: none;
 }
 
-section#user-types > div > h3 {
+.splash section#user-types > div > h3 {
     width: 180px;
     height: 30px;
     border-radius: 5px;
@@ -117,7 +124,7 @@ section#user-types > div > h3 {
     margin-left: 60px;
 }
 
-section#user-types > div.user-type > ol {
+.splash section#user-types > div.user-type > ol {
     color: #ffffff;
     font-size: 18px;
     font-weight: bold;
@@ -126,13 +133,13 @@ section#user-types > div.user-type > ol {
     margin-left: 0px;
 }
 
-section#user-types > div.user-type > ol li {
+.splash section#user-types > div.user-type > ol li {
     line-height: 13px;
     margin-bottom: 20px;
     counter-increment: customlistcounter;
 }
 
-section#user-types > div.user-type > ol li:before {
+.splash section#user-types > div.user-type > ol li:before {
     content: counter(customlistcounter) " ";
     float: left;
     display: block;
@@ -144,7 +151,7 @@ section#user-types > div.user-type > ol li:before {
     margin: -5px 10px 0px 0px;
 }
 
-section#user-types > div.job-seeker > ol li:before {
+.splash section#user-types > div.job-seeker > ol li:before {
     background: #0d4e90; /* Old browsers */
     background: -moz-linear-gradient(top, #1582bc 0%, #0d4e90 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1582bc), color-stop(100%,#0d4e90)); /* Chrome,Safari4+ */
@@ -155,7 +162,7 @@ section#user-types > div.job-seeker > ol li:before {
     background: linear-gradient(top, #1582bc 0%,#0d4e90 100%); /* W3C */
 }
 
-section#user-types > div.employer > ol li:before {
+.splash section#user-types > div.employer > ol li:before {
     background: #558017; /* Old browsers */
     background: -moz-linear-gradient(top, #8cb327 0%, #558017 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8cb327), color-stop(100%,#558017)); /* Chrome,Safari4+ */
@@ -166,7 +173,7 @@ section#user-types > div.employer > ol li:before {
     background: linear-gradient(top, #8cb327 0%,#558017 100%); /* W3C */
 }
 
-section#user-types > div.social-worker > ol li:before {
+.splash section#user-types > div.social-worker > ol li:before {
     background: #561780; /* Old browsers */
     background: -moz-linear-gradient(top, #8f27b3 0%, #561780 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8f27b3), color-stop(100%,#561780)); /* Chrome,Safari4+ */
@@ -177,29 +184,29 @@ section#user-types > div.social-worker > ol li:before {
     background: linear-gradient(top, #8f27b3 0%,#561780 100%); /* W3C */
 }
 
-section#user-types > div.user-type > ol:first-child {
+.splash section#user-types > div.user-type > ol:first-child {
     counter-reset: customlistcounter;
 }
 
-section#user-types > div.user-type > ol span {
+.splash section#user-types > div.user-type > ol span {
     color: #4d4d4d;
     font-size: 13px;
     font-weight: normal;
 }
 
-section#user-types > div.job-seeker {
+.splash section#user-types > div.job-seeker {
     background: url('../images/logged_out/icon-job-seeker-bubble.png') no-repeat 20px 0px;
 }
 
-section#user-types > div.employer {
+.splash section#user-types > div.employer {
     background: url('../images/logged_out/icon-employer-bubble.png') no-repeat 20px 0px;
 }
 
-section#user-types > div.social-worker {
+.splash section#user-types > div.social-worker {
     background: url('../images/logged_out/icon-social-worker-bubble.png') no-repeat 20px 0px;
 }
 
-section#user-types > div.job-seeker > h3 {
+.splash section#user-types > div.job-seeker > h3 {
     background: #0d4e90; /* Old browsers */
     background: -moz-linear-gradient(top, #1582bc 0%, #0d4e90 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1582bc), color-stop(100%,#0d4e90)); /* Chrome,Safari4+ */
@@ -210,7 +217,7 @@ section#user-types > div.job-seeker > h3 {
     background: linear-gradient(top, #1582bc 0%,#0d4e90 100%); /* W3C */
 }
 
-section#user-types > div.employer > h3 {
+.splash section#user-types > div.employer > h3 {
     background: #558017; /* Old browsers */
     background: -moz-linear-gradient(top, #8cb327 0%, #558017 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8cb327), color-stop(100%,#558017)); /* Chrome,Safari4+ */
@@ -221,7 +228,7 @@ section#user-types > div.employer > h3 {
     background: linear-gradient(top, #8cb327 0%,#558017 100%); /* W3C */
 }
 
-section#user-types > div.social-worker > h3 {
+.splash section#user-types > div.social-worker > h3 {
     background: #561780; /* Old browsers */
     background: -moz-linear-gradient(top, #8f27b3 0%, #561780 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8f27b3), color-stop(100%,#561780)); /* Chrome,Safari4+ */
@@ -232,13 +239,13 @@ section#user-types > div.social-worker > h3 {
     background: linear-gradient(top, #8f27b3 0%,#561780 100%); /* W3C */
 }
 
-section#demo {
+.splash section#demo {
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
     padding: 45px 30px;
 }
 
-section#demo div.instructions {
+.splash section#demo div.instructions {
     width: 425px;
     padding-right: 75px;
     margin-right: 30px;
@@ -251,12 +258,12 @@ section#demo div.instructions {
     float: left;
 }
 
-section#demo h3 {
+.splash section#demo h3 {
     font-size: 24px;
     font-weight: normal;
 }
 
-section#demo div.instructions form input {
+.splash section#demo div.instructions form input {
     color: #4d4d4d;
     font-weight: bold;
 }
@@ -269,80 +276,81 @@ input.phone_part_last {
     width: 55px;
 }
 
-section#demo div.instructions p.confirmation-instructions {
+.splash section#demo div.instructions p.confirmation-instructions {
     font-size: 13px;
     line-height: 20px;
     margin-top: 15px;
 }
 
-section#demo div.expectations {
+.splash section#demo div.expectations {
     width: 260px;
     float: left;
 }
 
-section#demo div.expectations ul {
+.splash section#demo div.expectations ul {
     padding-left: 20px;
 }
 
-section#demo div.expectations ul li {
+.splash section#demo div.expectations ul li {
     margin-bottom: 10px;
 }
 
-section#how-it-works {
+.splash section#how-it-works {
     position: relative;
     padding: 5px 0px 0px 30px;
 }
 
-section#how-it-works h3 {
+.splash section#how-it-works h3 {
     font-size: 24px;
     font-weight: normal;
 }
 
-section#how-it-works p {
+.splash section#how-it-works p {
     font-size: 18px;
     line-height: 30px;
     width: 525px;
 }
 
-section#how-it-works dl {
+.splash section#how-it-works dl {
     width: 100%;
 }
-section#how-it-works dl dt {
+
+.splash section#how-it-works dl dt {
     font-size: 24px;
     margin: 10px 0px 3px 60px;
 }
 
-section#how-it-works dl dd {
+.splash section#how-it-works dl dd {
     margin-left: 0px;
     padding-left: 60px;
     border-bottom: 1px solid #e5e5e5;
 }
 
-section#how-it-works dl dd.job-seeker {
+.splash section#how-it-works dl dd.job-seeker {
     background: url('../images/logged_out/icon-job-seeker.png') no-repeat;
 }
 
-section#how-it-works dl dd.social-worker {
+.splash section#how-it-works dl dd.social-worker {
     background: url('../images/logged_out/icon-txt2wrk.png') no-repeat;
 }
 
-section#how-it-works dl dd.employer {
+.splash section#how-it-works dl dd.employer {
     background: url('../images/logged_out/icon-employer.png') no-repeat;
 }
 
-section#how-it-works dl dd ul {
+.splash section#how-it-works dl dd ul {
     list-style: none;
     padding-left: 0px;
     margin: 3px 0px 10px 0px;
 }
 
-section#how-it-works img {
+.splash section#how-it-works img {
     position: absolute;
     right: 20px;
     bottom: 5px;
 }
 
-section#how-it-works dd.last {
+.splash section#how-it-works dd.last {
     border: none;
 }
 
@@ -353,3 +361,38 @@ section#how-it-works dd.last {
 #tabs a {
     text-decoration: none;
 }
+
+.about h3 {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.about section {
+    margin-bottom: 20px;
+}
+
+.about section#demo {
+    border-top: 1px solid #e2e2e2;
+    padding-top: 20px;
+}
+
+.about section#demo p {
+    font-size: 18px;
+}
+
+.about section#demo p.confirmation-instructions {
+    font-size: 13px;
+    line-height: 20px;
+    margin-top: 15px;
+}
+
+.about div#contributors dl dt {
+    font-weight: bold;
+}
+
+.about div#contributors dl dd {
+    margin-left: 0px;
+    margin-bottom: 15px;
+}
+
+

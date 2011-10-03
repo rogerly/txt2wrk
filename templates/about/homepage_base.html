@@ -16,13 +16,13 @@
         {% block page_js %}{% endblock %}
 
     </head>
-    <body>
+    <body class="{% block page_class %}{% endblock %}">
         <div>
             <header>
-                <h1>txt2wrk</h1>
+                <h1><a href="/">txt2wrk</a></h1>
                 <nav>
                     <ul>
-                        <li><a href="">about txt2wrk</a></li> |
+                        <li><a href="{% url about %}">about txt2wrk</a></li> |
                         <li><a href="{% url contact %}">contact us</a></li> |
                         <li><a href="{% if request.user.is_authenticated %}{% url applicant_logout %}?next={{ settings.APPLICANT_HOST }}{% else %}{{ settings.APPLICANT_HOST }}{% url applicant_login %}{% endif %}">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
                     </ul>
@@ -37,7 +37,7 @@
                 <p>&copy; 2011 txt2wrk all rights reserved</p>
                 <nav>
                     <ul>
-                        <li><a href="">about txt2wrk</a></li> |
+                        <li><a href="{% url about %}">about txt2wrk</a></li> |
                         <li><a href="{% url contact %}">contact us</a></li> |
                         <li><a href="{% if request.user.is_authenticated %}{% url applicant_logout %}?next={{ settings.APPLICANT_HOST }}{% else %}{{ settings.APPLICANT_HOST }}{% url applicant_login %}{% endif %}">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
                     </ul>

@@ -38,3 +38,12 @@ def splash(request, template=None):
     ctxt['demo_form'] = DemoApplicantRegistrationForm()
     ctxt['settings'] = settings
     return render_to_response(template, ctxt, context_instance = RequestContext(request))
+
+def about(request, template=None):
+
+    ctxt = {}
+    ctxt['applicant_login_form'] = ApplicantLoginForm()
+    ctxt['employer_login_form'] = EmployerLoginForm()
+    ctxt['demo_form'] = DemoApplicantRegistrationForm()
+    ctxt['settings'] = settings
+    return render_to_response(template, ctxt, context_instance = RequestContext(request))
