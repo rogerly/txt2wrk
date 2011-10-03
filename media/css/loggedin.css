@@ -59,3 +59,23 @@ h2 {
     font-size: 24px;
 }
 
+#dashboard-link a,
+#dashboard-link a:hover,
+#dashboard-link a:visited {
+    color: #45a3e5;
+    text-decoration: underline;
+}
+
+div.header {
+    position: relative;
+}
+
+div.header p {
+    width: 400px;
+}
+
+div.header button {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}

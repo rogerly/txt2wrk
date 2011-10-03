@@ -152,10 +152,6 @@ select
     color: #a8cc3d;
 }
 
-.dashboard .header {
-    width: 400px;
-}
-
 .edit-job label
 {
     display: block;
@@ -194,3 +190,9 @@ select
     text-transform: capitalize;
 }
 
+.manage-job section#matches a,
+.manage-job section#matches a:visited,
+.manage-job section#matches a:hover {
+    color: #a8cc3d;
+    text-decoration: underline;
+}

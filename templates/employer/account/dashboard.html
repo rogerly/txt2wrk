@@ -9,12 +9,14 @@
     {{ block.super }}
 {% endblock %}
 
+{% block head_title %}Dashboard{% endblock %}
 
 {% block body_content %}
 <div class="main-column">
     <div class="header">
         <h2>{{ profile.business_name }}</h2>
         <p>Create a new job posting, review applicants for existing job postings or delete job postings that have been filled or canceled.</p>
+        <a href="{% url create_job %}"><button>Create New Job</button></a>
     </div>
     <section id="matches">
         <table style="width: 100%;">
@@ -32,7 +34,7 @@
                         <td><a href="{% url manage_job job.job_code %}">{{ job.title }}</a></td>
                         <td>{{ job.date_created }}</td>
                         <td>{{ job.active_applicants }}</td>
-                        <td>Status</td>
+                        <td>{{ job.get_state_display }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

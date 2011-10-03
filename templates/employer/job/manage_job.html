@@ -1,65 +1,47 @@
 {% extends "employer/employer_base.html" %}
 
-{% block page_css %}
-<style type="text/css">
-.application-withdrawn {
-    font-size: 12px;
-}
-</style>
-{% endblock %}
+{% block page_class %}manage-job{% endblock %}
+
+{% block tabbed_navigation %}{% endblock %}
+
+{% block head_title %}{{ job.title }}{% endblock %}
+
 {% block body_content %}
-<h1>{{ job.title }}</h1>
-
-<section class="left-column" style="width: 25%;">
-    <header>Job Description</header>
-    <p>{{ job.description }}</p>
-    <hr />
-    <ul class="no-bullets">
-        <li>{{ job.location.business_name }}</li>
-        <li>{{ job.location.business_address1 }}</li>
-        {% if job.location.business_address2 %}<li>{{ job.location.business_address2 }}</li>{% endif %}
-        <li>{{ job.location.city }}</li>
-        <li>{{ job.location.zip_code}}</li>
-    </ul>
-    <a href="{% url edit_job job.job_code %}"><button>Update Job</button></a>
-    <hr />
-    <p>Found someone for this job?</p>
-    <a href="{% url close_job job.job_code %}"><button class="dashboard delete-posting">Delete Posting</button></a>
-</section>
-
-<section class="right-column" style="width: 70%;">
-    <header>Job Applicants</header>
-    <table width="100%">
-        <thead>
-            <tr>
-                <th width="30%">Applicant Name</th>
-                <th width="30%">Date Applied</th>
-                <th width="40%">Profile</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for application in applications.all %}
+<div class="main-column">
+    <p id="dashboard-link"><a href="{% url employer_dashboard %}">Back to Dashboard</a></p>
+    <div class="header">
+        <h2>{{ job.title }}</h2>
+        <p>{{ job.description }}</p>
+        <a href="{% url edit_job job.job_code %}"><button>Edit Job</button></a>
+    </div>
+    <section id="matches">
+        <table style="width: 100%;">
+            <thead>
                 <tr>
-                    <td>{{ application.applicant.user.first_name }} {{ application.applicant.user.last_name }}</td>
-                    <td>
-                        {% if application.state == 1 %}
-                            {{ application.date_submitted }}
-                        {% else %}
-                            <span class="application-withdrawn">Application Withdrawn</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if application.state == 1 %}
-                            <a href="{% url applicant_view_profile application.applicant.id %}"><button class="dashboard view-profile">View Profile</button></a>
-                        {% else %}
-                            <a href=""><button class="dashboard remove-applicant">Hide</button></a>
-                        {% endif %}
-                    </td>
+                    <th style="width: 35%;">Applicants ({{ applications.count }})</th>
+                    <th style="width: 20%;">Applied</th>
+                    <th style="width: 20%;">Available</th>
+                    <th style="width: 25%;">Expertise</th>
+                    <th style="width: 10%">Status</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
-
+            </thead>
+            <tbody>
+                {% for application in applications.all %}
+                    <tr>
+                        <td><a href="{% url applicant_view_profile application.applicant.id %}">{{ application.applicant.user.first_name }} {{ application.applicant.user.last_name }}</a></td>
+                        <td>{{ application.date_submitted|timesince }} ago</td>
+                        <td>{{ application.applicant.get_employment_type_display }}</td>
+                        <td>
+                            {% for industry in application.applicant.industry.all %}
+                                {{ industry }}{% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ application.get_state_display }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
 {% endblock %}
 
