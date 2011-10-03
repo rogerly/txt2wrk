@@ -13,6 +13,8 @@
     </script>
 {% endblock %}
 
+{% block page_class %}applicant-login{% endblock %}
+
 {% block page_content %}
     <div id="tabs">
         <a href="{{ settings.APPLICANT_HOST }}{% url applicant_login %}"><span id="tab-profile" class="selected">Job Seekers</span></a>

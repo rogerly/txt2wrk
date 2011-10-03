@@ -210,7 +210,7 @@ class ApplicantLoginForm(forms.Form):
                                   required=True,
                                   )
 
-    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput(render_value=False))
+    password = forms.CharField(label=_("PIN"), widget=forms.PasswordInput(render_value=False), max_length=4)
     
     user = None
     
