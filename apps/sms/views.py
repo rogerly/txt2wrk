@@ -13,6 +13,7 @@ from sms.models import ACK_NUMBER_CONFIRMATION, ACK_UNSUBSCRIBE, ACK_JOB_APPLY, 
 from sms.forms import ReceiveSMSForm
 from applicant.models import ApplicantProfile, ApplicantJob
 from job.models import Job
+from job_recommendation.models import JobRecommendation
 
 sms_templates = {
                  ACK_NUMBER_CONFIRMATION: 'sms/ack/number_confirmation.html',
@@ -82,11 +83,7 @@ def do_number_confirm(response, profile):
         profile.confirmed_phone = True
         profile.save()
         if getattr(settings, 'DEMO_ENABLED', False):
-            user = profile.user
-            pin = '%d' % (random.randint(0, 8999) + 1000)
-            user.set_password(pin)
-            user.is_active = True
-            user.save()
+            pin = setup_demo_user(profile)
     return { 'pin': pin }
 
 # Send acknowledgment about unsubscribe
@@ -122,3 +119,20 @@ sms_ack_functions = {
                      }
 
 
+def setup_demo_user(profile):
+    user = profile.user
+    pin = '%d' % (random.randint(0, 8999) + 1000)
+    user.set_password(pin)
+    user.is_active = True
+    user.save()
+
+    try:
+        jobs = Job.objects.all().filter(pk__lte=10)
+        for job in jobs:
+            recommendation = JobRecommendation(job=job,
+                                               applicant=profile)
+            recommendation.save()
+    except:
+        pass
+
+    return pin
