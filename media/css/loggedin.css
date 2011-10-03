@@ -81,7 +81,6 @@ div.header button {
 }
 
 div#demo-header {
-    height: 85px;
     background: url('../images/logged_in/demo-dot-matrix.png');
     padding: 10px;
     border-bottom-left-radius: 10px;
