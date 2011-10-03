@@ -31,6 +31,15 @@ urlpatterns = patterns('',
         },
         name='employer_register'),
                        
+    url(r'^demo_register/',
+        register,
+        {
+         'backend': 'employer.backends.EmployerBackend',
+         'template_name': 'employer/registration/registration_form.html',
+         'extra_context': {'settings':settings,},
+        },
+        name='demo_employer_register'),
+
     url(r'^register_complete/',
         direct_to_template,
         {

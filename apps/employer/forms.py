@@ -71,7 +71,7 @@ class EmployerProfileForm(forms.ModelForm):
 class EmployerRegistrationForm(RegistrationForm):
     def __init__(self, *args, **kwargs):
         self.base_fields['username'].widget = forms.HiddenInput()
-        self.base_fields.keyOrder = ['username', 'password1', 'password2', 'email']
+        self.base_fields.keyOrder = ['username', 'password1', 'password2', 'email', 'phone_number']
 
         try:
             self.base_fields['username'].initial = kwargs.pop('username')
@@ -79,6 +79,8 @@ class EmployerRegistrationForm(RegistrationForm):
             self.base_fields['username'].initial = createUniqueDjangoUsername()
 
         super(EmployerRegistrationForm, self).__init__(*args, **kwargs)
+
+    phone_number = forms.CharField('Phone Number', widget=forms.HiddenInput(), required=False)
 
     def clean_email(self):
         if 'email' in self.cleaned_data:
@@ -92,6 +94,12 @@ class EmployerRegistrationForm(RegistrationForm):
 
 
     def clean(self):
+        if 'phone_number' in self.cleaned_data:
+            try:
+                profile = EmployerProfile.objects.get(phone_number=self.cleaned_data['phone_number'])
+                raise forms.ValidationError(_('An demo account has already been created'))
+            except EmployerProfile.DoesNotExist:
+                pass
         return super(EmployerRegistrationForm, self).clean()
 
 class EmployerLoginForm(forms.Form):

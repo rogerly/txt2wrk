@@ -127,7 +127,7 @@ def setup_demo_user(profile):
     user.save()
 
     try:
-        jobs = Job.objects.all().filter(pk__lte=10)
+        jobs = Job.objects.all().filter(pk__lte=9)
         for job in jobs:
             recommendation = JobRecommendation(job=job,
                                                applicant=profile)

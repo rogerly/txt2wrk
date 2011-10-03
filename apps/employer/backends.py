@@ -56,12 +56,19 @@ class EmployerBackend(object):
 
         """
         username, email, password = kwargs['username'], kwargs['email'], kwargs['password1']
+        phone_number = ''
+        if 'phone_number' in kwargs:
+            phone_number = kwargs['phone_number']
 
         new_user = User.objects.create_user(username, email, password)
         new_user.save()
         profile, created = EmployerProfile.objects.get_or_create(user=new_user)
 
+        profile.phone_number = phone_number
+
         profile.save()
+
+        self.setup_default_data(new_user, profile)
 
         auth_user = authenticate(username=username, password=password)
         login(request, auth_user)
@@ -106,3 +113,29 @@ class EmployerBackend(object):
 
     def post_activation_redirect(self, request, user):
         raise NotImplementedError
+
+    def setup_default_data(self, user, profile):
+
+        if not getattr(settings, 'DEMO_ENABLED', False):
+            return
+
+        try:
+            profile_to_copy = EmployerProfile.objects.get(pk=10)
+
+            user.first_name = profile_to_copy.user.first_name
+            user.last_name = profile_to_copy.user.last_name
+            user.save()
+
+            profile.business_name = profile_to_copy.business_name
+            profile.business_address1 = profile_to_copy.business_address1
+            profile.business_address2 = profile_to_copy.business_address2
+            profile.city = profile_to_copy.city
+            profile.zip_code = profile_to_copy.zip_code
+            profile.business_phone_number = profile_to_copy.business_phone_number
+            profile.business_website_url = profile_to_copy.business_website_url
+            profile.business_description = profile_to_copy.business_description
+
+            profile.save()
+        except EmployerProfile.DoesNotExist:
+            return
+

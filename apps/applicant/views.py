@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from django.db.models import Q
 
 from django.core.urlresolvers import reverse
@@ -65,7 +67,8 @@ def applicant_dashboard(request, template='applicant/account/dashboard.html'):
     return render_to_response(template, 
                               {'profile' : profile,
                                'applicant_jobs' : applicant_jobs,
-                               'job_recommendations': job_recommendations, },
+                               'job_recommendations': job_recommendations,
+                               'settings': settings },
                               context_instance=RequestContext(request))
 
 

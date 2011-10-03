@@ -196,3 +196,33 @@ select
     color: #a8cc3d;
     text-decoration: underline;
 }
+
+.registration-form .main-column div {
+    width: 220px;
+}
+
+.registration-form h2 {
+    margin-bottom: 0px;
+}
+
+.registration-form label
+{
+    display: block;
+    margin-bottom: 2px;
+    font-size: 13px;
+    line-height: 13px;
+}
+
+.registration-form fieldset {
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.registration-form fieldset.last {
+    border-bottom: none;
+}
+
+.registration-form fieldset.actions {
+    text-align: right;
+}
