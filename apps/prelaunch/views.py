@@ -177,6 +177,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, redirect
 from forms import PotentialUsersForm
+from applicant.models import ApplicantProfile
 from applicant.forms import ApplicantLoginForm, DemoApplicantRegistrationForm
 from employer.forms import EmployerLoginForm
 from django.template import RequestContext
@@ -200,6 +201,13 @@ def contact(request, template=None):
                 context_instance = RequestContext(request))
 
 def splash(request, template=None):
+
+    if request.user.is_authenticated():
+        try:
+            profile = ApplicantProfile.objects.get(user=request.user)
+            return redirect(reverse('applicant_dashboard'))
+        except ApplicantProfile.DoesNotExist:
+            return redirect(reverse('employer_dashboard'))
 
     ctxt = {}
     ctxt['applicant_login_form'] = ApplicantLoginForm()

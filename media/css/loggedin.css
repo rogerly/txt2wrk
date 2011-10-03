@@ -4,7 +4,7 @@ body > div > header {
     border-radius: 10px;
 }
 
-body > div > header > h1 {
+body > div > header > a > h1 {
     position: absolute;
     left: 16px;
     top: 12px;
@@ -15,7 +15,7 @@ body > div > header > h1 {
     background-position: 0px 4px;
 }
 
-body > div > header > h1 > span#txt2wrk {
+body > div > header > a > h1 > span#txt2wrk {
     color: transparent;
     font-weight: bold;
     margin-right: 15px;
