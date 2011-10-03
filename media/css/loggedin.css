@@ -1,7 +1,7 @@
 body > div > header {
     position: relative;
     height: 55px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 body > div > header > h1 {
@@ -78,4 +78,20 @@ div.header button {
     position: absolute;
     right: 0px;
     top: 0px;
+}
+
+div#demo-header {
+    height: 85px;
+    background: url('../images/logged_in/demo-dot-matrix.png');
+    padding: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: relative;
+    color: #fff;
+}
+
+div#demo-header h2 {
+    font-size: 18px;
+    font-weight: normal;
+    color: #fff;
 }
