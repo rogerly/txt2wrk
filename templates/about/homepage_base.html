@@ -24,7 +24,7 @@
                     <ul>
                         <li><a href="">about txt2wrk</a></li> |
                         <li><a href="{% url contact %}">contact us</a></li> |
-                        <li><a href="{% if request.user.is_authenticated %}{% url applicant_logout %}{% else %}{% url applicant_login %}{% endif %}">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
+                        <li><a href="{% if request.user.is_authenticated %}{% url applicant_logout %}?next={{ settings.APPLICANT_HOST }}{% else %}{{ settings.APPLICANT_HOST }}{% url applicant_login %}{% endif %}">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
                     </ul>
                 </nav>
                 <h2>connecting job seekers and employers</h2>
@@ -39,7 +39,7 @@
                     <ul>
                         <li><a href="">about txt2wrk</a></li> |
                         <li><a href="{% url contact %}">contact us</a></li> |
-                        <li><a href="{% if request.user.is_authenticated %}{% url applicant_logout %}{% else %}{% url applicant_login %}{% endif %}">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
+                        <li><a href="{% if request.user.is_authenticated %}{% url applicant_logout %}?next={{ settings.APPLICANT_HOST }}{% else %}{{ settings.APPLICANT_HOST }}{% url applicant_login %}{% endif %}">{% if request.user.is_authenticated %}logout{% else %}login{% endif %}</a></li>
                     </ul>
                 </nav>
             </footer>

@@ -349,3 +349,7 @@ section#how-it-works dd.last {
 #id_password, #id_username {
     width: 185px;
 }
+
+#tabs a {
+    text-decoration: none;
+}
