@@ -635,5 +635,145 @@
             "education": 1,
             "availability": 1
         }
+    },
+    {
+        "pk": 1,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "Castro Valley",
+            "longitude": "-122.0859802",
+            "job": 1,
+            "latitude": "37.6986737",
+            "business_name": "Martha's Catering",
+            "business_address1": "20126 Wisteria Street",
+            "business_address2": "",
+            "zip_code": "94546"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "San Leandro",
+            "longitude": "-122.164958",
+            "job": 2,
+            "latitude": "37.723968",
+            "business_name": "Stauder Automotive",
+            "business_address1": "800 Davis Street",
+            "business_address2": "",
+            "zip_code": "94577"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "Fremont",
+            "longitude": "-121.991905",
+            "job": 3,
+            "latitude": "37.543539",
+            "business_name": "Fremont Furniture Gallery",
+            "business_address1": "4396 Mowry Avenue",
+            "business_address2": "",
+            "zip_code": "94538"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "Pleasanton",
+            "longitude": "-121.874505",
+            "job": 4,
+            "latitude": "37.674976",
+            "business_name": "Renaissance Carpentry",
+            "business_address1": "1677 Santa Rita Rd",
+            "business_address2": "",
+            "zip_code": "94566"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "Oakland",
+            "longitude": "-122.25182",
+            "job": 5,
+            "latitude": "37.793593",
+            "business_name": "Mikhail Brothers Construction",
+            "business_address1": "739 International Boulevard",
+            "business_address2": "",
+            "zip_code": "94606"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "Walnut Creek",
+            "longitude": "-122.050844",
+            "job": 6,
+            "latitude": "37.937453",
+            "business_name": "Wright Plumbing",
+            "business_address1": "156 Foxglove Lane",
+            "business_address2": "",
+            "zip_code": "94598"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "San Mateo",
+            "longitude": "-122.323684",
+            "job": 7,
+            "latitude": "37.554498",
+            "business_name": "Pinser Building Management",
+            "business_address1": "234 Seville Way",
+            "business_address2": "",
+            "zip_code": "94402"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "South San Francisco",
+            "longitude": "-122.412205",
+            "job": 8,
+            "latitude": "37.662265",
+            "business_name": "Southwood Upholstery",
+            "business_address1": "411 Beech Ave",
+            "business_address2": "",
+            "zip_code": "94080"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "San Francisco",
+            "longitude": "-122.478852",
+            "job": 9,
+            "latitude": "37.783399",
+            "business_name": "Earlywood Carpentry",
+            "business_address1": "241 19th Avenue",
+            "business_address2": "",
+            "zip_code": "94121"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "job.joblocation",
+        "fields": {
+            "city": "Fremont",
+            "longitude": "-122.021125",
+            "job": 10,
+            "latitude": "37.573775",
+            "business_name": "Exact Floor Covering",
+            "business_address1": "35500 Dante Place",
+            "business_address2": "",
+            "zip_code": "94536"
+        }
     }
 ]
