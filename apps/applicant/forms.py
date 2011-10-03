@@ -351,7 +351,7 @@ class ApplicantRegistrationForm(RegistrationForm):
     def clean(self):
         return super(ApplicantRegistrationForm, self).clean()
 
-class DemoApplicantRegistrationForm(ApplicantRegistrationForm):
+class DemoApplicantRegistrationForm(RegistrationForm):
     def __init__(self, *args, **kwargs):
         super(DemoApplicantRegistrationForm, self).__init__(*args, **kwargs)
 
@@ -361,6 +361,21 @@ class DemoApplicantRegistrationForm(ApplicantRegistrationForm):
     password1 = forms.CharField(widget=forms.HiddenInput(), required=False)
     password2 = forms.CharField(widget=forms.HiddenInput(), required=False)
     email = forms.CharField(widget=forms.HiddenInput(), required=False)
+
+    mobile_number = USPhoneNumberField(label = _("Phone Number"),
+                                       widget=forms.TextInput(attrs=attrs_dict),
+                                       required = True,
+                                       )
+
+    def clean_mobile_number(self):
+        if 'mobile_number' in self.cleaned_data:
+            try:
+                profile = ApplicantProfile.objects.get(mobile_number=self.cleaned_data['mobile_number'])
+                raise forms.ValidationError(_('This phone number already exists.'))
+            except ApplicantProfile.DoesNotExist:
+                pass
+
+        return self.cleaned_data['mobile_number']
 
     def clean(self):
         self.cleaned_data['username'] = createUniqueDjangoUsername()
