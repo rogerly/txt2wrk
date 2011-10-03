@@ -216,6 +216,13 @@ urlpatterns = patterns('',
         },
         name='verify_phone'),
 
+    url(r'^check_phone_verification/(?P<mobile_number>[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9])/',
+        'applicant.views.check_phone_verification',
+        {
+            'template': 'applicant/registration/check_phone_verification.html',
+        },
+        name='check_phone_verification'),
+
     url(r'^register_complete/',
         direct_to_template,
         {

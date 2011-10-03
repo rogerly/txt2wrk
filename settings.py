@@ -162,6 +162,8 @@ EMAIL_PORT = 587
 
 DEMO_ENABLED = False
 
+ACCOUNT_ACTIVATION_DAYS = 1
+
 def local_overrides(global_dict):
     pass
 

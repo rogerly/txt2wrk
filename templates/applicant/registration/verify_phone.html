@@ -6,6 +6,22 @@
 
 {% block head_title %}Waiting for Confirmation{% endblock %}
 
+{% block page_css %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            checkPhone();
+        });
+
+        function checkPhone()
+        {
+            $.ajax({
+                url: '{% url check_phone_verification mobile_number %}',
+                dataType: 'script'
+            })
+        }
+    </script>
+{% endblock %}
+
 {% block body_content %}
     <section id="instructions">
         <h2>Thanks for starting the txt2wrk demo!</h2>

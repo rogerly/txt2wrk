@@ -1,0 +1,5 @@
+{% if successful_verification %}
+    document.location.replace('{% url applicant_profile %}');
+{% else %}
+    setTimeout(checkPhone, 5000);
+{% endif %}

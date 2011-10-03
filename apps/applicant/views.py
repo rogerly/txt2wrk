@@ -169,19 +169,20 @@ Library.
 
 from django.conf import settings
 
-from django.db.models import Q
-
+from django.contrib.auth import login
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from django.contrib.auth.decorators import user_passes_test
-from forms import ApplicantProfileForm, MobileNotificationForm, ApplicantLoginForm
+from forms import ApplicantProfileForm, ApplicantLoginForm
 from models import ApplicantProfile, ApplicantJob
 from job.models import Job
 from job_recommendation.models import JobRecommendation
+
+from registration.models import RegistrationProfile
 
 def verify_phone(request, template=None, mobile_number=None):
     ctxt = {}
@@ -193,6 +194,7 @@ def verify_phone(request, template=None, mobile_number=None):
 
     login_form = ApplicantLoginForm(initial={'username':mobile_number}, verify_phone=True)
     ctxt['login_form'] = login_form
+    ctxt['mobile_number'] = mobile_number
     return render_to_response(template, ctxt, context_instance=RequestContext(request))
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/applicant/login')
@@ -281,3 +283,25 @@ def view_profile(request, applicant_id=None, job_id=None, template='applicant/pr
                               },
                               context_instance=RequestContext(request))
 
+def check_phone_verification(request, mobile_number=None, template=None):
+    try:
+        ctxt = {}
+        profile = ApplicantProfile.objects.get(mobile_number=mobile_number)
+        ctxt['profile'] = profile
+        if profile.confirmed_phone:
+            try:
+                registration_profile = RegistrationProfile.objects.get(user=profile.user)
+                if not registration_profile.activation_key_expired():
+                    registration_profile.activation_key = registration_profile.ACTIVATED
+                    registration_profile.save()
+                    profile.user.backend = 'django.contrib.auth.backends.ModelBackend'
+                    login(request, profile.user)
+                    ctxt['successful_verification'] = True
+            except RegistrationProfile.DoesNotExist:
+                pass
+
+        return render_to_response(template,
+                                  ctxt,
+                                  context_instance=RequestContext(request))
+    except ApplicantProfile.DoesNotExist:
+        return HttpResponseNotFound
