@@ -95,10 +95,12 @@ class ApplicantJob(models.Model):
 
     state = models.IntegerField(null=False, default=APPLICATION_APPLIED, choices=APPLICATION_STATE_CHOICES)
 
+    send_email = models.BooleanField(default=True)
+
     # Send save signal to handle anything needs to happen when an application
     # is submitted    
     def save(self):
         super(ApplicantJob, self).save()
-        if self.state == ApplicantJob.APPLICATION_APPLIED:
+        if self.state == ApplicantJob.APPLICATION_APPLIED and self.send_email:
             job_applied.send(sender=self.__class__,
                              job=self.job, applicant=self.applicant)

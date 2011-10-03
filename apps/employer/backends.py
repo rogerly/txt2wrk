@@ -193,11 +193,11 @@ class JobRecommendationThread(threading.Thread):
                 rec.save()
 
                 if counter <= 2:
-                    application = ApplicantJob(job=new_job, applicant=existing_profile)
+                    application = ApplicantJob(job=new_job, applicant=existing_profile, send_email=False)
                     application.save()
 
                 if existing_profile.id == 24 and job.id == 12:
-                    application = ApplicantJob(job=new_job, applicant=existing_profile)
+                    application = ApplicantJob(job=new_job, applicant=existing_profile, send_email=False)
                     application.save()
 
                 counter = counter + 1
