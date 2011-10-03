@@ -173,6 +173,8 @@ try:
 except ImportError:
     import simplejson
 
+import datetime
+
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
@@ -180,7 +182,6 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from account.models import Profile
 from job.models import Criteria, Job
-from datetime import date
 from signals import job_applied
     
 class ApplicantProfile(Profile, Criteria):
@@ -252,7 +253,7 @@ class ApplicantProfile(Profile, Criteria):
         return ''
 
 class ApplicantJob(models.Model):
-    date_submitted = models.DateField(default=date.today())
+    date_submitted = models.DateTimeField(default=datetime.datetime.now())
     job = models.ForeignKey(Job, related_name='applicant_job')
     applicant = models.ForeignKey(ApplicantProfile)
 

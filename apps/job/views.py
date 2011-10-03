@@ -173,6 +173,7 @@ Created on Jun 18, 2011
 @author: Jon
 '''
 
+import datetime
 from math import acos, cos, radians, sin
 from models import Job, JobLocation
 from forms import JobForm
@@ -191,7 +192,8 @@ def manage_job(request, job_code = None, template = 'job/view_job.html'):
         profile = EmployerProfile.objects.get(user=request.user)
         job = Job.objects.get(job_code=job_code)
         return render_to_response(template,
-                                  {'job' : job, 
+                                  {'job' : job,
+                                   'time' : datetime.time(),
                                    'profile' : profile,
                                    'applications' : job.applicant_job.all() },
                                   context_instance = RequestContext(request))
