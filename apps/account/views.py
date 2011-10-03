@@ -45,7 +45,6 @@ def do_login(request, template='account/login.html', form_class=None):
 @csrf_exempt
 def do_logout(request, next_page=None, template_name='account/logout.html', redirect_field_name=REDIRECT_FIELD_NAME):
     user = request.user
-    print user
     if user is not None:
         try:
             profile = ApplicantProfile.objects.get(user=user)

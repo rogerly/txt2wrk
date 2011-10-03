@@ -166,7 +166,6 @@ class SMS(models.Model):
                 sms.sms_sid = sms_sid.firstChild.data
 
         except Exception, e:
-            print e
             return None
 
         sms.save()

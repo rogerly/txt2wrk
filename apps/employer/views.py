@@ -15,7 +15,6 @@ def employer_profile(request, template='employer/account/profile.html'):
     ctxt = {}
     if request.method == 'POST':
         form = EmployerProfileForm(data=request.POST, instance=EmployerProfile.objects.get(user=request.user), user=request.user)
-        print form.errors
         if form.is_valid():
             print form.cleaned_data
             form.save()

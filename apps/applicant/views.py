@@ -32,7 +32,6 @@ def applicant_profile(request, template='applicant/account/profile.html'):
     ctxt['profile'] = profile
     if request.method == 'POST':
         form = ApplicantProfileForm(data=request.POST, files=request.FILES, instance=profile, user=request.user)
-        print form.errors
         if form.is_valid():
             form.save()
 
