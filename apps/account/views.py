@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from django.core.urlresolvers import reverse
 from django.contrib.auth.views import logout as logout_view
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -39,6 +41,7 @@ def do_login(request, template='account/login.html', form_class=None):
                               {
                                'form': form,
                                'next': next,
+                               'settings': settings,
                                },
                               context_instance=RequestContext(request))
 

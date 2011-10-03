@@ -107,7 +107,7 @@ class EmployerLoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(EmployerLoginForm, self).__init__(*args, **kwargs)
 
-    username = forms.CharField(label=_("Username"),
+    username = forms.CharField(label=_("Email Address"),
                                widget=forms.TextInput(attrs=attrs_dict),
                                required=True,
                                )
