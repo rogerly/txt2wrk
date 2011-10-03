@@ -181,6 +181,7 @@ from forms import ApplicantProfileForm, ApplicantLoginForm
 from models import ApplicantProfile, ApplicantJob
 from job.models import Job
 from job_recommendation.models import JobRecommendation
+from employer.models import EmployerProfile
 
 from registration.models import RegistrationProfile
 
@@ -204,9 +205,22 @@ def applicant_profile(request, template='applicant/account/profile.html'):
     profile = ApplicantProfile.objects.get(user=request.user)
     ctxt['profile'] = profile
     if request.method == 'POST':
+        old_phone = profile.mobile_number
         form = ApplicantProfileForm(data=request.POST, files=request.FILES, instance=profile, user=request.user)
         if form.is_valid():
             form.save()
+
+            # If using demo and the user changed their phone number, update the employer
+            # account associated with this phone number too so we keep the them connected
+            if 'mobile_number' in form.cleaned_data and settings.DEMO_ENABLED:
+                print 'changing numbers'
+                if form.cleaned_data['mobile_number'] != old_phone:
+                    try:
+                        employer_profile = EmployerProfile.objects.get(phone_number=old_phone)
+                        employer_profile.phone_number = form.cleaned_data['mobile_number']
+                        employer_profile.save()
+                    except EmployerProfile.DoesNotExist:
+                        pass
 
             if 'name' in form.cleaned_data and form.cleaned_data['name'] != '':
                 user = request.user
