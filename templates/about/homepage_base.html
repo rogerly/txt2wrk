@@ -15,6 +15,14 @@
         {% block page_css %}{% endblock %}
         {% block page_js %}{% endblock %}
 
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('a > button').click(function() {
+                        location.href = $(this).parent().attr('href');
+                    return false;
+                });
+            })
+        </script>
     </head>
     <body class="{% block page_class %}{% endblock %}">
         <div>
