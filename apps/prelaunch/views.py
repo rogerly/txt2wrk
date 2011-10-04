@@ -173,8 +173,11 @@ Created on Jun 13, 2011
 @author: Jon
 '''
 
+import os
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.views.decorators.csrf import csrf_exempt
 from registration.views import register
@@ -236,3 +239,24 @@ def about(request, template=None):
     ctxt['form'] = DemoApplicantRegistrationForm()
     ctxt['settings'] = settings
     return render_to_response(template, ctxt, context_instance = RequestContext(request))
+
+txt2wrk_details_pdf = None
+def txt2wrk_details(request):
+    # Global variable so we don't have to read the file from
+    # disk each time.
+    global txt2wrk_details_pdf
+
+    if txt2wrk_details_pdf is None:
+        # Build filename to 1x1 white pixel file
+        # (same directory as this)
+        base = os.path.split(os.path.abspath(__file__))[0]
+        filename = os.path.join(base, 'txt2wrk-description.pdf')
+
+        # Grab the contents to serve
+        f = open(filename)
+        txt2wrk_details_pdf = f.read()
+        f.close()
+
+    # Create response to give
+    response = HttpResponse(txt2wrk_details_pdf, mimetype="application/pdf")
+    return response

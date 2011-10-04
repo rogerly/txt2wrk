@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^$', 'prelaunch.views.splash', { 'template': 'about/splash.html', }, name='splash'),
     url(r'^contact/$', 'prelaunch.views.contact', { 'template': 'about/contact.html', }, name='contact'),
     url(r'^about/$', 'prelaunch.views.about', { 'template': 'about/about.html', }, name='about'),
+    url(r'^description/$', 'prelaunch.views.txt2wrk_details', {}, name='description'),
 
     url(r'^unsubscribe/$', 'account.views.unsubscribe', { 'template': 'about/unsubscribe.html'}, name='unsubscribe'),
 
