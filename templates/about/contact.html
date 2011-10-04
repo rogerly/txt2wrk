@@ -1,66 +1,42 @@
 {% extends 'about/homepage_base.html' %}
 
-{% block page_css %}
-<style type="text/css" media="screen">
 
-    .left-column, .right-column {
-        width: 49%;
-    }
-
-    fieldset * div.fieldWrapper label {
-        width: 200px;
-        display: inline-block;
-    }
-
-    label[for=id_comments] {
-        float: left;
-    }
-
-    textarea {
-        width: 73%;
-    }
-
-    fieldset * input {
-        width: 220px;
-    }
-</style>
-
-{% endblock %}
+{% block page_class %}contact{% endblock %}
 
 {% block page_content %}
-    <section>
-        <p><strong>Txt2wrk</strong> is currently in development and we welcome feedback.  Please use the following form to submit any comments or feedback to the <strong>txt2wrk</strong> team.</p>
-    </section>
-    {% if success %}
-        <p>Thank you for your feedback!</p>
-    {% endif %}
-    <form action="{% url contact %}" method="post">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
+    <div class="main-column">
+        <section>
+            <p>txt2wrk welcomes your feedback.  Please use the following form to submit any comments or feedback to the txt2wrk team.</p>
+        </section>
+        {% if success %}
+            <p>Thank you for your feedback!</p>
+        {% endif %}
+        <form action="{% url contact %}" method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
 
-        <fieldset>
-            <legend>Contact Information: <span class="required-fields">All Fields Required</span></legend>
-            <div class="left-column">
-                <div>
-                    {{ form.first_name.label_tag }} {{ form.first_name }} {{ form.first_name.errors }}
+            <fieldset>
+                <legend>Contact Information</legend>
+                <div class="two-columns">
+                    <div>
+                        {{ form.first_name.label_tag }} {{ form.first_name }} {{ form.first_name.errors }}
+                    </div>
+                    <div>
+                        {{ form.email.label_tag }} {{ form.email }} {{ form.email.errors }}
+                    </div>
+                    <div>
+                        {{ form.last_name.label_tag }} {{ form.last_name }} {{ form.last_name.errors }}
+                    </div>
+                    <div>
+                        {{ form.confirm_email.label_tag }} {{ form.confirm_email }} {{ form.confirm_email.errors }}
+                    </div>
                 </div>
+                <div style="clear: both;"></div>
                 <div>
-                    {{ form.email.label_tag }} {{ form.email }} {{ form.email.errors }}
+                    {{ form.comments.label_tag }} {{ form.comments }} {{ form.comments.errors }}
                 </div>
-            </div>
-            <div class="right-column">
-                <div>
-                    {{ form.last_name.label_tag }} {{ form.last_name }} {{ form.last_name.errors }}
-                </div>
-                <div>
-                    {{ form.confirm_email.label_tag }} {{ form.confirm_email }} {{ form.confirm_email.errors }}
-                </div>
-            </div>
-            <div style="clear: both;"></div>
-            <div>
-                {{ form.comments.label_tag }} {{ form.comments }} {{ form.comments.errors }}
-            </div>
-            <div class="right"><button>Contact Us</button></div>
-        </fieldset>
-    </form>
+                <div class="right"><button>Contact Us</button></div>
+            </fieldset>
+        </form>
+    </div>
 {% endblock %}

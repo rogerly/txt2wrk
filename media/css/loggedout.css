@@ -410,3 +410,8 @@ input.phone_part_last {
     color: #0091CE;
     font-size: 18px;
 }
+
+.contact label {
+    font-size: 13px;
+    line-height: 13px;
+}
