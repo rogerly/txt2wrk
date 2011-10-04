@@ -1,0 +1,130 @@
+Installing the txt2wrk platform
+
+Requirements
+============
+* Python (2.5.2 or later) [tested on 2.5.2 and 2.7.1]
+* Django (1.2 or later) [tested on 1.2 and 1.3]
+* A Twilio account (see below)
+* An email account through which you can send emails via SMTP
+* Web server that supports running Django/Python
+* A database that can be connected to from Django [tested with sqlite3 and MySQL 5.5]
+
+Setup
+=====
+
+Twilio
+------
+Because txt2wrk sends text messages to potential job seekers and also needs to be able to
+handle inbound telephone calls, you will need to use Twilio to handle these requests. There
+may be a push in the future to support a plug-in architecture to handle other SMS/phone
+services, but it isn't high on the list of things to do.
+
+If you don't yet have a Twilio account, go to http://www.twilio.com to set up an account.
+Once your account is created, you'll need to find and make note of your Account SID and Auth
+Token.  These values can be found on your Twilio dashboard.
+
+Email
+-----
+You will also need an SMTP-enable email account through which the txt2wrk platform will send
+emails to prospective employers and case managers when a job seeker has applied to a job.
+Find and make note of the authentication credentials you need to send emails via that server.
+
+Database
+--------
+Discussions about setting up Django to talk to your database won't be handled here. If you
+are having troubles setting up your database connection, verify that it isn't a problem
+with your general setup and not specifically with the txt2wrk platform
+
+Download the application
+------------------------
+The txt2wrk project can be found at https://github.com/rogerly/txt2wrk.  Pull down the latest
+version of the code by either cloning the project or doing a direct download of the source
+from github.
+
+Django
+------
+Verify that you have django running properly on your server
+
+Setup txt2wrk settings
+----------------------
+Create a file called local_settings.py in the location where you downloaded the txt2wrk
+application.  This file will serve as an override for values in your settings.py that
+came shipped with the application.  It is strongly suggested that you make your
+modifications in the local_settings.py and leave settings.py untouched.
+
+If you look in settings.py you'll see a few lines that look like this:
+
+    # Twilio AccountSid and AuthToken
+    ACCOUNT_SID = 'PUT_YOUR_TWILIO_ACCOUNT_SID_HERE_OR_IN_LOCAL_SETTINGS'
+    ACCOUNT_TOKEN = 'PUT_YOUR_TWILIO_AUTH_TOKEN_HERE_OR_IN_LOCAL_SETTINGS'
+
+    # Outgoing Caller ID previously validated with Twilio
+    CALLER_ID = 'PUT_YOUR_TXT_CALLBACK_NUMBER_HERE_OR_IN_LOCAL_SETTINGS';
+
+    APPLICANT_HOST = 'PUT_YOUR_JOB_SEEKER_DOMAIN_HERE_OR_IN_LOCAL_SETTINGS'
+    EMPLOYER_HOST = 'PUT_YOUR_EMPLOYER_DOMAIN_HERE_OR_IN_LOCAL_SETTINGS'
+
+    # email settings.
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'PUT_YOUR_EMAIL_HOST_HERE_OR_IN_LOCAL_SETTINGS'
+    EMAIL_HOST_USER = 'PUT_YOUR_EMAIL_USERNAME_HERE_OR_IN_LOCAL_SETTINGS'
+    EMAIL_HOST_PASSWORD ='PUT_YOUR_EMAIL_PASSWORD_HERE_OR_IN_LOCAL_SETTINGS'
+    EMAIL_PORT = 587
+
+    DEMO_ENABLED = False
+
+Copy these lines into your local_settings.py and modify the values you match
+your specific set up.
+
+ACCOUNT_SID and ACCOUNT_TOKEN are the values you grabbed from Twilio when you
+set up your account
+
+CALLER_ID is your specific phone number you got from Twilio.  You will need to have
+your own custom and verified phone number from Twilio.  The value should be all
+numbers, no spaces, hyphens or other characters.  Example: '1234567890'
+
+APPLICANT_HOST and EMPLOYER_HOST are the custom domains (with protocol [http[s]://]) you
+will use to run the service.  Note that job seekers will connect to one domain and
+employers will connect to another one.  Using the same domain for both services hasn't
+been tested and is probably not supported.  The main URL for your running service should
+be used for APPLICANT_HOST (http://www.mysite.com) while the EMPLOYER_HOST can be a
+completely different domain (or subdomain) (https://employers.mysite.com)
+
+EMAIL parameters are your credentials that you will need to send emails via the
+application.
+
+DEMO_ENABLED is a setting that allows you to run txt2wrk in demo mode.  This is useful
+when you want to showcase what the platform can do and explain to people how it works.
+While in DEMO mode, job seeker and employer accounts are connected to each other, and
+jobs posted in an employer account will only go to a connected job seeker account.
+You can via a DEMO site at http://www.txt2wrk.net
+
+
+Setting up txt2wrk databases
+----------------------------
+
+Edit your DATABASES configuration settings by copying the default settings from your
+settings.py to local_settings.py (recommended) or by editing your settings.py directly.
+Match those settings to your database instance.  Note that both the job seeker and
+employer sites share the same database instance.
+
+Open a command prompt/terminal shell to the location where you downloaded the application
+
+1. ./manage.py syncdb
+   This should set up your initial database and create any superusers you may need
+
+2. ./manange.py migrate registration
+    Setting up registration database tables
+
+3. ./manange.py migrate applicant
+    Setting up applicant (job seeker) database tables
+
+4. ./manange.py migrate employer
+    Setting up employer database tables
+
+5. ./manange.py migrate
+    Setting up remaining tables and loading default data
+
+That's it. You should be able to run a "./manage runserver" and it should run a local
+instance of your application.
+
