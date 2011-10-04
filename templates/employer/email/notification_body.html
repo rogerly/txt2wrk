@@ -16,11 +16,9 @@
 <p>Job Seeker Details:</p>
 
 <p>
-    Availability: {{ applicant.get_availability_display }}<br />
     Type of Work: {{ applicant.get_employment_type_display }}<br />
     Overtime: {{ applicant.get_overtime_display }}<br />
     Education: {{ applicant.get_education_display }}<br />
-    Experience: {{ applicant.get_experience_display }}<br />
     Skills: {% for industry in applicant.industry.all %} {{ industry }}{% if not forloop.last %}, {% endif %} {% endfor %}
 </p>
 
