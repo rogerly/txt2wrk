@@ -17,8 +17,15 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $('a > button').click(function() {
-                        location.href = $(this).parent().attr('href');
+                    location.href = $(this).parent().attr('href');
                     return false;
+                });
+
+                $('form button').click(function() {
+                    if (!$(this).hasClass('no-submit')) {
+                        $(this).closest('form').submit();
+                        return false;
+                    }
                 });
             })
         </script>
