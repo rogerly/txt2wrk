@@ -11,18 +11,14 @@ $.fn.splitPhone = function() {
     this.each(function() {
         var $this = $(this);
         if (!($this.is(':text') || $this.is(':hidden'))) { return; }
-        try {
-            var tabIndex = $this.attr("tabindex") ? $this.attr("tabindex") : 0;
+        var tabIndex = $this.attr("tabindex") ? $this.attr("tabindex") : 0;
 
-            //Custom new fields
-            var $arrInput = $(phone_split($this.attr("id"))).filter("input");
-            $arrInput.each(function(){ $(this).attr("tabindex", tabIndex) }).bind("keyup", function(){ $this.val($arrInput[0].value+$arrInput[1].value+$arrInput[2].value) }).end().insertBefore($this);
+        //Custom new fields
+        var $arrInput = $(phone_split($this.attr("id"))).filter("input");
+        $arrInput.each(function(){ $(this).attr("tabindex", tabIndex) }).bind("keyup", function(){ $this.val($arrInput[0].value+$arrInput[1].value+$arrInput[2].value) }).end().insertBefore($this);
 
-            //hide fields
-            $this.attr("Type", "hidden").removeAttr("tabindex").hide();
-        } catch (e) {
-            
-        }
+        //hide fields
+        $this.css("display", "none").removeAttr("tabindex").hide();
     });
 
     return this;

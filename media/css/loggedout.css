@@ -270,10 +270,6 @@ button {
     font-weight: bold;
 }
 
-.splash section#demo input#id_mobile_number {
-    display: none;
-}
-
 input.phone_part {
     width: 40px;
 }
@@ -392,10 +388,6 @@ input.phone_part_last {
     margin-top: 15px;
 }
 
-.about section#demo input#id_mobile_number {
-    display: none;
-}
-
 .about div#contributors dl dt {
     font-weight: bold;
 }
@@ -407,10 +399,6 @@ input.phone_part_last {
 
 .applicant-login input#id_password {
     width: 45px;
-}
-
-.applicant-login input#id_username {
-    display: none;
 }
 
 #download-source {
