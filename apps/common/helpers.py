@@ -170,6 +170,8 @@ Library.
 import uuid
 import re
 
+from django.conf import settings
+
 from django.core.validators import EMPTY_VALUES
 from django import forms
 from django.forms import ValidationError
@@ -222,3 +224,6 @@ class CheckboxSelectMultipleDiv(forms.CheckboxSelectMultiple):
     def render(self, *args, **kwargs):
         output = super(CheckboxSelectMultipleDiv, self).render(*args,**kwargs)
         return mark_safe(output.replace(u'<ul>', u'').replace(u'</ul>', u'').replace(u'<li>', u'<div>').replace(u'</li>', u'</div>'))
+
+def demo_mode(context):
+    return {'DEMO_ENABLED': settings.DEMO_ENABLED}

@@ -167,6 +167,8 @@ Library.
 """
 
 
+from django.conf import settings
+
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -263,7 +265,7 @@ class EmployerRegistrationForm(RegistrationForm):
 
 
     def clean(self):
-        if 'phone_number' in self.cleaned_data:
+        if 'phone_number' in self.cleaned_data and settings.DEMO_ENABLED:
             try:
                 profile = EmployerProfile.objects.filter(user__is_active=True).get(phone_number=self.cleaned_data['phone_number'])
                 raise forms.ValidationError(_('A demo account has already been created'))

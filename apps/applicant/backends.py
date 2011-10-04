@@ -360,7 +360,7 @@ class DemoApplicantBackend(object):
         return activated
 
     def registration_allowed(self, request):
-        return getattr(settings, 'DEMO_ENABLED', False)
+        return True
 
     def get_form_class(self, request):
         return DemoApplicantRegistrationForm
@@ -373,26 +373,26 @@ class DemoApplicantBackend(object):
         return ('applicant_profile', (), {})
 
     def setup_default_data(self, user, profile):
+        if settings.DEMO_ENABLED:
+            user.first_name = 'Dwight'
+            user.last_name = 'Schrute'
+            user.save()
 
-        user.first_name = 'Dwight'
-        user.last_name = 'Schrute'
-        user.save()
+            profile.address1 = '2865 Sand Hill Road'
+            profile.address2 = 'Suite 101'
 
-        profile.address1 = '2865 Sand Hill Road'
-        profile.address2 = 'Suite 101'
+            profile.city = 'Menlo Park'
+            profile.zip_code = '94025'
 
-        profile.city = 'Menlo Park'
-        profile.zip_code = '94025'
+            profile.distance = 100
+            profile.education = 4
+            profile.employment_type = 1
+            profile.overtime = True
 
-        profile.distance = 100
-        profile.education = 4
-        profile.employment_type = 1
-        profile.overtime = True
+            days = Workday.objects.all().exclude(name='Saturday').exclude(name='Sunday')
+            profile.workday = days
 
-        days = Workday.objects.all().exclude(name='Saturday').exclude(name='Sunday')
-        profile.workday = days
+            industry = Industry.objects.all().order_by('?')[0:5]
+            profile.industry = industry
 
-        industry = Industry.objects.all().order_by('?')[0:5]
-        profile.industry = industry
-
-        profile.save()
+            profile.save()

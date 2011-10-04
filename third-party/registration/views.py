@@ -7,6 +7,7 @@ Views which allow users to create and activate accounts.
 from django.shortcuts import redirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.views.decorators.csrf import csrf_exempt
 
 from registration.backends import get_backend
 
@@ -92,6 +93,7 @@ def activate(request, backend,
                               context_instance=context)
 
 
+@csrf_exempt
 def register(request, backend, success_url=None, form_class=None,
              disallowed_url='registration_disallowed',
              template_name='registration/registration_form.html',

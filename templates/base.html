@@ -16,7 +16,9 @@
 		{% block extra_css %}{% endblock %}
 	</head>
 	<body class="{% block page_class %}{% endblock %}">
-        {% block demo_header %}{% endblock %}
+        {% if DEMO_ENABLED %}
+            {% block demo_header %}{% endblock %}
+        {% endif %}
         <div>
             <header>
                 <a href="/"><h1><span id="txt2wrk">txt2wrk</span> | <span id="header-type">{% block header_text %}{% endblock %}</span></h1></a>
