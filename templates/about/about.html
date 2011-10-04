@@ -22,9 +22,14 @@
         </section>
         <section id="demo">
             <div class="instructions">
-                <h3>Try the demo!</h3>
-                <p>Experience the range of txt2wrk services as a <strong>job seeker</strong>, <strong>employer</strong>, and <strong>workforce development agency</strong></p>
-                <p>Enter your mobile number to begin the txt2wrk demo</p>
+                {% if DEMO_ENABLED %}
+                    <h3>Try the demo!</h3>
+                    <p>Experience the range of txt2wrk services as a <strong>job seeker</strong>, <strong>employer</strong>, and <strong>workforce development agency</strong></p>
+                    <p>Enter your mobile number to begin the txt2wrk demo</p>
+                {% else %}
+                    <h3>Looking for a job?</h3>
+                    <p>Enter your mobile number to start!</p>
+                {% endif %}
                 <form action="{{ settings.APPLICANT_HOST }}{% url about %}" method="post">
                     {% csrf_token %}
                     {% if form.mobile_number.errors %}{{ form.mobile_number.errors }}<br />{% endif %}
@@ -34,10 +39,18 @@
                 <p class="confirmation-instructions">
                     After submitting your mobile number, you will receive a text message<br />
                     from txt2wrk. When you confirm the text message, you will receive a<br/>
-                    sample job posting and a PIN for logging into txt2wrk.net.
+                    {% if DEMO_ENABLED %}sample job posting and {% endif %}
+                    a PIN for logging into txt2wrk.net.
                 </p>
             </div>
         </section>
+        {% if not DEMO_ENABLED %}
+            <section>
+                <h3>Employer?</h3>
+                <p>Sign up here to find candidates</p>
+                <a href="{{ settings.EMPLOYER_HOST }}{% url employer_register %}"><button>Sign Up</button></a>
+            </section>
+        {% endif %}
     </div>
     <div class="sidebar" id="contributors">
         <h3>Contributors</h3>
