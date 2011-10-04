@@ -39,9 +39,16 @@ body > div > footer > h5 {
     font-size: 13px;
 }
 body > div > footer > p {
-    width: 440px;
+    width: 470px;
     line-height: 17px;
     margin-bottom: 10px;
+}
+
+body > div > footer > p a,
+body > div > footer > p a:hover,
+body > div > footer > p a:visited {
+    color: #fff;
+    text-decoration: underline;
 }
 
 a, a:visited {
