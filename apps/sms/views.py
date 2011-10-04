@@ -251,8 +251,15 @@ def do_number_confirm(response, profile):
     if profile is not None:
         profile.confirmed_phone = True
         profile.save()
+
+        user = profile.user
+        pin = '%d' % (random.randint(0, 8999) + 1000)
+        user.set_password(pin)
+        user.is_active = True
+        user.save()
+
         if getattr(settings, 'DEMO_ENABLED', False):
-            pin = setup_demo_user(profile)
+            setup_demo_user(profile)
     return { 'pin': pin }
 
 # Send acknowledgment about unsubscribe
@@ -289,12 +296,6 @@ sms_ack_functions = {
 
 
 def setup_demo_user(profile):
-    user = profile.user
-    pin = '%d' % (random.randint(0, 8999) + 1000)
-    user.set_password(pin)
-    user.is_active = True
-    user.save()
-
     try:
         jobs = Job.objects.all().filter(pk__lte=10).order_by('?')[0:3]
         for job in jobs:
@@ -303,5 +304,3 @@ def setup_demo_user(profile):
             recommendation.save()
     except:
         pass
-
-    return pin
