@@ -398,3 +398,15 @@ input.phone_part_last {
 .applicant-login input#id_password {
     width: 45px;
 }
+
+#download-source {
+    margin-top: 20px;
+    border-top: 1px solid #e2e2e2;
+    padding-top: 10px;
+    font-size: 18px;
+}
+
+#download-source h3 {
+    color: #0091CE;
+    font-size: 18px;
+}

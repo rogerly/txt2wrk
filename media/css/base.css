@@ -422,3 +422,14 @@ div#tabs span.selected {
     background: none;
 }
 
+.tiny {
+    font-size: 13px;
+}
+
+.github {
+    margin-left: 20px;
+}
+
+.github a {
+    color: #45A3E5;
+}

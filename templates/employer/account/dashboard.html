@@ -43,9 +43,10 @@
     {% if settings.DEMO_ENABLED and demo_done %}
         <section id="continue-demo">
             <h2>Next Steps</h2>
-            <p>Congratulations, you’ve completed the txt2wrk demo! You can exit the demo, or download the txt2wrk source code to install & configure for your organization’s needs.</p>
+            <p>Congratulations, you've completed the txt2wrk demo! You can exit the demo, or download the txt2wrk source code to install & configure for your organization's needs.</p>
             <a target="_blank" href="https://www.github.com/rogerly/txt2wrk"><button>Download Source Code</button></a>
             <a href="{% url employer_logout %}?next={{ settings.APPLICANT_HOST }}{% url applicant_logout %}"><button>Exit Demo</button></a>
+            <p class="tiny github">or <a target="_blank" href="https://www.github.com/rogerly/txt2wrk">get it from github</a></p>
         </section>
     {% endif %}
 </div>
