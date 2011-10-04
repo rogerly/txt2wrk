@@ -18,7 +18,7 @@
 		{% endwith %}
 	{% else %}
         {% if job_index > job_total %}
-            {% if listing_type == 1 %}
+            {% if listing_type == '1' %}
                 {% if saved_jobs.count > 0 %}
                     <Say>You currently have {{ saved_jobs.count }} saved jobs to review. Do you want to review them now?</Say>
                     <Redirect method="GET">{% url call_handle_listen_saved %}</Redirect>
