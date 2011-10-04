@@ -40,13 +40,27 @@
             </tbody>
         </table>
     </section>
+    {% if settings.DEMO_ENABLED and demo_done %}
+        <section id="continue-demo">
+            <h2>Next Steps</h2>
+            <p>Congratulations, you’ve completed the txt2wrk demo! You can exit the demo, or download the txt2wrk source code to install & configure for your organization’s needs.</p>
+            <a target="_blank" href="https://www.github.com/rogerly/txt2wrk"><button>Download Source Code</button></a>
+            <a href="{% url employer_logout %}?next={{ settings.APPLICANT_HOST }}{% url applicant_logout %}"><button>Exit Demo</button></a>
+        </section>
+    {% endif %}
 </div>
 {% endblock %}
 
 {% block demo_header %}
     <div id="demo-header">
-        <h2>Demo Step 5</h2>
-        <p>This is the employer's dashboard, where all the job opportunities you create will appear, along with all job seeker applications.</p>
-        <p>Click "create new job" to create a new job that you will receive on your mobile phone as a job seeker. When you apply for this job, you will see your application appear in your employer dashboard.</p>
+        {% if demo_done %}
+            <h2>Demo Step 7</h2>
+            <p>All job opportunities you create will appear in this dashboard, along with all applications from job seekers. To view details about job seekers, or to modify an existing job opportunity, click on the job title. If you are interested in speaking with a job seeker, click on their name to view their details and mobile phone number.</p>
+            <p>If you are done exploring, you can click "download source code" to download the source code for txt2wrk. You can also download the source code from the txt2wrk login page.</p>
+        {% else %}
+            <h2>Demo Step 5</h2>
+            <p>This is the employer's dashboard, where all the job opportunities you create will appear, along with all job seeker applications.</p>
+            <p>Click "create new job" to create a new job that you will receive on your mobile phone as a job seeker. When you apply for this job, you will see your application appear in your employer dashboard.</p>
+        {% endif %}
     </div>
 {% endblock %}

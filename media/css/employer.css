@@ -152,6 +152,14 @@ select
     color: #a8cc3d;
 }
 
+.dashboard section#continue-demo {
+    margin-top: 30px;
+    width: 450px;
+    color: #5c6647;
+    font-size: 18px;
+    font-size: 18px;
+}
+
 .edit-job label
 {
     display: block;
