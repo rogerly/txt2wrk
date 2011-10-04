@@ -39,7 +39,8 @@ Download the application
 ------------------------
 The txt2wrk project can be found at https://github.com/rogerly/txt2wrk.  Pull down the latest
 version of the code by either cloning the project or doing a direct download of the source
-from github.
+from github.  If you download the file from github, make sure that it is expanded into a folder
+called txt2wrk.
 
 Django
 ------
