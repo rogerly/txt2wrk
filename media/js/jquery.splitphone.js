@@ -18,7 +18,7 @@ $.fn.splitPhone = function() {
         $arrInput.each(function(){ $(this).attr("tabindex", tabIndex) }).bind("keyup", function(){ $this.val($arrInput[0].value+$arrInput[1].value+$arrInput[2].value) }).end().insertBefore($this);
 
         //hide fields
-        $this.attr("Type", "hidden").removeAttr("tabindex").hide();
+        $this.css("display", "none").removeAttr("tabindex").hide();
     });
 
     return this;

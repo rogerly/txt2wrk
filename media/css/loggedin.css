@@ -19,6 +19,8 @@ body > div > header > a > h1 > span#txt2wrk {
     color: transparent;
     font-weight: bold;
     margin-right: 15px;
+    width: 88px;
+    display: inline-block;
 }
 
 body > div > header nav ul,

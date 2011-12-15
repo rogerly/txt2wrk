@@ -15,12 +15,14 @@ body > div > header {
 body > div > header > h1 {
     color: transparent;
     font-size: 80px;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 
 body > div > header > h1 > a,
 body > div > header > h1 > a:visited,
 body > div > header > h1 > a:hover {
     color: transparent;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 
 body > div > header > h2 {
