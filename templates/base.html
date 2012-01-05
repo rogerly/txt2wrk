@@ -17,16 +17,10 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $('a > button').click(function() {
-<<<<<<< HEAD
                     location.href = $(this).parent().attr('href');
                     return false;
                 });
 
-=======
-                        location.href = $(this).parent().attr('href');
-                    return false;
-                });
->>>>>>> 6b1732c297e2e0346cf3eb150a5220dd99757b00
                 $('form button').click(function() {
                     if (!$(this).hasClass('no-submit')) {
                         $(this).closest('form').submit();
@@ -35,8 +29,6 @@
                 });
             })
         </script>
-<<<<<<< HEAD
-=======
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -51,7 +43,6 @@
   })();
 
 </script>
->>>>>>> 6b1732c297e2e0346cf3eb150a5220dd99757b00
 	</head>
 	<body class="{% block page_class %}{% endblock %}">
         {% if DEMO_ENABLED %}
