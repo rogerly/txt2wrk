@@ -259,4 +259,5 @@ def txt2wrk_details(request):
 
     # Create response to give
     response = HttpResponse(txt2wrk_details_pdf, mimetype="application/pdf")
+    response['Content-Disposition'] = 'filename=txt2wrk-description.pdf'
     return response
