@@ -268,7 +268,7 @@ class EmployerRegistrationForm(RegistrationForm):
         if 'phone_number' in self.cleaned_data and settings.DEMO_ENABLED:
             try:
                 profile = EmployerProfile.objects.filter(user__is_active=True).get(phone_number=self.cleaned_data['phone_number'])
-                raise forms.ValidationError(_('A demo account has already been created'))
+                raise forms.ValidationError(_('This phone number has already been used'))
             except EmployerProfile.DoesNotExist:
                 pass
         return super(EmployerRegistrationForm, self).clean()

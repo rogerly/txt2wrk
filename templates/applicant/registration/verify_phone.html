@@ -24,18 +24,9 @@
 
 {% block body_content %}
     <section id="instructions">
-        {% if DEMO_ENABLED %}
-            <h2>Thanks for starting the txt2wrk demo!</h2>
-            <p><strong>Important:</strong> For each step in this demo, refer to the instructions at the very top of each page.</p>
-        {% else %}
-            <h2>Thanks for signing up with txt2wrk!</h2>
-        {% endif %}
+        <h2>Thanks for signing up with txt2wrk!</h2>
         <p>We have sent a text message to {{ mobile_number }}</p>
-        {% if DEMO_ENABLED %}
-            <p>When you confirm the text message, you will receive a sample job posting on your phone. This page will also advance to your profile page where you can enter your job history, education, and relevant skills.</p>
-        {% else %}
-            <p>When you confirm the text message, you will receive a PIN code on your phone for logging in to txt2wrk. This page will also reload to display your profile page, where you can describe yourself to employers.</p>
-        {% endif %}
+        <p>When you confirm the text message, you will receive a PIN code on your phone for logging in to txt2wrk. This page will also reload to display your profile page, where you can describe yourself to employers.</p>
     </section>
     <section id="waiting">
         <h2>Waiting for confirmation</h2>

@@ -318,7 +318,7 @@ class EmployerBackend(object):
             profile.business_address2 = profile_to_copy.business_address2
             profile.city = profile_to_copy.city
             profile.zip_code = profile_to_copy.zip_code
-            profile.business_phone_number = profile_to_copy.business_phone_number
+#            profile.business_phone_number = profile_to_copy.business_phone_number
             profile.business_website_url = profile_to_copy.business_website_url
             profile.business_description = profile_to_copy.business_description
 
