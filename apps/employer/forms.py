@@ -265,7 +265,10 @@ class EmployerRegistrationForm(RegistrationForm):
 
 
     def clean(self):
-        if 'phone_number' in self.cleaned_data and settings.DEMO_ENABLED:
+        if 'phone_number' in self.cleaned_data and \
+           self.cleaned_data['phone_number'] != '' and \
+           self.cleaned_data['phone_number'] is not None and \
+           settings.DEMO_ENABLED:
             try:
                 profile = EmployerProfile.objects.filter(user__is_active=True).get(phone_number=self.cleaned_data['phone_number'])
                 raise forms.ValidationError(_('This phone number has already been used'))
