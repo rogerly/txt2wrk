@@ -253,7 +253,10 @@ def do_number_confirm(response, profile):
         profile.save()
 
         user = profile.user
-        pin = '%d' % (random.randint(0, 8999) + 1000)
+        if getattr(settings, 'DEMO_ENABLED', False):
+            pin = '1234'
+        else:
+            pin = '%d' % (random.randint(0, 8999) + 1000)
         user.set_password(pin)
         user.is_active = True
         user.save()
@@ -297,7 +300,7 @@ sms_ack_functions = {
 
 def setup_demo_user(profile):
     try:
-        jobs = Job.objects.all().filter(pk__lte=10).order_by('?')[0:3]
+        jobs = Job.objects.all().filter(pk__lte=10).order_by('?')[0:2]
         for job in jobs:
             recommendation = JobRecommendation(job=job,
                                                applicant=profile)
