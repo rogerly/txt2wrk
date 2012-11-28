@@ -257,7 +257,7 @@ class JobRecommendation(models.Model):
         job = kwargs['job']
 
         if getattr(settings, 'DEMO_ENABLED', False):
-            applicants = ApplicantProfile.objects.all().filter(mobile_number=job.employer.phone_number)
+            applicants = ApplicantProfile.objects.all().filter(mobile_number=job.employer.business_phone_number)
             for applicant in applicants:
                 recommendation = JobRecommendation(applicant=applicant, job=job, state=JobRecommendation.NEW_REC_NOT_SENT)
                 recommendation.save()
