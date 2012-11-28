@@ -20,6 +20,7 @@ body > div > header > span#header-icon {
 
 body > div > footer {
     background: url('../images/logged_in/footer-applicant-dot-matrix.png');
+    height: 12px;
 }
 
 h2 {
