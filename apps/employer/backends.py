@@ -241,6 +241,7 @@ class EmployerBackend(object):
         profile, created = EmployerProfile.objects.get_or_create(user=new_user)
 
         profile.phone_number = phone_number
+        profile.business_phone_number = phone_number
 
         profile.save()
 

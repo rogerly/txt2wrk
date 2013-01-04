@@ -14,9 +14,6 @@
             {% csrf_token %}
             {{ form.non_field_errors }}
             {{ form.username }}
-            {% if request.GET.phone_number %}
-                <input type="hidden" name="phone_number" value="{{ request.GET.phone_number }}" />
-            {% endif %}
             <fieldset>
                 <div class="fieldWrapper">
                     {{ form.email.label_tag }} {{ form.email }} {{ form.email.errors }}
@@ -26,6 +23,9 @@
                 </div>
                 <div class="fieldWrapper">
                     {{ form.password2.label_tag }} {{ form.password2 }} {{ form.password2.errors }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.phone_number.label_tag }} {{ form.phone_number }} {{ form.phone_number.errors }}
                 </div>
             </fieldset>
             <fieldset class="actions">

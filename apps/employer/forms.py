@@ -175,6 +175,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 from models import EmployerProfile
+from applicant.models import ApplicantProfile
 
 from common.helpers import USPhoneNumberField, createUniqueDjangoUsername
 from registration.forms import RegistrationForm
@@ -251,7 +252,23 @@ class EmployerRegistrationForm(RegistrationForm):
 
         super(EmployerRegistrationForm, self).__init__(*args, **kwargs)
 
-    phone_number = forms.CharField('Phone Number', widget=forms.HiddenInput(), required=False)
+    phone_number = USPhoneNumberField(label = _('Phone Number'),
+        widget=forms.TextInput(attrs=attrs_dict),
+        required = True)
+
+    def clean_phone_number(self):
+        if 'phone_number' in self.cleaned_data:
+            try:
+                existing_applicant = ApplicantProfile.objects.get(mobile_number=self.cleaned_data['phone_number'])
+                try:
+                    existing_employer = EmployerProfile.objects.get(phone_number=self.cleaned_data['phone_number'])
+                    raise forms.ValidationError(_('An employer account with this number already exists'))
+                except EmployerProfile.DoesNotExist:
+                    pass
+            except ApplicantProfile.DoesNotExist:
+                raise forms.ValidationError(_('You need to create a job seeker account with this phone number'))
+
+        return self.cleaned_data['phone_number']
 
     def clean_email(self):
         if 'email' in self.cleaned_data:
