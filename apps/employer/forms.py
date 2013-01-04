@@ -261,7 +261,7 @@ class EmployerRegistrationForm(RegistrationForm):
             try:
                 existing_applicant = ApplicantProfile.objects.get(mobile_number=self.cleaned_data['phone_number'])
                 try:
-                    existing_employer = EmployerProfile.objects.get(phone_number=self.cleaned_data['phone_number'])
+                    existing_employer = EmployerProfile.objects.get(business_phone_number=self.cleaned_data['phone_number'])
                     raise forms.ValidationError(_('An employer account with this number already exists'))
                 except EmployerProfile.DoesNotExist:
                     pass
